@@ -1,0 +1,502 @@
+<!DOCTYPE html><html class="light" lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Safranbonu POS - Ombor Tizimi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 192, 175, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e0c0af;
+            border-radius: 10px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#f9abff",
+                      "on-primary-fixed": "#321300",
+                      "primary-fixed-dim": "#ffb68b",
+                      "on-error-container": "#93000a",
+                      "surface-container": "#f0edee",
+                      "inverse-primary": "#ffb68b",
+                      "secondary-fixed": "#d1e4ff",
+                      "surface-container-low": "#f6f3f4",
+                      "surface-warm": "#fcf9f8",
+                      "on-surface-variant": "#584235",
+                      "primary": "#994700",
+                      "on-primary-container": "#5c2800",
+                      "surface-container-highest": "#e5e2e3",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#ffd6fe",
+                      "success-bg": "#dcfce7",
+                      "success-green": "#15803d",
+                      "surface-variant": "#e5e2e3",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#001d36",
+                      "glass-bg": "rgba(255, 255, 255, 0.7)",
+                      "background": "#fcf8f9",
+                      "on-tertiary-fixed-variant": "#7b008f",
+                      "on-secondary-container": "#00477b",
+                      "on-tertiary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#620072",
+                      "surface": "#fcf8f9",
+                      "on-tertiary-fixed": "#35003f",
+                      "warm-outline": "#8c7263",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#fcf8f9",
+                      "inverse-surface": "#303031",
+                      "secondary-container": "#77b7ff",
+                      "tertiary-container": "#e670f7",
+                      "tertiary": "#9a25ae",
+                      "inverse-on-surface": "#f3f0f1",
+                      "on-surface": "#1b1b1c",
+                      "primary-container": "#eb8642",
+                      "on-primary-fixed-variant": "#743400",
+                      "surface-container-high": "#eae7e8",
+                      "outline-variant": "#e0c0af",
+                      "on-secondary-fixed-variant": "#00497d",
+                      "surface-tint": "#994700",
+                      "on-background": "#1b1b1c",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#9fcaff",
+                      "surface-dim": "#dcd9da",
+                      "primary-fixed": "#ffdbc8",
+                      "secondary": "#0061a4",
+                      "outline": "#8c7263"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "12px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "base": "8px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "margin": "24px",
+                      "gutter": "20px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "title-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                      "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-background overflow-hidden flex min-h-screen">
+
+<!-- SideNavBar -->
+<aside></aside>
+
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col p-lg gap-lg overflow-y-auto custom-scrollbar bg-surface-container-low">
+    <!-- TopNavBar -->
+    <header></header>
+
+    <!-- Inventory Dashboard Header -->
+    <section class="flex justify-between items-end mt-sm">
+        <div>
+            <h2 class="font-headline-lg text-headline-lg text-on-surface">Ombor Boshqaruvi</h2>
+            <p class="text-on-surface-variant font-body-lg text-body-lg">Safranbonu uchun mahsulotlar va tovar qoldiqlari nazorati</p>
+        </div>
+        <div class="flex gap-md">
+            <button class="bg-surface-container-highest text-on-surface px-lg py-sm rounded-xl font-label-lg text-label-lg flex items-center gap-sm hover:bg-surface-variant transition-all" onclick="openCategoryModal()">
+                <span class="material-symbols-outlined">category</span>
+                Yangi Toifa
+            </button>
+            <button class="bg-primary text-on-primary px-lg py-sm rounded-xl font-label-lg text-label-lg flex items-center gap-sm shadow-lg hover:opacity-90 transition-all cursor-pointer" onclick="openProductModal()">
+                <span class="material-symbols-outlined">add_box</span>
+                Yangi Mahsulot
+            </button>
+        </div>
+    </section>
+
+    <!-- Status Overview Bento Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+        <div class="glass-panel p-lg rounded-2xl flex flex-col gap-sm">
+            <div class="flex justify-between">
+                <span class="material-symbols-outlined text-primary p-base bg-primary-fixed rounded-xl">inventory</span>
+            </div>
+            <p class="text-on-surface-variant font-label-lg text-label-lg">Jami Mahsulot Turlari</p>
+            <h3 class="text-headline-md font-headline-md text-on-surface" id="stat-total-types">0 turda</h3>
+        </div>
+        <div class="glass-panel p-lg rounded-2xl flex flex-col gap-sm">
+            <div class="flex justify-between">
+                <span class="material-symbols-outlined text-error p-base bg-error-container rounded-xl">warning</span>
+                <span class="text-error font-label-md text-label-md bg-error-container px-sm py-xs rounded-full">Kritik</span>
+            </div>
+            <p class="text-on-surface-variant font-label-lg text-label-lg">Kam qolganlar (&lt; 50 dona)</p>
+            <h3 class="text-headline-md font-headline-md text-on-surface" id="stat-low-stock">0 turda</h3>
+        </div>
+        <div class="glass-panel p-lg rounded-2xl flex flex-col gap-sm">
+            <div class="flex justify-between">
+                <span class="material-symbols-outlined text-secondary p-base bg-secondary-fixed rounded-xl">warehouse</span>
+            </div>
+            <p class="text-on-surface-variant font-label-lg text-label-lg">Jami Tovar Soni</p>
+            <h3 class="text-headline-md font-headline-md text-on-surface" id="stat-total-qty">0 dona</h3>
+        </div>
+        <div class="glass-panel p-lg rounded-2xl flex flex-col gap-sm">
+            <div class="flex justify-between">
+                <span class="material-symbols-outlined text-tertiary p-base bg-tertiary-fixed rounded-xl">payments</span>
+            </div>
+            <p class="text-on-surface-variant font-label-lg text-label-lg">Ombor umumiy qiymati</p>
+            <h3 class="text-headline-md font-headline-md text-on-surface" id="stat-total-value">0 UZS</h3>
+        </div>
+    </section>
+
+    <!-- Layout: Catalog -->
+    <div class="flex flex-col gap-lg flex-1 min-h-0">
+        <section class="flex flex-col gap-md min-h-0">
+            <div class="flex items-center justify-between mb-xs">
+                <div class="flex gap-sm overflow-x-auto pb-xs" id="category-tabs">
+                    <!-- Dynamic categories -->
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-md overflow-y-auto custom-scrollbar pr-xs pb-xl" id="warehouse-grid">
+                <!-- Products loaded dynamically -->
+            </div>
+        </section>
+    </div>
+</main>
+
+<!-- Category Modal -->
+<div id="category-modal" class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center hidden backdrop-blur-sm">
+    <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <header class="px-xl pt-xl pb-md flex items-center justify-between bg-surface-container-low">
+            <div>
+                <h3 class="font-headline-md text-headline-md text-on-background">Yangi toifa qo'shish</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Mahsulotlarni guruhlash uchun yangi toifa yarating</p>
+            </div>
+            <button class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center" onclick="closeCategoryModal()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </header>
+        <div class="p-xl">
+            <form id="category-form" class="space-y-6" onsubmit="saveCategorySubmit(event)">
+                <div class="space-y-2">
+                    <label class="font-label-lg text-label-lg text-primary uppercase tracking-wider block">Toifa nomi</label>
+                    <input id="cat-name-input" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-4 font-body-lg text-body-lg focus:ring-2 focus:ring-primary-container transition-all" placeholder="Masalan: Salat, Desert" required type="text">
+                </div>
+                <button class="w-full bg-primary text-on-primary py-lg rounded-2xl font-title-lg font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all" type="submit">Saqlash</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Product Modal (Add / Edit) -->
+<div id="product-modal" class="fixed inset-0 bg-black/40 z-50 flex items-center justify-center hidden backdrop-blur-sm">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden flex flex-col">
+        <header class="px-xl pt-xl pb-md flex items-center justify-between bg-surface-container-low">
+            <div>
+                <h3 id="product-modal-title" class="font-headline-md text-headline-md text-on-background">Yangi mahsulot</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-1">Ombor tovar ma'lumotlarini to'ldiring</p>
+            </div>
+            <button class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center" onclick="closeProductModal()">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </header>
+        <div class="p-xl overflow-y-auto max-h-[70vh] custom-scrollbar">
+            <form id="product-form" class="space-y-4" onsubmit="saveProductSubmit(event)">
+                <input type="hidden" id="prod-id-input">
+                <div class="space-y-1">
+                    <label class="font-label-lg text-label-lg text-primary uppercase tracking-wider block">Nomi</label>
+                    <input id="prod-name-input" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all" placeholder="Masalan: Choyxona Palov" required type="text">
+                </div>
+                <div class="space-y-1">
+                    <label class="font-label-lg text-label-lg text-primary uppercase tracking-wider block">Toifa</label>
+                    <select id="prod-cat-input" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all" required>
+                        <!-- Loaded dynamically -->
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-md">
+                    <div class="space-y-1">
+                        <label class="font-label-lg text-label-lg text-primary uppercase tracking-wider block">Narxi (UZS)</label>
+                        <input id="prod-price-input" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all" placeholder="Masalan: 45000" required type="number">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-label-lg text-label-lg text-primary uppercase tracking-wider block">O'lchov birligi</label>
+                        <input id="prod-unit-input" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all" placeholder="Masalan: pors, dona, kg" required type="text">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-md">
+                    <div class="space-y-1">
+                        <label class="font-label-lg text-label-lg text-primary uppercase tracking-wider block">Ombordagi soni</label>
+                        <input id="prod-stock-input" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all" placeholder="Masalan: 100" required type="number">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="font-label-lg text-label-lg text-primary uppercase tracking-wider block">Rasm URL</label>
+                        <input id="prod-img-input" class="w-full bg-surface-container-low border-none rounded-xl px-4 py-3 font-body-md text-body-md focus:ring-2 focus:ring-primary-container transition-all" placeholder="Ixtiyoriy link" type="text">
+                    </div>
+                </div>
+                <button class="w-full bg-primary text-on-primary py-lg rounded-2xl font-title-lg font-bold shadow-lg hover:brightness-110 active:scale-95 transition-all mt-4" type="submit">Saqlash</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="db.js"></script>
+<script src="shared.js"></script>
+<script>
+    let activeCategoryTab = "All";
+
+    document.addEventListener("DOMContentLoaded", () => {
+        loadWarehouseDashboard();
+    });
+
+    function loadWarehouseDashboard() {
+        const products = window.db.getProducts();
+        const categories = window.db.getCategories();
+
+        // 1. Calculate Stats
+        const totalTypes = products.length;
+        const lowStock = products.filter(p => p.stock < 50).length;
+        const totalQty = products.reduce((sum, p) => sum + p.stock, 0);
+        const totalValue = products.reduce((sum, p) => sum + (p.price * p.stock), 0);
+
+        document.getElementById("stat-total-types").innerText = `${totalTypes} turda`;
+        document.getElementById("stat-low-stock").innerText = `${lowStock} turda`;
+        document.getElementById("stat-total-qty").innerText = `${totalQty} dona`;
+        document.getElementById("stat-total-value").innerText = new Intl.NumberFormat('uz-UZ').format(totalValue) + " UZS";
+
+        // 2. Render Tabs
+        const tabsContainer = document.getElementById("category-tabs");
+        let tabsHtml = `
+        <button class="tab-btn bg-primary-container text-on-primary-container px-lg py-sm rounded-full font-label-lg text-label-lg shrink-0" onclick="selectTab('All')">Barchasi</button>
+        `;
+        categories.forEach(c => {
+            tabsHtml += `
+            <button class="tab-btn bg-surface-container text-on-surface-variant px-lg py-sm rounded-full font-label-lg text-label-lg hover:bg-surface-variant shrink-0" onclick="selectTab('${c.id}')">${c.name}</button>
+            `;
+        });
+        tabsContainer.innerHTML = tabsHtml;
+
+        renderWarehouseGrid();
+    }
+
+    function selectTab(catId) {
+        activeCategoryTab = catId;
+        
+        // update tab styles
+        const buttons = document.querySelectorAll(".tab-btn");
+        buttons.forEach((btn, idx) => {
+            const isTarget = (catId === "All" && idx === 0) || (catId !== "All" && btn.getAttribute("onclick").includes(catId));
+            if (isTarget) {
+                btn.className = "tab-btn bg-primary-container text-on-primary-container px-lg py-sm rounded-full font-label-lg text-label-lg shrink-0";
+            } else {
+                btn.className = "tab-btn bg-surface-container text-on-surface-variant px-lg py-sm rounded-full font-label-lg text-label-lg hover:bg-surface-variant shrink-0";
+            }
+        });
+
+        renderWarehouseGrid();
+    }
+
+    function renderWarehouseGrid() {
+        const grid = document.getElementById("warehouse-grid");
+        grid.innerHTML = "";
+
+        let products = window.db.getProducts();
+        const categories = window.db.getCategories();
+
+        // Search from top bar search input if active
+        const searchInput = document.querySelector('input[placeholder="Mahsulot qidirish..."]');
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+
+        if (activeCategoryTab !== "All") {
+            products = products.filter(p => p.categoryId === activeCategoryTab);
+        }
+
+        if (query) {
+            products = products.filter(p => p.name.toLowerCase().includes(query));
+        }
+
+        if (products.length === 0) {
+            grid.innerHTML = `
+            <div class="col-span-full py-xl text-center text-on-surface-variant/40">
+                <span class="material-symbols-outlined text-[48px]">inventory_2</span>
+                <p class="font-title-md font-medium mt-sm">Mahsulotlar topilmadi</p>
+            </div>
+            `;
+            return;
+        }
+
+        products.forEach(p => {
+            const catName = categories.find(c => c.id === p.categoryId)?.name || "Boshqa";
+            const img = p.image || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=200&auto=format&fit=crop&q=60";
+            const isLow = p.stock < 50;
+            const stockColorClass = isLow 
+                ? "bg-error-container/90 text-error border-error/20" 
+                : "bg-success-bg/90 text-success-green border-success-green/20";
+            const stockText = isLow ? `Kam qoldi: ${p.stock}` : `Omborda: ${p.stock}`;
+
+            grid.innerHTML += `
+            <div class="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:ring-2 hover:ring-primary/20 transition-all duration-300">
+                <div class="h-40 overflow-hidden relative">
+                    <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="${img}" alt="${p.name}">
+                    <div class="absolute top-sm right-sm backdrop-blur px-sm py-xs rounded-lg font-label-md text-label-md border ${stockColorClass}">${stockText} ${p.unit}</div>
+                </div>
+                <div class="p-md">
+                    <p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider mb-xs">${catName}</p>
+                    <h4 class="font-title-lg text-title-lg text-on-surface mb-sm font-bold truncate">${p.name}</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="text-primary font-headline-md font-bold">${new Intl.NumberFormat('uz-UZ').format(p.price)} <span class="text-label-lg">UZS/${p.unit}</span></span>
+                        <button class="p-base bg-surface-container-high rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all" onclick="editProduct('${p.id}')">
+                            <span class="material-symbols-outlined text-[20px]">edit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            `;
+        });
+    }
+
+    // Connect top bar search
+    document.addEventListener("DOMContentLoaded", () => {
+        const searchInput = document.querySelector('input[placeholder="Mahsulot qidirish..."]');
+        if (searchInput) {
+            searchInput.addEventListener("input", () => {
+                renderWarehouseGrid();
+            });
+        }
+    });
+
+    // 3. Category Modal Logic
+    function openCategoryModal() {
+        document.getElementById("category-modal").classList.remove("hidden");
+        document.getElementById("cat-name-input").value = "";
+    }
+
+    function closeCategoryModal() {
+        document.getElementById("category-modal").classList.add("hidden");
+    }
+
+    function saveCategorySubmit(e) {
+        e.preventDefault();
+        const name = document.getElementById("cat-name-input").value.trim();
+        if (!name) return;
+
+        window.db.saveCategory({ name });
+        closeCategoryModal();
+        loadWarehouseDashboard(); // reload dashboard
+    }
+
+    // 4. Product Modal Logic
+    function openProductModal() {
+        document.getElementById("product-modal").classList.remove("hidden");
+        document.getElementById("product-modal-title").innerText = "Yangi mahsulot qo'shish";
+        
+        // Reset inputs
+        document.getElementById("prod-id-input").value = "";
+        document.getElementById("prod-name-input").value = "";
+        document.getElementById("prod-price-input").value = "";
+        document.getElementById("prod-unit-input").value = "pors";
+        document.getElementById("prod-stock-input").value = "";
+        document.getElementById("prod-img-input").value = "";
+
+        loadCategoryOptions();
+    }
+
+    function closeProductModal() {
+        document.getElementById("product-modal").classList.add("hidden");
+    }
+
+    function loadCategoryOptions(selectedId = "") {
+        const select = document.getElementById("prod-cat-input");
+        select.innerHTML = "";
+        const categories = window.db.getCategories();
+        categories.forEach(c => {
+            const selectedAttr = c.id === selectedId ? "selected" : "";
+            select.innerHTML += `<option value="${c.id}" ${selectedAttr}>${c.name}</option>`;
+        });
+    }
+
+    function editProduct(id) {
+        const prod = window.db.getProducts().find(p => p.id === id);
+        if (!prod) return;
+
+        document.getElementById("product-modal").classList.remove("hidden");
+        document.getElementById("product-modal-title").innerText = "Mahsulotni tahrirlash";
+
+        document.getElementById("prod-id-input").value = prod.id;
+        document.getElementById("prod-name-input").value = prod.name;
+        document.getElementById("prod-price-input").value = prod.price;
+        document.getElementById("prod-unit-input").value = prod.unit;
+        document.getElementById("prod-stock-input").value = prod.stock;
+        document.getElementById("prod-img-input").value = prod.image || "";
+
+        loadCategoryOptions(prod.categoryId);
+    }
+
+    function saveProductSubmit(e) {
+        e.preventDefault();
+        
+        const id = document.getElementById("prod-id-input").value;
+        const name = document.getElementById("prod-name-input").value.trim();
+        const categoryId = document.getElementById("prod-cat-input").value;
+        const price = parseInt(document.getElementById("prod-price-input").value);
+        const unit = document.getElementById("prod-unit-input").value.trim();
+        const stock = parseInt(document.getElementById("prod-stock-input").value);
+        const image = document.getElementById("prod-img-input").value.trim();
+
+        const prod = { name, categoryId, price, unit, stock };
+        if (id) prod.id = id;
+        if (image) prod.image = image;
+
+        window.db.saveProduct(prod);
+        closeProductModal();
+        loadWarehouseDashboard();
+    }
+</script>
+</body></html>

@@ -1,0 +1,544 @@
+<!DOCTYPE html><html lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Safranbonu POS - Sotuvlar Analitikasi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#f0eded",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#001d36",
+                    "surface-container-low": "#f6f3f2",
+                    "secondary-fixed": "#d1e4ff",
+                    "primary-container": "#ff7a00",
+                    "primary": "#994700",
+                    "surface-dim": "#dcd9d9",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f3f0ef",
+                    "tertiary-fixed-dim": "#f9abff",
+                    "on-surface-variant": "#584235",
+                    "on-tertiary-fixed-variant": "#7b008f",
+                    "on-secondary-fixed-variant": "#00497d",
+                    "on-secondary-container": "#00355c",
+                    "on-background": "#1b1b1c",
+                    "outline-variant": "#e0c0af",
+                    "outline": "#8c7263",
+                    "background": "#fcf9f8",
+                    "surface": "#fcf9f8",
+                    "on-tertiary-container": "#620072",
+                    "surface-variant": "#e5e2e1",
+                    "secondary-fixed-dim": "#9ecaff",
+                    "tertiary-fixed": "#ffd6fe",
+                    "on-tertiary-fixed": "#35003f",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#0061a4",
+                    "primary-fixed-dim": "#ffb68b",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#fcf9f8",
+                    "on-primary": "#ffffff",
+                    "inverse-surface": "#303030",
+                    "inverse-primary": "#ffb68b",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1b1b1c",
+                    "surface-container-highest": "#e5e2e1",
+                    "surface-container-high": "#eae7e7",
+                    "tertiary": "#9a25ae",
+                    "tertiary-container": "#e670f7",
+                    "secondary-container": "#33a0fd",
+                    "surface-tint": "#994700",
+                    "on-primary-fixed": "#321200",
+                    "primary-fixed": "#ffdbc8",
+                    "on-primary-fixed-variant": "#753400",
+                    "on-primary-container": "#5c2800",
+                    "on-error": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "24px",
+                    "xs": "4px",
+                    "gutter": "20px",
+                    "base": "8px",
+                    "margin": "24px",
+                    "sm": "12px",
+                    "xl": "32px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "label-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcf9f8; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .chart-bar { transition: height 1s ease-in-out; }
+        .heatmap-cell:hover { transform: scale(1.1); z-index: 10; }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.3); }
+    </style>
+</head>
+<body class="bg-background text-on-background flex h-screen overflow-hidden">
+<!-- SideNavBar (The Anchor) -->
+<aside class="flex flex-col p-md gap-sm w-[280px] z-50 fixed left-0 top-0 h-full bg-surface-container-low border-r border-surface-variant">
+<div class="mb-xl px-sm">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-headline-md">restaurant</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary font-bold">The Gilded Plate</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Premium Dining Group</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-xs">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-lg text-label-lg">Financials</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Inventory</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-lg text-label-lg">Labor</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container font-bold rounded-full transition-all active:scale-95 duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-lg text-label-lg">Reports</span>
+</a>
+</nav>
+<div class="mt-auto space-y-xs">
+<button class="w-full bg-primary text-on-primary py-md rounded-xl font-label-lg mb-md flex items-center justify-center gap-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined">download</span>
+                Export P&amp;L
+            </button>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-lg text-label-lg">Help</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-lg text-label-lg">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[280px] h-full overflow-y-auto scroll-smooth">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-lg h-[64px] bg-background w-full z-40 sticky top-0 border-b border-surface-variant">
+<div class="flex items-center gap-md">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">LuxePOS Analytics</h1>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative w-64">
+<input class="w-full bg-surface-container rounded-full border-none px-md py-xs text-body-md focus:ring-2 focus:ring-primary" placeholder="Qidiruv..." type="text">
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+</div>
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container p-sm rounded-full transition-colors cursor-pointer active:opacity-80">notifications</button>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container p-sm rounded-full transition-colors cursor-pointer active:opacity-80">settings</button>
+</div>
+<div class="flex items-center gap-sm ml-sm">
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-on-background">Aziz Rahimov</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Manager</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a high-end restaurant manager in his 30s, wearing a sharp charcoal suit and white shirt. The lighting is soft and cinematic, highlighting a confident yet friendly expression. The background is a blurred, warm-toned dining area with elegant decor and soft golden highlights, creating a premium and professional corporate identity look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANRnCcDbEVesCP2XG0jgYeHHdSMbCv0rWs-b4_hwGs0fXSpVbEHd5rXXI1CxJwbV8oZZWqnEHYrtXnCnfWFM1DaDDRLJZimzhy2EBqF3OnYIQfBdLCWPg5kDsB1xm_EQf1yh1S0Vxsqt-X67ZODsvGgHr2HRuKdnwD9q3VyjT2FdgweBtKHI2PoJcKqBOh0NonLE_jIIh4gRanH9berb3k7I1b335kL3cdoNk-Lhcs8HfsjoS3A5cPktQCaGM3PhQ3SMbe8WNod-lG">
+</div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-lg space-y-lg">
+<!-- Header & Date Picker -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-background">Sotuvlar Analitikasi</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Bugungi ko'rsatkichlar va trendlar</p>
+</div>
+<div class="flex bg-surface-container rounded-lg p-xs">
+<button class="px-md py-xs rounded-md bg-surface-container-lowest shadow-sm font-label-md text-label-md text-on-background">Kunlik</button>
+<button class="px-md py-xs rounded-md font-label-md text-label-md text-on-surface-variant">Haftalik</button>
+<button class="px-md py-xs rounded-md font-label-md text-label-md text-on-surface-variant">Oylik</button>
+</div>
+</div>
+<!-- Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-lg">
+<!-- Total Sales -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-primary-container bg-opacity-10 text-primary rounded-lg">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-green-600 font-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> +12%
+                        </span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Umumiy Sotuvlar</p>
+<h3 class="font-display-lg text-headline-lg text-on-background mt-xs">42,500,000 UZS</h3>
+</div>
+<!-- Average Ticket -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-secondary-container bg-opacity-10 text-secondary rounded-lg">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<span class="text-green-600 font-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> +5.2%
+                        </span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">O'rtacha Chek</p>
+<h3 class="font-display-lg text-headline-lg text-on-background mt-xs">245,000 UZS</h3>
+</div>
+<!-- Number of Orders -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-tertiary-container bg-opacity-10 text-tertiary rounded-lg">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<span class="text-red-500 font-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">trending_down</span> -2.1%
+                        </span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Buyurtmalar Soni</p>
+<h3 class="font-display-lg text-headline-lg text-on-background mt-xs">174</h3>
+</div>
+<!-- Net Profit -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-surface-variant hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-green-100 text-green-700 rounded-lg">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<span class="text-green-600 font-label-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> +18.4%
+                        </span>
+</div>
+<p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Sof Foyda</p>
+<h3 class="font-display-lg text-headline-lg text-on-background mt-xs">12,840,000 UZS</h3>
+</div>
+</div>
+<!-- Main Charts Row -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Sales Trends Chart -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-surface-variant">
+<div class="flex justify-between items-center mb-xl">
+<h4 class="font-title-lg text-title-lg text-on-background">Sotuvlar Dinamikasi</h4>
+<select class="bg-surface-container border-none rounded-lg text-label-md px-md py-xs">
+<option>Oxirgi 7 kun</option>
+<option>Oxirgi 30 kun</option>
+</select>
+</div>
+<div class="h-[300px] flex items-end justify-between gap-md relative">
+<!-- Simulated Chart Bars -->
+<div class="flex flex-col items-center gap-sm flex-1">
+<div class="w-full bg-primary bg-opacity-20 rounded-t-lg relative group h-[60%] chart-bar">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-xs opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface text-[10px] px-xs py-[2px] rounded">3.2M</div>
+</div>
+<span class="text-label-md text-on-surface-variant">Du</span>
+</div>
+<div class="flex flex-col items-center gap-sm flex-1">
+<div class="w-full bg-primary bg-opacity-40 rounded-t-lg relative group h-[75%] chart-bar">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-xs opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface text-[10px] px-xs py-[2px] rounded">4.1M</div>
+</div>
+<span class="text-label-md text-on-surface-variant">Se</span>
+</div>
+<div class="flex flex-col items-center gap-sm flex-1">
+<div class="w-full bg-primary bg-opacity-30 rounded-t-lg relative group h-[65%] chart-bar">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-xs opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface text-[10px] px-xs py-[2px] rounded">3.5M</div>
+</div>
+<span class="text-label-md text-on-surface-variant">Ch</span>
+</div>
+<div class="flex flex-col items-center gap-sm flex-1">
+<div class="w-full bg-primary bg-opacity-50 rounded-t-lg relative group h-[85%] chart-bar">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-xs opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface text-[10px] px-xs py-[2px] rounded">4.8M</div>
+</div>
+<span class="text-label-md text-on-surface-variant">Pa</span>
+</div>
+<div class="flex flex-col items-center gap-sm flex-1">
+<div class="w-full bg-primary bg-opacity-70 rounded-t-lg relative group h-[95%] chart-bar">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-xs opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface text-[10px] px-xs py-[2px] rounded">5.5M</div>
+</div>
+<span class="text-label-md text-on-surface-variant">Ju</span>
+</div>
+<div class="flex flex-col items-center gap-sm flex-1">
+<div class="w-full bg-primary rounded-t-lg relative group h-[100%] chart-bar">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-xs opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface text-[10px] px-xs py-[2px] rounded">6.2M</div>
+</div>
+<span class="text-label-md text-on-surface-variant font-bold">Sh</span>
+</div>
+<div class="flex flex-col items-center gap-sm flex-1">
+<div class="w-full bg-primary bg-opacity-60 rounded-t-lg relative group h-[80%] chart-bar">
+<div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-xs opacity-0 group-hover:opacity-100 transition-opacity bg-inverse-surface text-inverse-on-surface text-[10px] px-xs py-[2px] rounded">4.5M</div>
+</div>
+<span class="text-label-md text-on-surface-variant">Ya</span>
+</div>
+</div>
+</div>
+<!-- Payment Breakdown -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-surface-variant">
+<h4 class="font-title-lg text-title-lg text-on-background mb-xl">To'lov Turlari</h4>
+<div class="flex flex-col items-center">
+<!-- Simulated Pie Chart (SVG) -->
+<div class="relative w-48 h-48 mb-xl">
+<svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#e5e2e1" stroke-dasharray="100, 100" stroke-width="4"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#994700" stroke-dasharray="60, 100" stroke-width="4"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#33a0fd" stroke-dasharray="25, 100" stroke-dashoffset="-60" stroke-width="4"></path>
+<path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#9a25ae" stroke-dasharray="15, 100" stroke-dashoffset="-85" stroke-width="4"></path>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline-md text-headline-md">100%</span>
+</div>
+</div>
+<div class="w-full space-y-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-body-md text-body-md">Naqd pul</span>
+</div>
+<span class="font-label-lg">60%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 rounded-full bg-secondary-container"></span>
+<span class="font-body-md text-body-md">Karta</span>
+</div>
+<span class="font-label-lg">25%</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="w-3 h-3 rounded-full bg-tertiary"></span>
+<span class="font-body-md text-body-md">Online</span>
+</div>
+<span class="font-label-lg">15%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Table & Heatmap Row -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-lg">
+<!-- Top Selling Items -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-surface-variant overflow-hidden">
+<div class="flex justify-between items-center mb-lg">
+<h4 class="font-title-lg text-title-lg text-on-background">Eng ko'p sotilgan taomlar</h4>
+<button class="text-primary font-label-lg hover:underline">Hammasini ko'rish</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full">
+<thead>
+<tr class="text-left border-b border-surface-variant">
+<th class="pb-md font-label-lg text-on-surface-variant">TAOM NOMI</th>
+<th class="pb-md font-label-lg text-on-surface-variant text-center">SONI</th>
+<th class="pb-md font-label-lg text-on-surface-variant text-right">DAROMAD</th>
+<th class="pb-md font-label-lg text-on-surface-variant text-right">STATUS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-variant">
+<tr>
+<td class="py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A gourmet close-up of a traditional Uzbek Plov, with glistening long-grain rice, tender chunks of lamb, yellow and orange carrots, and a whole head of roasted garlic on top. The dish is presented on a traditional ceramic plate with blue intricate patterns. The lighting is bright and appetizing, emphasizing the textures and steam rising from the hot meal. The overall aesthetic is warm, vibrant, and premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTiceudu4F7ShZ0TiKnC1abwp2YnoO1LuQgVpKZH0EZDuE8DwxmWdvASy0pIIYjGbQurVwVFyVrVoJCRYP64M-nPY10zGNPgCxrSJIfrO44s4xcAdHkYBb9_EUsC5jYRLLKnpaPJTDjfwC6XNdkYGIBSy4Oxcrsaw51E2QJk6gVWRbKZslf0jLkgvKGqJGrHQYIxh5DPvcx3HZl-fW25PcAMcc8AdFxSkPHs8bWiNlOEB-smTwq7yRJ-EtPCWB778rRwpDhFmHtS2s">
+</div>
+<span class="font-body-lg font-medium text-on-background">To'y Oshi (Maxsus)</span>
+</div>
+</td>
+<td class="py-md text-center font-body-md text-on-surface-variant">42</td>
+<td class="py-md text-right font-body-md font-bold text-on-background">1,890,000 UZS</td>
+<td class="py-md text-right">
+<span class="px-sm py-[2px] bg-green-100 text-green-700 rounded-full text-[10px] font-bold">TRENDING</span>
+</td>
+</tr>
+<tr>
+<td class="py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A beautifully plated serving of succulent lamb Shashlik on a skewer, accompanied by thin rings of marinated onions and fresh parsley. The meat has a perfect charred exterior from the grill. It's set against a minimalist light background that complements a high-end restaurant's menu photography style. Soft daylight creates gentle highlights on the grilled textures." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADInSmFwQ2om3e8N54EpHJKOTTGlNUuYK7lCP6kwhUlosmbCYZzTKiVFuv2PYo_6M2BTNtfaIvVz8Z7vT0RMiu0Rv0pihonihqf6BVBlVElLhH-YGaA6zNFWggLPBjDBsXf9iEIRYoYA0WfvxFjJnhGvfJmAJrr3rq-OlseKECPzvD264wttwLwdYSWmCh_GjuhVlz83H3InaNP0xOt9RtCMAKvThvVy-MBY-6Ut_U2v74VhK1UJ1himnUhCwwmSRRNbfDoxJ5Xn-5">
+</div>
+<span class="font-body-lg font-medium text-on-background">Qo'y Go'shti Shashlik</span>
+</div>
+</td>
+<td class="py-md text-center font-body-md text-on-surface-variant">38</td>
+<td class="py-md text-right font-body-md font-bold text-on-background">1,330,000 UZS</td>
+<td class="py-md text-right">
+<span class="px-sm py-[2px] bg-blue-100 text-blue-700 rounded-full text-[10px] font-bold">STABIL</span>
+</td>
+</tr>
+<tr>
+<td class="py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A refreshing and colorful Achichuk salad in a glass bowl, featuring thinly sliced ripe tomatoes, spicy red onions, and fresh green basil leaves. The lighting is crisp and bright, highlighting the freshness of the vegetables. The scene suggests a premium light-filled restaurant dining experience. The color palette is dominated by red, green, and neutral whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa4ezayFRCxo9eX6ZwviJfhTPf5uV2yTDuXsCXvXUHy5VocgZ-KRIXMy8RZxqPHp9lj3RaQ9LaL66KnDu8BuwBgSrqdkrEE7a-5lYs6IYRDxqiEdiiUPBnDblA748vlc_o3d5VzKlonfcsbk9vKYs4S2M6Lb_BEFl6O5WE67g_MZeWoxoOkjTjPvc79P3a3svWqBw0iqfdgMhh-f_LWmyTURrrfTypxTE_-WlcdEHo4cA4kOiaDAeRbWl1tG8wzgFncoJasDsafFY4">
+</div>
+<span class="font-body-lg font-medium text-on-background">Achichuk Salati</span>
+</div>
+</td>
+<td class="py-md text-center font-body-md text-on-surface-variant">35</td>
+<td class="py-md text-right font-body-md font-bold text-on-background">525,000 UZS</td>
+<td class="py-md text-right">
+<span class="px-sm py-[2px] bg-orange-100 text-orange-700 rounded-full text-[10px] font-bold">RIVOJLANMOQDA</span>
+</td>
+</tr>
+<tr>
+<td class="py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A traditional Samarkand Nan bread, round and golden with a beautiful stamped pattern in the center and sprinkled with black nigella seeds. The crust is shiny and perfectly baked. The bread rests on a clean linen cloth in a contemporary, light-filled kitchen or dining setting. The aesthetic is clean, professional, and highlights culinary craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD73SnBqbFFCvj-_A9NXR-sLn9tT60LRHsRi7BSgrTQqzJ-R88BJBl7ydo9EYZ_b7y5o9sFUCJ1bnxwOi8mzqZSkPSO7RjKZvi8XY6-5aHvbgCCcX70ZS-La9yqCmDePXi-VtDDnBI2Qf7WlUSfMQQnaoz0lps6owzZA8laVRTips7C2sZhNZ20pOPqhlIPqyaZL7yLKrRRN3s0m8kZIByQTCV_lCRE7Opn-2vCc-jZzzfAfdH4nkOQMJujVY65oc51llOpHvWgYxAy">
+</div>
+<span class="font-body-lg font-medium text-on-background">Issiq Non (Maxsus)</span>
+</div>
+</td>
+<td class="py-md text-center font-body-md text-on-surface-variant">54</td>
+<td class="py-md text-right font-body-md font-bold text-on-background">432,000 UZS</td>
+<td class="py-md text-right">
+<span class="px-sm py-[2px] bg-green-100 text-green-700 rounded-full text-[10px] font-bold">ENG KO'P</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Peak Hours Heatmap -->
+<div class="bg-surface-container-lowest p-lg rounded-xl shadow-sm border border-surface-variant">
+<div class="flex justify-between items-center mb-lg">
+<h4 class="font-title-lg text-title-lg text-on-background">Tig'iz vaqtlar tahlili</h4>
+<div class="flex items-center gap-sm">
+<span class="text-label-md text-on-surface-variant">Kam</span>
+<div class="flex h-3 w-24 rounded-full overflow-hidden">
+<div class="flex-1 bg-primary-container opacity-20"></div>
+<div class="flex-1 bg-primary-container opacity-50"></div>
+<div class="flex-1 bg-primary-container opacity-80"></div>
+<div class="flex-1 bg-primary-container opacity-100"></div>
+</div>
+<span class="text-label-md text-on-surface-variant">Ko'p</span>
+</div>
+</div>
+<!-- Simplified Heatmap Grid -->
+<div class="grid grid-cols-7 gap-sm text-center">
+<div class="text-label-md text-on-surface-variant py-xs">Du</div>
+<div class="text-label-md text-on-surface-variant py-xs">Se</div>
+<div class="text-label-md text-on-surface-variant py-xs">Ch</div>
+<div class="text-label-md text-on-surface-variant py-xs">Pa</div>
+<div class="text-label-md text-on-surface-variant py-xs">Ju</div>
+<div class="text-label-md text-on-surface-variant py-xs">Sh</div>
+<div class="text-label-md text-on-surface-variant py-xs">Ya</div>
+<!-- Hour labels would go here, simplified to a 7x8 grid for visual impact -->
+<div class="heatmap-cell h-12 bg-primary-container opacity-10 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-20 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-10 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-10 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-30 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-50 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-40 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-20 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-30 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-20 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-40 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-60 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-80 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-70 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-40 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-50 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-40 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-60 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-90 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-100 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-90 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-30 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-40 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-30 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-50 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-70 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-80 rounded transition-transform"></div>
+<div class="heatmap-cell h-12 bg-primary-container opacity-70 rounded transition-transform"></div>
+</div>
+<div class="mt-lg flex justify-between text-label-md text-on-surface-variant px-xs">
+<span>12:00</span>
+<span>15:00</span>
+<span>18:00</span>
+<span>21:00</span>
+<span>00:00</span>
+</div>
+</div>
+</div>
+<!-- Footer Task Bar or Similar -->
+<div class="bg-primary-container bg-opacity-5 p-lg rounded-xl border border-primary-container border-dashed flex flex-col md:flex-row items-center justify-between gap-md">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary text-headline-md">auto_awesome</span>
+<div>
+<p class="font-title-md text-title-md text-on-background">AI Bashorat</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Dam olish kunlari talab 15% ga oshishi kutilmoqda. Masalliqlar zaxirasini tekshiring.</p>
+</div>
+</div>
+<button class="bg-primary text-on-primary px-xl py-md rounded-full font-label-lg whitespace-nowrap active:scale-95 transition-transform">Inventarizatsiyani boshlash</button>
+</div>
+</div>
+<footer class="p-lg text-center border-t border-surface-variant mt-xl">
+<p class="text-label-md text-on-surface-variant">© 2024 Safranbonu POS Analytics. Barcha huquqlar himoyalangan.</p>
+</footer>
+</main>
+<script>
+        // Micro-interactions and simple animation logic
+        document.querySelectorAll('.heatmap-cell').forEach(cell => {
+            cell.addEventListener('mouseenter', () => {
+                cell.style.filter = 'brightness(1.2)';
+            });
+            cell.addEventListener('mouseleave', () => {
+                cell.style.filter = 'brightness(1)';
+            });
+        });
+
+        // Trigger chart animation on load
+        window.addEventListener('load', () => {
+            const bars = document.querySelectorAll('.chart-bar');
+            bars.forEach((bar, index) => {
+                const finalHeight = bar.style.height;
+                bar.style.height = '0';
+                setTimeout(() => {
+                    bar.style.height = finalHeight;
+                }, 100 * index);
+            });
+        });
+    </script>
+</body></html>

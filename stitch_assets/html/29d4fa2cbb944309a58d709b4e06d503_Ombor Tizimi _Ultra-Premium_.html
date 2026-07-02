@@ -1,0 +1,517 @@
+<!DOCTYPE html><html class="light" lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Safranbonu POS - Ombor Tizimi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 192, 175, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e0c0af;
+            border-radius: 10px;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-fixed-dim": "#f9abff",
+                      "on-primary-fixed": "#321300",
+                      "primary-fixed-dim": "#ffb68b",
+                      "on-error-container": "#93000a",
+                      "surface-container": "#f0edee",
+                      "inverse-primary": "#ffb68b",
+                      "secondary-fixed": "#d1e4ff",
+                      "surface-container-low": "#f6f3f4",
+                      "surface-warm": "#fcf9f8",
+                      "on-surface-variant": "#584235",
+                      "primary": "#994700",
+                      "on-primary-container": "#5c2800",
+                      "surface-container-highest": "#e5e2e3",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#ffd6fe",
+                      "success-bg": "#dcfce7",
+                      "success-green": "#15803d",
+                      "surface-variant": "#e5e2e3",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#001d36",
+                      "glass-bg": "rgba(255, 255, 255, 0.7)",
+                      "background": "#fcf8f9",
+                      "on-tertiary-fixed-variant": "#7b008f",
+                      "on-secondary-container": "#00477b",
+                      "on-tertiary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-tertiary-container": "#620072",
+                      "surface": "#fcf8f9",
+                      "on-tertiary-fixed": "#35003f",
+                      "warm-outline": "#8c7263",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#fcf8f9",
+                      "inverse-surface": "#303031",
+                      "secondary-container": "#77b7ff",
+                      "tertiary-container": "#e670f7",
+                      "tertiary": "#9a25ae",
+                      "inverse-on-surface": "#f3f0f1",
+                      "on-surface": "#1b1b1c",
+                      "primary-container": "#eb8642",
+                      "on-primary-fixed-variant": "#743400",
+                      "surface-container-high": "#eae7e8",
+                      "outline-variant": "#e0c0af",
+                      "on-secondary-fixed-variant": "#00497d",
+                      "surface-tint": "#994700",
+                      "on-background": "#1b1b1c",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "secondary-fixed-dim": "#9fcaff",
+                      "surface-dim": "#dcd9da",
+                      "primary-fixed": "#ffdbc8",
+                      "secondary": "#0061a4",
+                      "outline": "#8c7263"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "12px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "base": "8px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "margin": "24px",
+                      "gutter": "20px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "label-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "title-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                      "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                      "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                      "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface font-body-md text-on-background overflow-hidden">
+<!-- TopNavBar Implementation -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-xl h-20 w-full glass-panel border-b border-surface-variant">
+<div class="flex items-center gap-lg">
+<h1 class="font-headline-sm text-headline-sm font-black text-primary-container">Osh &amp; Co. POS</h1>
+<nav class="hidden md:flex gap-lg ml-xl">
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-all" href="#">Dashboard</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-all" href="#">Kitchen Display</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-all" href="#">Active Orders</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative w-64">
+<input class="w-full bg-surface-container-high border-none rounded-2xl py-sm pl-xl pr-md text-on-surface focus:ring-2 focus:ring-primary-container transition-all" placeholder="Mahsulot qidirish..." type="text">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+</div>
+<button class="p-sm rounded-full hover:bg-surface-container-high/50 text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-sm rounded-full hover:bg-surface-container-high/50 text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-container ml-sm">
+<img class="h-full w-full object-cover" data-alt="A professional close-up portrait of a restaurant manager in a sleek, modern uniform, set against a blurred background of a high-end contemporary dining room. The lighting is warm and cinematic, emphasizing a premium hospitality atmosphere with soft golden tones. The manager has a welcoming and focused expression, reflecting reliability and expertise in a luxury culinary setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe-qbXSJOHxkzzIKrsK4egs2N1-_EldR6GfE31mgaf-lSC24WeJ8XdCgiprA-747xAtKen2QRP4iZvcP1KkpgIF6gkmRGPCiTgxZtp9SVWCWBhP8-C4KcDlwk-CyeGgtzzlz8Z52cuHTARzk7vFb4S2-EdycCe8llBw_skN1nmHxpm2D_30Y6d_aHVDoQ8BGAfY81Q_5xlZXkOxc2U3FNaOsT6z9ZdYEED7NmkkXCofaGSvq8C_dxsCiUPvFFauWfvQ7_ZKImduSWk">
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-80px)]">
+<!-- SideNavBar Implementation -->
+<aside class="fixed left-0 top-20 h-[calc(100vh-80px)] w-64 bg-surface-container-low dark:bg-surface-dim shadow-sm flex flex-col py-lg z-40 overflow-y-auto custom-scrollbar">
+<div class="px-md mb-xl">
+<div class="flex items-center gap-md mb-xs">
+<span class="material-symbols-outlined text-primary text-headline-md font-bold">restaurant_menu</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">Safranbonu</span>
+</div>
+<p class="text-on-surface-variant font-label-lg text-label-lg px-xs">Premium POS System</p>
+</div>
+<nav class="flex flex-col gap-xs px-sm">
+<!-- Nav Items mapped from JSON -->
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-lg text-label-lg">POS</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-lg text-label-lg">Tables</span>
+</a>
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm shadow-sm scale-[0.98]" href="#">
+<span class="material-symbols-outlined">warehouse</span>
+<span class="font-label-lg text-label-lg">Warehouse</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-label-lg text-label-lg">Categories</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg text-label-lg">Customers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-lg text-label-lg">Suppliers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-lg text-label-lg">Expenses</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-lg text-label-lg">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-lg text-label-lg">Employees</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors px-md py-sm rounded-lg mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col p-lg gap-lg overflow-y-auto custom-scrollbar bg-surface-container-low">
+<!-- Inventory Dashboard Header -->
+<section class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Ombor Boshqaruvi</h2>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Safranbonu uchun mahsulotlar va xom-ashyo qoldiqlari nazorati</p>
+</div>
+<div class="flex gap-md">
+<button class="bg-surface-container-highest text-on-surface px-lg py-sm rounded-xl font-label-lg text-label-lg flex items-center gap-sm hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined">download</span>
+                        Hisobot (PDF)
+                    </button>
+<button class="bg-primary text-on-primary px-lg py-sm rounded-xl font-label-lg text-label-lg flex items-center gap-sm shadow-lg hover:opacity-90 transition-all">
+<span class="material-symbols-outlined">add_box</span>
+                        Yangi Kirim
+                    </button>
+</div>
+</section>
+<!-- Status Overview Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+<div class="glass-panel p-lg rounded-2xl flex flex-col gap-sm">
+<div class="flex justify-between">
+<span class="material-symbols-outlined text-primary p-base bg-primary-fixed rounded-xl">inventory</span>
+<span class="text-success-green font-label-md text-label-md bg-success-bg px-sm py-xs rounded-full">+12% bugun</span>
+</div>
+<p class="text-on-surface-variant font-label-lg text-label-lg">Jami Mahsulotlar</p>
+<h3 class="text-headline-md font-headline-md text-on-surface">1,284 dona</h3>
+</div>
+<div class="glass-panel p-lg rounded-2xl flex flex-col gap-sm">
+<div class="flex justify-between">
+<span class="material-symbols-outlined text-error p-base bg-error-container rounded-xl">warning</span>
+<span class="text-error font-label-md text-label-md bg-error-container px-sm py-xs rounded-full">Kritik</span>
+</div>
+<p class="text-on-surface-variant font-label-lg text-label-lg">Kam qolganlar</p>
+<h3 class="text-headline-md font-headline-md text-on-surface">18 turda</h3>
+</div>
+<div class="glass-panel p-lg rounded-2xl flex flex-col gap-sm">
+<div class="flex justify-between">
+<span class="material-symbols-outlined text-secondary p-base bg-secondary-fixed rounded-xl">local_shipping</span>
+<span class="text-on-secondary-fixed-variant font-label-md text-label-md bg-secondary-fixed px-sm py-xs rounded-full">Yo'lda</span>
+</div>
+<p class="text-on-surface-variant font-label-lg text-label-lg">Kutilayotgan yetkazmalar</p>
+<h3 class="text-headline-md font-headline-md text-on-surface">5 ta partiya</h3>
+</div>
+<div class="glass-panel p-lg rounded-2xl flex flex-col gap-sm">
+<div class="flex justify-between">
+<span class="material-symbols-outlined text-tertiary p-base bg-tertiary-fixed rounded-xl">payments</span>
+<span class="text-on-tertiary-fixed-variant font-label-md text-label-md bg-tertiary-fixed px-sm py-xs rounded-full">Baholash</span>
+</div>
+<p class="text-on-surface-variant font-label-lg text-label-lg">Ombor qiymati</p>
+<h3 class="text-headline-md font-headline-md text-on-surface">452M UZS</h3>
+</div>
+</section>
+<!-- Layout: Catalog and Recent Activities -->
+<div class="flex flex-col lg:flex-row gap-lg flex-1 min-h-0">
+<!-- Product Catalog (70%) -->
+<section class="lg:w-[70%] flex flex-col gap-md min-h-0">
+<div class="flex items-center justify-between mb-xs">
+<div class="flex gap-sm">
+<button class="bg-primary-container text-on-primary-container px-lg py-sm rounded-full font-label-lg text-label-lg">Barchasi</button>
+<button class="bg-surface-container text-on-surface-variant px-lg py-sm rounded-full font-label-lg text-label-lg hover:bg-surface-variant">Go'sht mahsulotlari</button>
+<button class="bg-surface-container text-on-surface-variant px-lg py-sm rounded-full font-label-lg text-label-lg hover:bg-surface-variant">Sabzavotlar</button>
+<button class="bg-surface-container text-on-surface-variant px-lg py-sm rounded-full font-label-lg text-label-lg hover:bg-surface-variant">Ziravorlar</button>
+</div>
+<button class="text-primary font-label-lg text-label-lg flex items-center gap-xs">
+                            Filter
+                            <span class="material-symbols-outlined text-[18px]">filter_list</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-md overflow-y-auto custom-scrollbar pr-xs">
+<!-- Product Card 1 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:ring-2 hover:ring-primary/20 transition-all duration-300">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="High-quality close-up photograph of premium Uzbek marbled beef ribeye, perfectly chilled with a rich red color and intricate white marbling. The meat is presented on a clean, dark slate board in a professional kitchen environment, softly lit by high-key daylight. The image has a fresh, gourmet appeal, emphasizing the high-end quality of ingredients in a luxury restaurant inventory." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZHyoiWOrj0pk_lRgWToszWqQF6MeDxEFGaCVN3sL5rPAh4l2LCQnWcMNbz19VRUYMaLIVZPVC84uZigHGnnJ4T_d9kURvV_oIMD-wzFGayucS6hgbKwZKsYkLDTQqYlo-Hsk9ZkZw3D3LHsiFPaZVknLV0h8Iiq1jyRoA4rEwNRoA8R0FZlKivxipShvGQqNFL09MhqQT-cJPEPdmKv0XBaihlfrBBk31WM65qmzSdYMYHYaw1Ax13XkD137YHjIeuRtExte3Wlqs">
+<div class="absolute top-sm right-sm bg-success-bg/90 backdrop-blur text-success-green px-sm py-xs rounded-lg font-label-md text-label-md border border-success-green/20">Omborda: 45kg</div>
+</div>
+<div class="p-md">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider mb-xs">Go'sht mahsulotlari</p>
+<h4 class="font-title-lg text-title-lg text-on-surface mb-sm">Mol go'shti (Antrikot)</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-headline-md font-bold">125,000 <span class="text-label-lg">UZS/kg</span></span>
+<button class="p-base bg-surface-container-high rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:ring-2 hover:ring-primary/20 transition-all duration-300">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Exquisite studio photograph of hand-picked saffron threads in a decorative crystal bowl. The vibrant crimson and orange strands are captured in macro detail against a clean, warm-toned background. The lighting is soft and golden, reflecting the premium 'Safranbonu' brand identity. The image evokes a sense of high value, rarity, and artisanal culinary excellence." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa6Mn32SYA_JEBF1au17WHcvJ1Dpz54w5722ctVivCZTyLxij6n418jmJsujgzQ9ueeOVUMDShxX3SAKJi3lpHn4EwOnLfPc2oiMBMcuGaMLXr7nOOQzjE1xYudywjZsRmQycGaKGOIGqi1JbLwxzEu2eFoKyKDZEqnJ8cHfqh2fp4iuWO-6SH1NE3Xrbdh9_XSY53CeZ2b54DwG1U_KPhvZoBrogWlXNR_LwFRc52lHWznEKyXWn119RWUY4Cbf95tcbic4CXkKG1">
+<div class="absolute top-sm right-sm bg-error-container/90 backdrop-blur text-error px-sm py-xs rounded-lg font-label-md text-label-md border border-error/20">Kam qoldi: 250g</div>
+</div>
+<div class="p-md">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider mb-xs">Ziravorlar</p>
+<h4 class="font-title-lg text-title-lg text-on-surface mb-sm">Safran (Eron super-negin)</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-headline-md font-bold">45,000 <span class="text-label-lg">UZS/gr</span></span>
+<button class="p-base bg-surface-container-high rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:ring-2 hover:ring-primary/20 transition-all duration-300">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Professional culinary photography of large, golden-brown Devzira rice grains, slightly glistening as if polished. The rice is spilling from a traditional Uzbek ceramic bowl onto a rustic wooden surface. The scene is shot with a shallow depth of field, highlighting the texture and quality of the rice. Warm, ambient restaurant lighting creates a cozy yet premium culinary feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDfJY1SRC9dJHSGlVI6c8qhRYjlDi5KFbLJBqOw2RT0s18uaFgyzGxTLhXEetL23l4zzis4C5QgA-lUMNwBWvbKes8HisZDx8y1joLFDXs3y-rKBEylo1QA9gWML1rkodyWEDrx-rBfdLvSnpywk50NolGhppAyfyIQQqk73IVpDFjMtP9AVnGM_qc9_07_2iczzzN0EnKQrkcNM_ENH1lPjzkIiaBerv0aOjO0iKFzY9cNlwZLOkvueELh4BSrv7yJ7XYQE0PeKQ8">
+<div class="absolute top-sm right-sm bg-success-bg/90 backdrop-blur text-success-green px-sm py-xs rounded-lg font-label-md text-label-md border border-success-green/20">Omborda: 210kg</div>
+</div>
+<div class="p-md">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider mb-xs">Don mahsulotlari</p>
+<h4 class="font-title-lg text-title-lg text-on-surface mb-sm">Devzira guruchi (Oshpaz-1)</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-headline-md font-bold">28,000 <span class="text-label-lg">UZS/kg</span></span>
+<button class="p-base bg-surface-container-high rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 opacity-60">
+<div class="h-40 overflow-hidden relative grayscale">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="A macro shot of vibrant green, cold-pressed extra virgin olive oil being poured into a sleek, designer glass bottle. The oil captures highlights from a bright, clean studio light, creating a sparkling, high-end visual. The background is a minimalist, white-toned kitchen space, reinforcing a sense of purity and premium quality management." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAapnQRx6hj2poGmxeklNIoUKWD5E9QuZiqcnXQ-DTgWzqPXyMnDkFqUZgHSYNPFL7_0XljYAg3fudknhcwsXPzoQLQLfupdVNtSotGduzmp7SME186f1Zhb-2V5JXnLTwBvdpkk7L3R78BP8xWjPu9Re5GYmW9L96FJL_c-TMH_jo--zhJXzqpJYWyWDeBJVm8f8A8V1zzFkA2Ly73e2UgZVSp9Dm_om7SMT5s70P3HMdZlvjq4XoUwjFxwfNKAfN21r39wiunzXTQ">
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+<span class="bg-surface-container-lowest text-on-surface font-label-lg text-label-lg px-lg py-sm rounded-lg border border-outline">Tugagan (0 l)</span>
+</div>
+</div>
+<div class="p-md">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider mb-xs">Yog' mahsulotlari</p>
+<h4 class="font-title-lg text-title-lg text-on-surface mb-sm">Zaytun yog'i (Extra Virgin)</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-headline-md font-bold">185,000 <span class="text-label-lg">UZS/l</span></span>
+<button class="p-base bg-surface-container-high rounded-full hover:bg-primary-container transition-all">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:ring-2 hover:ring-primary/20 transition-all duration-300">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Close-up of fresh, ruby-red Samarkand pomegranates, some split open to reveal glistening, jewel-like seeds. The fruit is artistically arranged in a woven basket under soft, natural morning light. The scene is bright and organic, representing fresh produce inventory in a premium Uzbek restaurant. The focus is sharp on the texture of the seeds, creating a luxurious and appetizing visual." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIvzjOTfTZdR1D0NucNPO0kTsjGXSWAHiOoFmYDpz_U-8JmSohXYkpDCFwvgpQaqRS-OMPFSDWVN-ywdNzb8jtbOeQXE8U4yQc7wa__NpWMxr2Dup2q4pE7df73M01lBK-2Wln_nP1VGKmPCqVwhvkMLA17RO1nynKzwhbEeCaPlfeRs3bqk7usbF5zvzZUDar2t6hO8k-nAYEf72GUl__KTcuQ7oMdAV5-vKbif9n9OZI_d9Mxiq3Xhlxq0tusO7JxFmcgfMK5Cpk">
+<div class="absolute top-sm right-sm bg-success-bg/90 backdrop-blur text-success-green px-sm py-xs rounded-lg font-label-md text-label-md border border-success-green/20">Omborda: 85kg</div>
+</div>
+<div class="p-md">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider mb-xs">Meva va Sabzavot</p>
+<h4 class="font-title-lg text-title-lg text-on-surface mb-sm">Anor (Samarqand)</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-headline-md font-bold">15,000 <span class="text-label-lg">UZS/kg</span></span>
+<button class="p-base bg-surface-container-high rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:ring-2 hover:ring-primary/20 transition-all duration-300">
+<div class="h-40 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Detailed close-up shot of traditional Uzbek flatbread (Non) being pulled fresh from a clay oven (Tandir). The bread is golden-brown with a glossy surface, dusted with black nigella seeds. Steam rises slightly from the bread, captured against the dark, textured background of the oven. The lighting is dramatic and warm, emphasizing the craftsmanship and heritage of the bakery department." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtKevk-gnnblCHeoS0rFDjzRQRMOqhLjCzn4fHDvWApYCYcNeFYSdOIgYdxVIPZDJzZ0TDNEc5jxhhvt07KGEu4mmV09Eh4ElwohMa5K3dh3aPsEDjygoAIBu1Flb1ddm2CLwrmwnfypDEFUH6k2KV9T-AUysPq9b4gBw9V_IE3CrhnGcpO7c_3JaDY7UAyoY-Iodty5lhQiwu6d7iFz5A0bwdVtOIxw_9b5FjYwlWbJZuiOhuac0WuWq2Z6uQJYgkmbYhuj9if8OH">
+<div class="absolute top-sm right-sm bg-success-bg/90 backdrop-blur text-success-green px-sm py-xs rounded-lg font-label-md text-label-md border border-success-green/20">Omborda: 120 dona</div>
+</div>
+<div class="p-md">
+<p class="text-on-surface-variant font-label-md text-label-md uppercase tracking-wider mb-xs">Non mahsulotlari</p>
+<h4 class="font-title-lg text-title-lg text-on-surface mb-sm">Yopgan non (Premium)</h4>
+<div class="flex justify-between items-center">
+<span class="text-primary font-headline-md font-bold">5,000 <span class="text-label-lg">UZS/dona</span></span>
+<button class="p-base bg-surface-container-high rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stock Movements (30%) -->
+<aside class="lg:w-[30%] flex flex-col gap-md">
+<div class="glass-panel rounded-2xl flex-1 flex flex-col min-h-0 shadow-2xl border-primary-container/20">
+<div class="p-lg border-b border-surface-variant">
+<h3 class="font-headline-md text-headline-md text-on-surface">So'nggi harakatlar</h3>
+<p class="text-on-surface-variant font-label-lg text-label-lg">Ombordagi so'nggi 24 soatlik operatsiyalar</p>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-md flex flex-col gap-sm">
+<!-- Movement 1 -->
+<div class="bg-surface-container-low/50 p-md rounded-xl border border-surface-variant/50 flex items-start gap-md">
+<div class="p-sm bg-success-bg rounded-lg">
+<span class="material-symbols-outlined text-success-green">south_west</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-xs">
+<h5 class="font-title-md text-title-md text-on-surface">Kirim: Mol go'shti</h5>
+<span class="font-label-md text-label-md text-on-surface-variant">10:24</span>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md">Partiya #8824 - +50.0 kg</p>
+<p class="text-on-surface-variant font-label-md text-label-md mt-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">person</span>
+                                        Azamat I. (Omborchi)
+                                    </p>
+</div>
+</div>
+<!-- Movement 2 -->
+<div class="bg-surface-container-low/50 p-md rounded-xl border border-surface-variant/50 flex items-start gap-md">
+<div class="p-sm bg-error-container rounded-lg">
+<span class="material-symbols-outlined text-error">north_east</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-xs">
+<h5 class="font-title-md text-title-md text-on-surface">Chiqim: Oshxona uchun</h5>
+<span class="font-label-md text-label-md text-on-surface-variant">09:15</span>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md">Devzira guruchi - 15.0 kg</p>
+<p class="text-on-surface-variant font-label-md text-label-md mt-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">restaurant</span>
+                                        Chef Dilshod
+                                    </p>
+</div>
+</div>
+<!-- Movement 3 -->
+<div class="bg-surface-container-low/50 p-md rounded-xl border border-surface-variant/50 flex items-start gap-md">
+<div class="p-sm bg-secondary-fixed rounded-lg">
+<span class="material-symbols-outlined text-on-secondary-container">sync</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-xs">
+<h5 class="font-title-md text-title-md text-on-surface">Inventarizatsiya</h5>
+<span class="font-label-md text-label-md text-on-surface-variant">08:00</span>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md">Ziravorlar bo'limi tekshiruvi</p>
+<div class="mt-sm flex gap-xs">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-sm py-xs rounded text-[10px] uppercase font-bold">Farq: -0.2kg</span>
+</div>
+</div>
+</div>
+<!-- Movement 4 -->
+<div class="bg-surface-container-low/50 p-md rounded-xl border border-surface-variant/50 flex items-start gap-md">
+<div class="p-sm bg-success-bg rounded-lg">
+<span class="material-symbols-outlined text-success-green">south_west</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-xs">
+<h5 class="font-title-md text-title-md text-on-surface">Kirim: Sabzavotlar</h5>
+<span class="font-label-md text-label-md text-on-surface-variant">Kecha</span>
+</div>
+<p class="text-on-surface-variant font-body-md text-body-md">Piyoz va Sabzi - +200 kg</p>
+<p class="text-on-surface-variant font-label-md text-label-md mt-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">local_shipping</span>
+                                        "Green Harvest" MCHJ
+                                    </p>
+</div>
+</div>
+</div>
+<div class="p-lg bg-surface-container-high/50 border-t border-surface-variant mt-auto">
+<button class="w-full bg-surface-container-highest text-on-surface font-label-lg text-label-lg py-md rounded-xl border border-outline-variant hover:bg-surface-variant transition-all">
+                                Barcha harakatlar tarixini ko'rish
+                            </button>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+<!-- Contextual FAB for Warehouse (Suppressed on details, shown here) -->
+<button class="fixed bottom-lg right-lg h-16 w-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all animate-float z-50">
+<span class="material-symbols-outlined text-[32px]">inventory</span>
+</button>
+<script>
+        // Micro-interactions for product cards
+        document.querySelectorAll('.group').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential for adding dynamic shadows or highlights
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary-container');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary-container');
+        });
+    </script>
+</body></html>

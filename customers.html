@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang='uz'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Safranbonu POS - Mijozlar Bazasi</title>
+<script src='https://cdn.tailwindcss.com?plugins=forms,container-queries'></script>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap' rel='stylesheet'>
+<style>
+  .glass-panel {background: rgba(255,255,255,0.7);backdrop-filter: blur(12px);border:1px solid rgba(224,192,175,0.3);}
+</style>
+</head>
+<body class='bg-surface font-body-md text-on-background overflow-hidden flex min-h-screen'>
+<aside></aside>
+<main class='ml-64 flex-1 flex flex-col p-lg gap-lg overflow-y-auto'>
+<header></header>
+<section class='flex justify-between items-end mt-sm'>
+<div><h2 class='font-headline-lg text-headline-lg text-on-surface'>Mijozlar Bazasi</h2><p class='text-on-surface-variant font-body-lg'>Sotuvchilarning mijozlari ro'yxati</p></div>
+<div class='flex gap-md'><button class='bg-primary text-on-primary px-lg py-sm rounded-xl' onclick='openCustomerModal()'>Yangi Mijoz</button></div>
+</section>
+<section id='customers-grid' class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg mt-lg'></section>
+</main>
+<script src='db.js'></script>
+<script src='shared.js'></script>
+<script>
+let customers=[];
+function loadCustomers(){
+ const data=window.db.getCustomers();
+ const grid=document.getElementById('customers-grid');
+ grid.innerHTML='';
+ data.forEach(c=>{
+   const card=<div class='glass-panel p-lg rounded-xl shadow'>
+     <h4 class='font-title-lg'></h4>
+     <p class='text-on-surface-variant'></p>
+     <p class='text-on-surface-variant'>Balans:  UZS</p>
+   </div>;
+   grid.innerHTML+=card;
+ });
+}
+function openCustomerModal(){
+ const modal=document.getElementById('customer-modal');
+ modal.classList.remove('hidden');
+ document.getElementById('cust-name-input').value='';
+ document.getElementById('cust-phone-input').value='';
+}
+function closeCustomerModal(){
+ document.getElementById('customer-modal').classList.add('hidden');
+}
+function saveCustomer(e){
+ e.preventDefault();
+ const name=document.getElementById('cust-name-input').value.trim();
+ const phone=document.getElementById('cust-phone-input').value.trim();
+ if(!name||!phone) return;
+ window.db.saveCustomer({name,phone});
+ closeCustomerModal();
+ loadCustomers();
+}
+window.addEventListener('DOMContentLoaded',()=>{loadCustomers();});
+</script>
+<div id='customer-modal' class='fixed inset-0 bg-black/40 flex items-center justify-center hidden'>
+<div class='bg-white p-lg rounded-xl'>
+<h3 class='font-headline-md'>Yangi mijoz qo'shish</h3>
+<form onsubmit='saveCustomer(event)'>
+<label>Ism</label><input id='cust-name-input' class='border rounded w-full' required>
+<label>Telefon</label><input id='cust-phone-input' class='border rounded w-full' required>
+<button type='submit' class='bg-primary text-on-primary mt-2 px-lg py-sm rounded'>Saqlash</button>
+</form>
+<button onclick='closeCustomerModal()' class='mt-2'>Yopish</button>
+</div>
+</div>
+</body>
+</html>

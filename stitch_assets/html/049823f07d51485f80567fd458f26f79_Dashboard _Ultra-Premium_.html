@@ -1,0 +1,522 @@
+<!DOCTYPE html><html class="light" lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Safranbonu POS - Premium Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#eb8642",
+                    "success-green": "#15803d",
+                    "on-secondary-fixed-variant": "#00497d",
+                    "surface-variant": "#e5e2e3",
+                    "success-bg": "#dcfce7",
+                    "surface-container-highest": "#e5e2e3",
+                    "on-tertiary-fixed-variant": "#7b008f",
+                    "surface-warm": "#fcf9f8",
+                    "surface-tint": "#994700",
+                    "outline-variant": "#e0c0af",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#9fcaff",
+                    "glass-bg": "rgba(255, 255, 255, 0.7)",
+                    "primary-fixed": "#ffdbc8",
+                    "surface": "#fcf8f9",
+                    "tertiary-fixed": "#ffd6fe",
+                    "on-primary-fixed": "#321300",
+                    "surface-bright": "#fcf8f9",
+                    "on-surface-variant": "#584235",
+                    "on-secondary-fixed": "#001d36",
+                    "inverse-surface": "#303031",
+                    "inverse-primary": "#ffb68b",
+                    "tertiary": "#9a25ae",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "secondary": "#0061a4",
+                    "surface-dim": "#dcd9da",
+                    "on-primary-container": "#5c2800",
+                    "on-secondary-container": "#00477b",
+                    "surface-container-low": "#f6f3f4",
+                    "primary": "#994700",
+                    "on-tertiary-fixed": "#35003f",
+                    "outline": "#8c7263",
+                    "inverse-on-surface": "#f3f0f1",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "background": "#fcf8f9",
+                    "surface-container-high": "#eae7e8",
+                    "secondary-fixed": "#d1e4ff",
+                    "surface-container": "#f0edee",
+                    "on-background": "#1b1b1c",
+                    "on-surface": "#1b1b1c",
+                    "secondary-container": "#77b7ff",
+                    "tertiary-container": "#e670f7",
+                    "on-primary-fixed-variant": "#743400",
+                    "primary-fixed-dim": "#ffb68b",
+                    "tertiary-fixed-dim": "#f9abff",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#620072",
+                    "surface-container-lowest": "#ffffff",
+                    "warm-outline": "#8c7263"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "sm": "12px",
+                    "lg": "24px",
+                    "margin": "24px",
+                    "xs": "4px",
+                    "gutter": "20px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                    "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e0c0af; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-lg z-40 overflow-y-auto bg-surface-container-low dark:bg-surface-dim shadow-sm w-64 border-r border-outline-variant/30">
+<div class="px-md mb-xl flex flex-col gap-xs">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Osh &amp; Co.</h1>
+<p class="font-label-lg text-label-lg text-on-surface-variant/70 uppercase tracking-widest">Premium POS</p>
+</div>
+<nav class="flex flex-col gap-1 px-sm">
+<!-- Active: Dashboard -->
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant dark:hover:bg-surface-container-highest px-md py-sm rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-lg text-label-lg">POS</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-md py-sm rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-md py-sm rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-lg text-label-lg">Tables</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-md py-sm rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">warehouse</span>
+<span class="font-label-lg text-label-lg">Warehouse</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-md py-sm rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<div class="h-[1px] bg-outline-variant/30 my-md mx-md"></div>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-md py-sm rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-lg text-label-lg">Customers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-md py-sm rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-lg text-label-lg">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-md py-sm rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-lg text-label-lg">Employees</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-md py-sm rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-md pt-lg">
+<div class="p-md rounded-xl bg-primary-fixed/30 border border-primary-container/20">
+<p class="font-label-md text-label-md text-on-primary-fixed-variant mb-xs">Bugungi tushum</p>
+<p class="font-title-lg text-title-lg font-bold text-primary">12,450,000 UZS</p>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full mt-sm overflow-hidden">
+<div class="bg-primary-container h-full w-[75%] rounded-full"></div>
+</div>
+</div>
+</div>
+</aside>
+<main class="ml-64 flex-1 flex flex-col min-h-screen relative overflow-x-hidden">
+<!-- TopNavBar (Shared Component) -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-xl h-20 w-full backdrop-blur-md border-b border-surface-variant dark:border-outline-variant bg-glass-bg dark:bg-surface-bright/70">
+<div class="flex items-center gap-xl">
+<h2 class="font-headline-sm text-headline-sm font-black text-primary">Osh &amp; Co. POS</h2>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-title-md text-title-md text-primary font-bold border-b-2 border-primary pb-1" href="#">Dashboard</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-all" href="#">Kitchen Display</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:text-on-surface transition-all" href="#">Active Orders</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative group hidden lg:block">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant">search</span>
+<input class="pl-xl pr-md py-sm bg-surface-container-high rounded-full border-none focus:ring-2 focus:ring-primary-container w-64 transition-all" placeholder="Qidiruv..." type="text">
+</div>
+<div class="flex items-center gap-xs">
+<button class="p-sm hover:bg-surface-container-high/50 rounded-full transition-all text-on-surface-variant active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-sm hover:bg-surface-container-high/50 rounded-full transition-all text-on-surface-variant active:opacity-80">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+<div class="flex items-center gap-sm ml-sm pl-md border-l border-outline-variant/30">
+<div class="text-right hidden sm:block">
+<p class="font-title-md text-title-md font-bold leading-none">Ali Valiyev</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Admin</p>
+</div>
+<img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" data-alt="A professional headshot of a premium restaurant manager in a high-end tailored suit, smiling confidently. The background is a blurred luxurious restaurant interior with warm lighting and wooden accents. The overall atmosphere is corporate yet hospitable, reflecting a modern light-mode aesthetic with clean lines and sophisticated soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByaqPISn_8kAUw0g1vJpzUYmhQpwCf_y1xwqSBKItTmUjBVou8UEkcUoo4LQhTStYkQV1kUkVoVBAqZ6KUeSxXDyY9ZTRSgqfTKvopLbyAXmdhEm9d-uO8a0S8xlzDCD9u6slmFZw6nRsxuf8Q7sY7SrWu91vbPt_6s9TMd1n8W5zMAQiHVn73DOnrFgPtRyMBhcXHFwFgoPjZ1Rw6Z78madBa1eA5eAwQKacjtRCzfBDxPNiX2N8cHBuqWjM3UY2pDNCgGXIyNA65">
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="p-xl flex-1 flex flex-col gap-xl">
+<!-- Summary Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+<!-- Card 1 -->
+<div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-primary-fixed rounded-xl text-primary">
+<span class="material-symbols-outlined">monetization_on</span>
+</div>
+<span class="text-success-green font-bold flex items-center text-label-lg">+12.5% <span class="material-symbols-outlined text-[16px]">trending_up</span></span>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Bugungi Sotuv</h3>
+<p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs">12.5M UZS</p>
+<div class="mt-md text-label-md text-on-surface-variant/60">Kecha: 11.1M UZS</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-secondary-fixed rounded-xl text-secondary">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<span class="text-success-green font-bold flex items-center text-label-lg">+5.2% <span class="material-symbols-outlined text-[16px]">trending_up</span></span>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Buyurtmalar</h3>
+<p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs">342 ta</p>
+<div class="mt-md text-label-md text-on-surface-variant/60">O'rtacha chek: 36.5k</div>
+</div>
+<!-- Card 3 -->
+<div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-tertiary-fixed rounded-xl text-tertiary">
+<span class="material-symbols-outlined">person</span>
+</div>
+<span class="text-error font-bold flex items-center text-label-lg">-2.1% <span class="material-symbols-outlined text-[16px]">trending_down</span></span>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Mijozlar</h3>
+<p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs">892 nafar</p>
+<div class="mt-md text-label-md text-on-surface-variant/60">Yangi: 42 nafar</div>
+</div>
+<!-- Card 4 -->
+<div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full blur-2xl"></div>
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-success-bg rounded-xl text-success-green">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-success-green font-bold flex items-center text-label-lg">+18.3% <span class="material-symbols-outlined text-[16px]">trending_up</span></span>
+</div>
+<h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Sof Foyda</h3>
+<p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs">4.2M UZS</p>
+<div class="mt-md text-label-md text-on-surface-variant/60">Marja: 34%</div>
+</div>
+</div>
+<!-- Main Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+<!-- Large Sales Chart (Placeholder Visualization) -->
+<div class="lg:col-span-2 glass-panel p-xl rounded-2xl shadow-sm border border-outline-variant/20">
+<div class="flex justify-between items-end mb-xl">
+<div>
+<h2 class="font-title-lg text-title-lg font-bold">Savdo Dinamikasi</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Haftalik sotuvlar va prognoz</p>
+</div>
+<div class="flex gap-xs bg-surface-container-high p-xs rounded-lg">
+<button class="px-md py-xs bg-surface-container-lowest shadow-sm rounded-md font-label-md text-label-md">Hafta</button>
+<button class="px-md py-xs hover:bg-surface-container-lowest/50 rounded-md font-label-md text-label-md transition-all">Oy</button>
+</div>
+</div>
+<div class="relative h-80 w-full mt-lg">
+<!-- Simulated Chart Grid -->
+<div class="absolute inset-0 flex flex-col justify-between border-b border-l border-outline-variant/30">
+<div class="w-full border-t border-outline-variant/10 h-0"></div>
+<div class="w-full border-t border-outline-variant/10 h-0"></div>
+<div class="w-full border-t border-outline-variant/10 h-0"></div>
+<div class="w-full border-t border-outline-variant/10 h-0"></div>
+<div class="w-full border-t border-outline-variant/10 h-0"></div>
+</div>
+<!-- Simulated Bars -->
+<div class="absolute inset-0 flex items-end justify-around px-lg pb-2">
+<div class="w-12 bg-primary-fixed rounded-t-lg transition-all duration-700 hover:bg-primary-container cursor-pointer relative group" style="height: 45%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">4.2M</div>
+</div>
+<div class="w-12 bg-primary-fixed rounded-t-lg transition-all duration-700 hover:bg-primary-container cursor-pointer relative group" style="height: 65%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">6.1M</div>
+</div>
+<div class="w-12 bg-primary-fixed rounded-t-lg transition-all duration-700 hover:bg-primary-container cursor-pointer relative group" style="height: 55%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">5.3M</div>
+</div>
+<div class="w-12 bg-primary-container rounded-t-lg shadow-lg relative group" style="height: 85%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-100">8.2M</div>
+<div class="absolute top-0 left-0 w-full h-full bg-white/20 animate-pulse"></div>
+</div>
+<div class="w-12 bg-primary-fixed rounded-t-lg transition-all duration-700 hover:bg-primary-container cursor-pointer relative group" style="height: 40%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">3.8M</div>
+</div>
+<div class="w-12 bg-primary-fixed rounded-t-lg transition-all duration-700 hover:bg-primary-container cursor-pointer relative group" style="height: 60%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">5.9M</div>
+</div>
+<div class="w-12 bg-primary-fixed rounded-t-lg transition-all duration-700 hover:bg-primary-container cursor-pointer relative group" style="height: 75%;">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">7.1M</div>
+</div>
+</div>
+</div>
+<div class="flex justify-around mt-md font-label-md text-label-md text-on-surface-variant uppercase">
+<span>Du</span><span>Se</span><span>Ch</span><span>Pa</span><span>Ju</span><span>Sh</span><span>Yak</span>
+</div>
+</div>
+<!-- Popular Categories (Bento Mini) -->
+<div class="glass-panel p-xl rounded-2xl shadow-sm border border-outline-variant/20 flex flex-col gap-lg">
+<div>
+<h2 class="font-title-lg text-title-lg font-bold">Mashhur Taomlar</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Eng ko'p sotilganlar</p>
+</div>
+<div class="space-y-md">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A macro shot of a traditional Uzbek Plov dish, featuring steaming long-grain rice, tender pieces of lamb, golden carrots, and whole garlic bulbs. The lighting is warm and directional, emphasizing the rich textures and glistening oils. The presentation is elegant on an ornate ceramic plate, set against a dark, minimalist wooden table in a premium restaurant setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVoxJ_IT8izGZ7uqU5w3Dc8mgivez4Baf3GJb5OhPLbCo4cBrmRgEmSWWH-HuhHiK6v3kUzKMzDNkqFUoqmXRgcvW-G5lGIEMKFgU5qtxRJsEeodptPnhU5lV_LFDMnJHEj-hmcObtASAL67NofzI6shrWZunoHu40RMjFTPfTYexG1SzmxrySqCmrEJXhCVTDrIIXthppAdol8CTMacQEiRLGA4D3VV8SdHMGEseufWQFZJYWFytlaHiT6aDwCMdKyn8On_sZW3Az">
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-title-md text-title-md font-semibold">Osh (Choyxona)</span>
+<span class="font-label-lg text-label-lg text-primary">124 ta</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full">
+<div class="bg-primary-container h-full w-[85%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="Gourmet grilled lamb chops served with fresh pomegranate seeds and grilled vegetables on a rustic slate platter. The lighting is high-end studio quality, focusing on the succulent sear of the meat and the vibrant red of the pomegranate. The style is modern corporate culinary art, bright and appetizing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWYEi9xlHMWuK4X0TjlzmvNNa5GScS2ZoAVuC3Q8eQDa115YmAkstr6OHOzoiH9BNHklbOCh7ZiMXzfc_Un-eeEatO66SPT2QivuC-wg2-Qrfr2_a2Y8Wf47nXQ16PMXATOA84ofqfGJAmO9HzxUpr7dbA4T8nGLYSoBDrAG9y-mR6eEVKyd3ruhouuwqelTV23I1xrirc9P4lZQ1zKBtMGCnFZNk7rzifluLWzK9NGo-fgjCrhVMVx0mTNmY6jsyiw-MbruoyJcY6">
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-title-md text-title-md font-semibold">Qo'y qovurdoq</span>
+<span class="font-label-lg text-label-lg text-primary">98 ta</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full">
+<div class="bg-primary-container h-full w-[65%] rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-xl bg-surface-container-high overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A beautifully layered fresh salad with heirloom tomatoes, crisp cucumber, red onions, and fresh herbs, lightly drizzled with cold-pressed oil. Shot in a bright, airy restaurant environment with soft daylight. The aesthetic is clean, organic, and premium." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYvp5bUS_uIyZ0VtNnrKXzGmEKKFeQ0FrCkkgg-V1aSSsq358dl7lUyuviM58R-VKQOWtfr7J0bktoTXShgcguY1io6_aTFJA_Dyet01jYf-JsZSePlZX7Wm2WI6MguLsU-vGcrK428MMNfx5phpkZ4CLTHaVAjbENhSTnwDZusP51YwizX9Ij_NwM1aZhT9RUiRaZ6J-nsxaJMH2TZnqQ3O4IBRH5voEpFYOCR7xNpAX-Nu_eEaEuyPmVsECkTVUkJxufSO2dYnUQ">
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-1">
+<span class="font-title-md text-title-md font-semibold">Achchiq-chuchuk</span>
+<span class="font-label-lg text-label-lg text-primary">76 ta</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full">
+<div class="bg-primary-container h-full w-[45%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-auto py-md w-full border border-primary-container/30 text-primary font-bold rounded-xl hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-[0.98]">
+                        Barcha hisobotlar
+                    </button>
+</div>
+</div>
+<!-- Recent Orders Table -->
+<div class="glass-panel rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
+<div class="p-xl flex justify-between items-center">
+<h2 class="font-title-lg text-title-lg font-bold">Oxirgi Buyurtmalar</h2>
+<button class="flex items-center gap-xs text-primary font-semibold hover:opacity-70 transition-all">
+<span>Barchasini ko'rish</span>
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/30 border-y border-outline-variant/10">
+<th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">ID</th>
+<th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Mijoz / Stol</th>
+<th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Vaqt</th>
+<th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Summa</th>
+<th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase text-center">Holat</th>
+<th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Amallar</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-xl py-lg font-title-md text-title-md font-mono">#ORD-2489</td>
+<td class="px-xl py-lg">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-primary font-bold">AS</div>
+<div>
+<p class="font-title-md text-title-md font-bold">Anvar Sobirov</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Stol #12 (Oyna yonida)</p>
+</div>
+</div>
+</td>
+<td class="px-xl py-lg font-body-md text-body-md text-on-surface-variant">14:20</td>
+<td class="px-xl py-lg font-title-md text-title-md font-bold">450,000 UZS</td>
+<td class="px-xl py-lg">
+<div class="flex justify-center">
+<span class="px-md py-1 rounded-full bg-success-bg text-success-green font-bold text-label-md uppercase tracking-wide flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-success-green animate-pulse"></span>
+                                            Tayyor
+                                        </span>
+</div>
+</td>
+<td class="px-xl py-lg">
+<button class="p-sm hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-xl py-lg font-title-md text-title-md font-mono">#ORD-2488</td>
+<td class="px-xl py-lg">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-secondary font-bold">MD</div>
+<div>
+<p class="font-title-md text-title-md font-bold">Malika Dilshodova</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Stol #4 (VIP Zal)</p>
+</div>
+</div>
+</td>
+<td class="px-xl py-lg font-body-md text-body-md text-on-surface-variant">14:15</td>
+<td class="px-xl py-lg font-title-md text-title-md font-bold">1,240,000 UZS</td>
+<td class="px-xl py-lg">
+<div class="flex justify-center">
+<span class="px-md py-1 rounded-full bg-primary-fixed text-primary font-bold text-label-md uppercase tracking-wide flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                            Tayyorlanmoqda
+                                        </span>
+</div>
+</td>
+<td class="px-xl py-lg">
+<button class="p-sm hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-xl py-lg font-title-md text-title-md font-mono">#ORD-2487</td>
+<td class="px-xl py-lg">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant font-bold">St</div>
+<div>
+<p class="font-title-md text-title-md font-bold">Mehmon (Noma'lum)</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Stol #21 (Ayvon)</p>
+</div>
+</div>
+</td>
+<td class="px-xl py-lg font-body-md text-body-md text-on-surface-variant">13:55</td>
+<td class="px-xl py-lg font-title-md text-title-md font-bold">215,000 UZS</td>
+<td class="px-xl py-lg">
+<div class="flex justify-center">
+<span class="px-md py-1 rounded-full bg-surface-variant text-on-surface-variant font-bold text-label-md uppercase tracking-wide flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span>
+                                            Kutilmoqda
+                                        </span>
+</div>
+</td>
+<td class="px-xl py-lg">
+<button class="p-sm hover:bg-surface-container-high rounded-full transition-all text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-xl right-xl w-16 h-16 bg-primary-container text-on-primary-container rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group active:scale-90 z-50">
+<span class="material-symbols-outlined text-[32px] group-hover:rotate-90 transition-transform duration-300" style="font-variation-settings: 'FILL' 1;">add</span>
+<div class="absolute right-20 bg-on-surface text-surface px-md py-sm rounded-xl font-title-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl">
+                Yangi Buyurtma
+            </div>
+</button>
+</main>
+<script>
+        // Micro-interactions and Lightweight Effects
+        document.querySelectorAll('.glass-panel').forEach(panel => {
+            panel.addEventListener('mousemove', (e) => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                panel.style.setProperty('--mouse-x', `${x}px`);
+                panel.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Search Bar Focus Effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('w-80');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('w-80');
+        });
+    </script>
+</body></html>

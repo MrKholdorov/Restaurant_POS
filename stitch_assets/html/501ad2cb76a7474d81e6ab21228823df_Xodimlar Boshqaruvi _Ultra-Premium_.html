@@ -1,0 +1,501 @@
+<!DOCTYPE html><html lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Safranbonu POS - Xodimlar Boshqaruvi</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#f9abff",
+                    "on-primary-fixed": "#321300",
+                    "primary-fixed-dim": "#ffb68b",
+                    "on-error-container": "#93000a",
+                    "surface-container": "#f0edee",
+                    "inverse-primary": "#ffb68b",
+                    "secondary-fixed": "#d1e4ff",
+                    "surface-container-low": "#f6f3f4",
+                    "surface-warm": "#fcf9f8",
+                    "on-surface-variant": "#584235",
+                    "primary": "#994700",
+                    "on-primary-container": "#5c2800",
+                    "surface-container-highest": "#e5e2e3",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#ffd6fe",
+                    "success-bg": "#dcfce7",
+                    "success-green": "#15803d",
+                    "surface-variant": "#e5e2e3",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#001d36",
+                    "glass-bg": "rgba(255, 255, 255, 0.7)",
+                    "background": "#fcf8f9",
+                    "on-tertiary-fixed-variant": "#7b008f",
+                    "on-secondary-container": "#00477b",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-tertiary-container": "#620072",
+                    "surface": "#fcf8f9",
+                    "on-tertiary-fixed": "#35003f",
+                    "warm-outline": "#8c7263",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#fcf8f9",
+                    "inverse-surface": "#303031",
+                    "secondary-container": "#77b7ff",
+                    "tertiary-container": "#e670f7",
+                    "tertiary": "#9a25ae",
+                    "inverse-on-surface": "#f3f0f1",
+                    "on-surface": "#1b1b1c",
+                    "primary-container": "#eb8642",
+                    "on-primary-fixed-variant": "#743400",
+                    "surface-container-high": "#eae7e8",
+                    "outline-variant": "#e0c0af",
+                    "on-secondary-fixed-variant": "#00497d",
+                    "surface-tint": "#994700",
+                    "on-background": "#1b1b1c",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "secondary-fixed-dim": "#9fcaff",
+                    "surface-dim": "#dcd9da",
+                    "primary-fixed": "#ffdbc8",
+                    "secondary": "#0061a4",
+                    "outline": "#8c7263"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "base": "8px",
+                    "lg": "24px",
+                    "xs": "4px",
+                    "margin": "24px",
+                    "gutter": "20px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "title-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 192, 175, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-glow {
+            box-shadow: 0 0 20px rgba(153, 71, 0, 0.15);
+        }
+        /* Hide scrollbar but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface">
+<!-- Fixed Sidebar Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low dark:bg-surface-dim shadow-sm flex flex-col py-lg z-40 overflow-y-auto no-scrollbar">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Osh &amp; Co.</h1>
+<p class="font-label-lg text-label-lg text-on-surface-variant opacity-70">Premium POS</p>
+</div>
+<nav class="flex flex-col gap-xs px-md">
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-lg text-label-lg">POS</span>
+</a>
+<!-- Active Item: Employees (Xodimlar) -->
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm scale-[0.98] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">badge</span>
+<span class="font-label-lg text-label-lg">Employees</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="font-label-lg text-label-lg">Tables</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-lg text-label-lg">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg mt-auto" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- Header -->
+<header class="sticky top-0 z-30 flex justify-between items-center px-xl h-20 w-full bg-glass-bg backdrop-blur-md border-b border-surface-variant">
+<div class="flex items-center gap-lg">
+<h2 class="font-headline-sm text-headline-sm font-black text-primary-container">Xodimlar Boshqaruvi</h2>
+<div class="relative">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant">search</span>
+<input class="pl-12 pr-6 py-2 bg-surface-container-high rounded-2xl border-none focus:ring-2 focus:ring-primary w-64 text-body-md transition-all" placeholder="Xodimlarni qidirish..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="bg-primary text-on-primary font-title-md px-lg py-sm rounded-xl shadow-lg flex items-center gap-sm hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined">person_add</span>
+                    Yangi xodim qo'shish
+                </button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center cursor-pointer hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-on-surface">notifications</span>
+</div>
+<div class="flex items-center gap-sm pl-md border-l border-outline-variant">
+<div class="text-right">
+<p class="font-label-lg text-label-lg">Alisher Rahimov</p>
+<p class="text-[10px] uppercase tracking-wider font-bold text-primary">Admin</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover border-2 border-primary-container" data-alt="A portrait of a professional restaurant manager in a sleek, modern corporate office environment. He is wearing a tailored charcoal suit and a warm, welcoming smile. The background shows soft-focus elements of a high-end restaurant interior with golden lighting and organic wooden textures, following a premium hospitality aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF0WAC2fAYz92VPO_FVgGKtI3EfAhGOCIv4meOubUQ4sW8AZCKZllzDOdE_bPbdLk6kuBnwLnSRaCpE2488Bah1dzEtpn1gdRJMwPK2Vv3KWZ0HK8Jd8xMr75rDNdFPnzDJQsHzkEz71NHtLNh41pdDUXLXMcxnjUQ2ti7jBLgYlw_Q89oo24Z8EtUbPNR-1I3T5A-hFufPH6zqBzuNrI-TW3IZJk-wnQ4zvwD4GuoaVlCpUlxqLtbTFRcci1ln2gCi51CrelVfdee">
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-xl space-y-lg">
+<!-- Bento Dashboard Metrics -->
+<div class="grid grid-cols-4 gap-lg">
+<div class="glass-panel p-lg rounded-2xl shadow-sm border-l-4 border-primary">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-primary p-2 bg-primary-fixed rounded-lg">group</span>
+<span class="text-success-green bg-success-bg px-2 py-0.5 rounded-full text-label-md">+4%</span>
+</div>
+<p class="text-on-surface-variant font-label-lg">Umumiy xodimlar</p>
+<h3 class="text-headline-md font-bold">42 nafar</h3>
+</div>
+<div class="glass-panel p-lg rounded-2xl shadow-sm border-l-4 border-secondary">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-secondary p-2 bg-secondary-fixed rounded-lg">timer</span>
+<span class="text-on-surface-variant opacity-60 text-label-md">Hozirda</span>
+</div>
+<p class="text-on-surface-variant font-label-lg">Smenada</p>
+<h3 class="text-headline-md font-bold">18 nafar</h3>
+</div>
+<div class="glass-panel p-lg rounded-2xl shadow-sm border-l-4 border-tertiary">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-tertiary p-2 bg-tertiary-fixed rounded-lg">star</span>
+<span class="text-on-surface-variant opacity-60 text-label-md">Avg</span>
+</div>
+<p class="text-on-surface-variant font-label-lg">Xizmat sifati</p>
+<h3 class="text-headline-md font-bold">4.8 / 5.0</h3>
+</div>
+<div class="glass-panel p-lg rounded-2xl shadow-sm border-l-4 border-success-green">
+<div class="flex justify-between items-start mb-sm">
+<span class="material-symbols-outlined text-success-green p-2 bg-success-bg rounded-lg">payments</span>
+<span class="text-on-surface-variant opacity-60 text-label-md">Bugun</span>
+</div>
+<p class="text-on-surface-variant font-label-lg">Choychaqa (Tips)</p>
+<h3 class="text-headline-md font-bold">1.2M so'm</h3>
+</div>
+</div>
+<!-- Main Employee Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-lg">
+<!-- Employee List Table -->
+<div class="xl:col-span-2 bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h4 class="font-title-md text-on-surface font-bold">Xodimlar Ro'yxati</h4>
+<div class="flex gap-sm">
+<button class="px-md py-1.5 rounded-full bg-primary-container text-on-primary-container font-label-lg">Hammasi</button>
+<button class="px-md py-1.5 rounded-full hover:bg-surface-variant font-label-lg transition-colors">Oshpazlar</button>
+<button class="px-md py-1.5 rounded-full hover:bg-surface-variant font-label-lg transition-colors">Ofitsiantlar</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="px-lg py-md font-label-lg text-on-surface-variant uppercase tracking-wider">Xodim</th>
+<th class="px-lg py-md font-label-lg text-on-surface-variant uppercase tracking-wider">Lavozim</th>
+<th class="px-lg py-md font-label-lg text-on-surface-variant uppercase tracking-wider">Holat</th>
+<th class="px-lg py-md font-label-lg text-on-surface-variant uppercase tracking-wider">Reyting</th>
+<th class="px-lg py-md font-label-lg text-on-surface-variant uppercase tracking-wider">Amal</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-warm transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A close-up professional headshot of a female head chef in a crisp white chef's coat, standing in a brightly lit, modern commercial kitchen. Her expression is confident and focused. The image has a clean, airy feel with a palette of whites and metallic steels, reflecting a premium culinary environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD9cXWfgZ8GHYpprfcE8m9gT8e1yTyOitB3SKlWHqSzijyGOqKcPFR6edvLo_qGjD5AlmScR9vPNPm95GBXv4Phq9LAR8ObcerbLYm3HOhdFD3gI0ZPVFnjxh_3AyDrwZcDrEtiZU2Ic-ZBxfZ1yFlMjasTAGpMWcnTixBBOf9dDYjsszgJW7uSjxmcidvDSbek15dXJLvVFFGLaVBGVd-Mub1KBtodUUNN0IK-VJKL8SlUJ0XWGWY9WsT5esTwGbNAha2Dj-q6GfN">
+<div>
+<p class="font-title-md text-on-surface font-bold">Zilola Karimova</p>
+<p class="text-label-md text-on-surface-variant">ID: SF-1024</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-md">Bosh Oshpaz</span>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-success-green animate-pulse"></span>
+<span class="font-body-md text-success-green">Faol (Oshxonada)</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold">4.9</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-variant text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-warm transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A portrait of a male waiter in a premium restaurant setting. He is dressed in a crisp black vest over a white shirt with a silk tie. He is carrying a leather-bound menu. The lighting is moody and warm, highlighting the high-end hospitality ambiance with blurred bokeh of wine glasses in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSe0W5YjZuH3iV5dERiigbzJvM1vmmBYuW83NsxiQaIXfCNyVp6_5v2399iyyNuRmpie6j4dabO9tCQ-P_HHAhJDl0iowcVWWo6jPpWI0MoH3WHmpPfpnd_HzbXsK9iVVPQSB0dJSV6PMG-j6SjyRn1mjxxjZW1NjGboFFd35MfLNnhaU3CIu4wTP_FJihPcEfloS7MJ-zilGlFCaxwCHwysH7tygs2zUxolpk3SvuIR8pm44cQlMqkgE5PZPgiJHD3UjdXDHDPaa0">
+<div>
+<p class="font-title-md text-on-surface font-bold">Javohir Orifov</p>
+<p class="text-label-md text-on-surface-variant">ID: SF-1102</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container font-label-md">Ofitsiant</span>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-body-md text-primary">Faol (Zalda)</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold">4.7</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-variant text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-warm transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A portrait of a focused restaurant floor manager, a man in his late 30s wearing a smart casual dark navy blazer. He is standing by a digital tablet in a sophisticated restaurant lounge area. The environment is elegant with rich textures of marble and wood, illuminated by warm sunset light through large windows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF14uvOaMHL49wpU37DyIgLhsCZ2NNOJwOHXM8Vr2O1ZaGmGGzog5mlPs9hvGJY-VVm4WPHKX9wMa5S8GBTKIONYZehdNh9shiQN-ZfLOh6SLBvtuNtCdomgiJLHoRs4o-JkUkNACsqccRHXqcevQfySnta22GbpVHlZXNyOC7JKKHEaMsH0RlvuKIcClFhJpI92iy1-cjX0EKw2MaCejPOulalczSLtXYls2DH-PmpGQHpN6PtsxYgKSH4Wm7s0B8D8_QqJMcXM7A">
+<div>
+<p class="font-title-md text-on-surface font-bold">Bekzod Toshev</p>
+<p class="text-label-md text-on-surface-variant">ID: SF-1055</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-md">Menejer</span>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-on-surface-variant opacity-30"></span>
+<span class="font-body-md text-on-surface-variant opacity-60">Dam olishda</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold">4.8</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-variant text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-warm transition-colors cursor-pointer group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="A portrait of a young female waitress with a friendly demeanor, wearing a professional uniform including a tan apron. She is in a high-end cafe or restaurant setting with warm lighting and decorative foliage in the background. The mood is welcoming and clean, typical of a luxury hospitality brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDW7QVt5Li537rLnGSnax6IoSvRbTDrW-sRb7mn7RPwhXFcLzTF-GZx5yhlHptykmaFg_mKtQOJ49Jnef3OI_n0tOBNCPLHrTcGiMHJwjv-T9xddrBErCrZta3BS_HttlIWahhiAziBBpPprtOsFt9xlOPHV6OqkNJlluyDl2nesa1wBOuZdUK5Bv7BnRnC7oa5OqPTL2f0xp62MJG-4eq2xKgGFky-H1OEDm4Iu_BNNZrBc7NeChz2Dj_myeQ4iATpli9pJ75m1Mnb">
+<div>
+<p class="font-title-md text-on-surface font-bold">Malika G'ulomova</p>
+<p class="text-label-md text-on-surface-variant">ID: SF-1211</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<span class="px-3 py-1 rounded-full bg-tertiary-container text-on-tertiary-container font-label-md">Ofitsiant</span>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-success-green animate-pulse"></span>
+<span class="font-body-md text-success-green">Faol (Zalda)</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-bold">4.5</span>
+</div>
+</td>
+<td class="px-lg py-md">
+<button class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-variant text-on-surface-variant transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Shift & Performance Sidebar (Bento Style) -->
+<div class="space-y-lg">
+<!-- Today's Shift Status -->
+<div class="glass-panel p-lg rounded-2xl shadow-md space-y-md">
+<div class="flex justify-between items-center">
+<h4 class="font-title-lg font-bold">Smena grafigi</h4>
+<span class="text-label-md text-primary font-bold">Bugun, 24-Oktabr</span>
+</div>
+<div class="space-y-sm">
+<div class="p-md bg-surface-container rounded-xl flex justify-between items-center border border-outline-variant/30">
+<div class="flex items-center gap-md">
+<div class="w-2 h-10 bg-primary rounded-full"></div>
+<div>
+<p class="font-label-lg font-bold">Ertalabki smena</p>
+<p class="text-label-md opacity-70">08:00 - 16:00</p>
+</div>
+</div>
+<p class="font-label-lg font-bold text-on-surface-variant">12 nafar</p>
+</div>
+<div class="p-md bg-primary-container/10 rounded-xl flex justify-between items-center border border-primary/20 ring-1 ring-primary/20">
+<div class="flex items-center gap-md">
+<div class="w-2 h-10 bg-secondary rounded-full"></div>
+<div>
+<p class="font-label-lg font-bold">Kechki smena</p>
+<p class="text-label-md opacity-70">16:00 - 00:00</p>
+</div>
+</div>
+<div class="flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-success-green animate-ping"></span>
+<p class="font-label-lg font-bold text-primary">Davom etmoqda</p>
+</div>
+</div>
+</div>
+<button class="w-full py-sm border-2 border-primary text-primary font-title-md rounded-xl hover:bg-primary/5 transition-colors">
+                            To'liq grafikni ko'rish
+                        </button>
+</div>
+<!-- Top Performer Card -->
+<div class="relative overflow-hidden bg-primary-container text-on-primary-container p-lg rounded-2xl shadow-xl flex flex-col justify-end min-h-[220px]">
+
+<div class="relative z-10 space-y-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<p class="uppercase tracking-widest text-[10px] font-black">Oy Xodimi</p>
+</div>
+<div class="flex items-center gap-md">
+<img class="w-16 h-16 rounded-full border-4 border-on-primary-container shadow-lg object-cover" data-alt="A portrait of a cheerful, highly professional female waiter in a modern luxury restaurant, presenting a dish with grace. She is wearing a clean beige uniform with a personalized name tag. The lighting is cinematic with warm amber tones, and the background shows a blurred, high-end dining area with candlelit tables." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-ZAySZyZikF2mGAaCLJHS_YDzun6FZRKVvkiKKHj9MwlNB9h5BNbMXEQYVkubHuncyfSEYM7tawbx8UpF0p9uNDFYhl0LiSuFexEngaPJtBwhghsHTTjU8B7f9_q3xwLbuVPdRtd50CJRfNGHnYqX6J1dQ1MFD4rKLmIncRO8zXsy7wL3XaBycWVMLr0w7pf-Fk7bjEuo8mPbL_w8KHKTFxFtNm7sTLd_JOsxbEoO6YHOkNfgkfi_wVEh_QCYvWp1Zi6q9K30r-mN">
+<div>
+<h5 class="text-title-lg font-bold">Malika G'ulomova</h5>
+<p class="text-body-md opacity-90">Eng ko'p ijobiy izohlar</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md pt-md border-t border-on-primary-container/20">
+<div>
+<p class="text-[10px] uppercase opacity-70 font-bold">Xizmatlar</p>
+<p class="text-title-md font-bold">342 ta</p>
+</div>
+<div>
+<p class="text-[10px] uppercase opacity-70 font-bold">Ijobiy izoh</p>
+<p class="text-title-md font-bold">98%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Mobile Bottom Nav (Suppressed on Desktop) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-glass-bg backdrop-blur-xl border-t border-surface-variant flex justify-around items-center py-sm z-50">
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Bosh sahifa</span>
+</div>
+<div class="flex flex-col items-center text-primary active-glow">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">badge</span>
+<span class="text-[10px] font-bold">Xodimlar</span>
+</div>
+<div class="w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center -mt-8 shadow-lg ring-4 ring-background">
+<span class="material-symbols-outlined">add</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="text-[10px] font-bold">Buyurtmalar</span>
+</div>
+<div class="flex flex-col items-center text-on-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">Sozlamalar</span>
+</div>
+</nav>
+</main>
+<script>
+        // Micro-interaction for table rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', function() {
+                this.classList.add('scale-[0.99]');
+                setTimeout(() => this.classList.remove('scale-[0.99]'), 100);
+            });
+        });
+
+        // Search input subtle focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('active-glow');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('active-glow');
+        });
+    </script>
+</body></html>

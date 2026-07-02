@@ -1,0 +1,477 @@
+<!DOCTYPE html><html class="light" lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e5e2e3;
+            border-radius: 10px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#f9abff",
+                        "on-primary-fixed": "#321300",
+                        "primary-fixed-dim": "#ffb68b",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#f0edee",
+                        "inverse-primary": "#ffb68b",
+                        "secondary-fixed": "#d1e4ff",
+                        "surface-container-low": "#f6f3f4",
+                        "surface-warm": "#fcf9f8",
+                        "on-surface-variant": "#584235",
+                        "primary": "#994700",
+                        "on-primary-container": "#5c2800",
+                        "surface-container-highest": "#e5e2e3",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffd6fe",
+                        "success-bg": "#dcfce7",
+                        "success-green": "#15803d",
+                        "surface-variant": "#e5e2e3",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#001d36",
+                        "glass-bg": "rgba(255, 255, 255, 0.7)",
+                        "background": "#fcf8f9",
+                        "on-tertiary-fixed-variant": "#7b008f",
+                        "on-secondary-container": "#00477b",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#620072",
+                        "surface": "#fcf8f9",
+                        "on-tertiary-fixed": "#35003f",
+                        "warm-outline": "#8c7263",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fcf8f9",
+                        "inverse-surface": "#303031",
+                        "secondary-container": "#77b7ff",
+                        "tertiary-container": "#e670f7",
+                        "tertiary": "#9a25ae",
+                        "inverse-on-surface": "#f3f0f1",
+                        "on-surface": "#1b1b1c",
+                        "primary-container": "#eb8642",
+                        "on-primary-fixed-variant": "#743400",
+                        "surface-container-high": "#eae7e8",
+                        "outline-variant": "#e0c0af",
+                        "on-secondary-fixed-variant": "#00497d",
+                        "surface-tint": "#994700",
+                        "on-background": "#1b1b1c",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#9fcaff",
+                        "surface-dim": "#dcd9da",
+                        "primary-fixed": "#ffdbc8",
+                        "secondary": "#0061a4",
+                        "outline": "#8c7263"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "3xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "margin": "24px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<!-- Sidebar (Shared Component Pattern) -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-low dark:bg-surface-dim shadow-sm flex flex-col py-lg z-40 overflow-y-auto">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Osh &amp; Co.</h1>
+<p class="text-on-surface-variant font-label-md">Premium POS</p>
+</div>
+<nav class="flex-1 px-md space-y-xs">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="point_of_sale">point_of_sale</span>
+<span class="font-label-lg">POS</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-lg">Orders</span>
+</a>
+<div class="h-px bg-outline-variant my-md opacity-20"></div>
+<!-- Active State: Expenses -->
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm transition-transform duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-lg">Expenses</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-lg">Warehouse</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-lg">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:text-on-surface px-md py-sm hover:bg-surface-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-lg">Settings</span>
+</a>
+</nav>
+<div class="mt-auto px-lg flex items-center gap-md">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A professional restaurant manager portrait with a warm, welcoming expression, wearing a tailored navy blazer. The background is a blurred high-end restaurant interior with warm ambient lighting and rich wood textures, reflecting a premium hospitality environment with natural daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQSndU2QRh_nf37xuG3VZ5PAgtiWna0b1mIP3sdoiEFw_LyT0nMCA0GvFzJmoYPoBm9SfTS1rbCxLk7RDYBNIDlzmiXjTr9bmm3r9oedeucya_KVAztJFzaqNL_h30isUx2hlKqekdfXWBOe4W_oOhUdvSi6Shm_8xL4tZG0w0k27BSpQsvo0bTYEeRnI3ioGoZjjp0sM38n_BA8kP2E3E0eyVqjl5SYEFN0k797t8ZeoIoOY46Mc9wXSVpfoo5ORuhZT1Nv1-aeAM">
+</div>
+<div>
+<p class="font-label-lg text-on-surface font-bold">Admin</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">Manager</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="ml-64 min-h-screen flex flex-col relative">
+<!-- Top Nav (Shared Component Pattern) -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-xl h-20 w-full glass-panel border-b border-surface-variant/30">
+<div class="flex items-center gap-xl">
+<h2 class="font-headline-sm text-headline-md font-black text-primary">Xarajatlar Boshqaruvi</h2>
+<div class="hidden lg:flex gap-lg">
+<span class="text-on-surface-variant hover:text-on-surface cursor-pointer font-title-md transition-all">Kunlik</span>
+<span class="text-primary font-bold border-b-2 border-primary pb-1 font-title-md">Oylik</span>
+<span class="text-on-surface-variant hover:text-on-surface cursor-pointer font-title-md transition-all">Yillik</span>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="bg-surface-container-high rounded-2xl pl-10 pr-md py-2 border-none focus:ring-2 focus:ring-primary-container w-64 transition-all" placeholder="Xarajatlarni qidirish..." type="text">
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<div class="p-lg space-y-lg">
+<!-- Bento Grid Stats Section -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+<!-- Main Stat Card -->
+<div class="md:col-span-2 bg-primary text-on-primary p-lg rounded-3xl shadow-lg relative overflow-hidden flex flex-col justify-between group">
+<div class="relative z-10">
+<p class="font-label-lg opacity-80 uppercase tracking-widest mb-xs">Umumiy Oylik Xarajat</p>
+<h3 class="font-display-lg text-display-lg mb-base">42,500,000 <span class="text-headline-md opacity-70">UZS</span></h3>
+<div class="flex items-center gap-xs text-success-bg font-label-lg">
+<span class="material-symbols-outlined text-sm" data-icon="trending_down">trending_down</span>
+<span>O'tgan oyga nisbatan 12% kamroq</span>
+</div>
+</div>
+<div class="mt-lg flex gap-md relative z-10">
+<button class="bg-white/20 hover:bg-white/30 backdrop-blur-md px-lg py-sm rounded-xl font-label-lg transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                            Xarajat qo'shish
+                        </button>
+<button class="bg-transparent border border-white/30 hover:bg-white/10 px-lg py-sm rounded-xl font-label-lg transition-all flex items-center gap-xs">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                            Eksport
+                        </button>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-700"></div>
+</div>
+<!-- Small Stats -->
+<div class="bg-surface-container-lowest p-lg rounded-3xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-2xl bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+</div>
+<span class="text-error font-label-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_upward">arrow_upward</span>
+                            5%
+                        </span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-lg">Oziq-ovqat</p>
+<h4 class="font-headline-md text-headline-md">28,200,000</h4>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-3xl shadow-sm border border-outline-variant/30 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<div class="w-12 h-12 rounded-2xl bg-tertiary-container/20 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+<span class="text-success-green font-label-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_downward">arrow_downward</span>
+                            2%
+                        </span>
+</div>
+<div>
+<p class="text-on-surface-variant font-label-lg">Kommunal</p>
+<h4 class="font-headline-md text-headline-md">6,450,000</h4>
+</div>
+</div>
+</section>
+<!-- Categorized View & List -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Category Sidebar -->
+<div class="lg:col-span-1 space-y-md">
+<div class="bg-surface-container-lowest p-lg rounded-3xl shadow-sm border border-outline-variant/30">
+<h3 class="font-title-lg mb-lg">Kategoriyalar</h3>
+<div class="space-y-sm">
+<div class="flex items-center justify-between p-md bg-surface-container-low rounded-2xl border-l-4 border-primary">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="shopping_basket">shopping_basket</span>
+<span class="font-label-lg">Xom-ashyo</span>
+</div>
+<span class="font-label-lg text-on-surface-variant">65%</span>
+</div>
+<div class="flex items-center justify-between p-md hover:bg-surface-container-low rounded-2xl transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-secondary" data-icon="badge">badge</span>
+<span class="font-label-lg">Maoshlar</span>
+</div>
+<span class="font-label-lg text-on-surface-variant">20%</span>
+</div>
+<div class="flex items-center justify-between p-md hover:bg-surface-container-low rounded-2xl transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-tertiary" data-icon="campaign">campaign</span>
+<span class="font-label-lg">Marketing</span>
+</div>
+<span class="font-label-lg text-on-surface-variant">10%</span>
+</div>
+<div class="flex items-center justify-between p-md hover:bg-surface-container-low rounded-2xl transition-all cursor-pointer">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-warm-outline" data-icon="construction">construction</span>
+<span class="font-label-lg">Ta'mirlash</span>
+</div>
+<span class="font-label-lg text-on-surface-variant">5%</span>
+</div>
+</div>
+</div>
+<!-- Atmospheric Image Card -->
+<div class="h-64 rounded-3xl overflow-hidden relative shadow-md group">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" data-alt="A top-down artistic food photography of high-quality ingredients like saffron threads, cinnamon sticks, and premium spices scattered elegantly on a dark marble surface. Cinematic soft lighting with warm golden highlights, evoking a sense of premium culinary artisanry and raw material value." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPLvKejUUtD1z2SQdeNucvHZz8RgTQdShawZkjvS3jgeeWAK705td6roXkgxzi1qZ1IVoErpYvn4M179Mgd-JW2YbP_uR7bgLqWLK-bcc3yQXNfrNMjY1d8lx_xKYAC0OhWBanJ_eWi7OhKKZXieRHemx71TSPItqGEZ5R8j28W3-ya3X-OpZbIg7A2zmYNwug8pxnGzpNbVrfGL2mBp3TmA-NKgrtv77_qnruZC3DBUp6XgIz02enISE5AsR9RbzRbgD5bDQzxazV">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-lg">
+<p class="text-white/80 font-label-md uppercase">Eng ko'p xarajat</p>
+<h4 class="text-white font-headline-md">Zafaron va Ziravorlar</h4>
+</div>
+</div>
+</div>
+<!-- Recent Expenses Table/List -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-3xl shadow-sm border border-outline-variant/30 flex flex-col">
+<div class="p-lg border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="font-title-lg">Oxirgi xarajatlar</h3>
+<div class="flex gap-base">
+<button class="p-base rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="filter_list">filter_list</span>
+</button>
+<button class="p-base rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="sort">sort</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-warm text-on-surface-variant font-label-lg uppercase tracking-wider border-b border-outline-variant/10">
+<tr>
+<th class="px-lg py-md">Sana</th>
+<th class="px-lg py-md">Tavsif</th>
+<th class="px-lg py-md">Miqdor</th>
+<th class="px-lg py-md">Status</th>
+<th class="px-lg py-md"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-low transition-colors animate-fade-in" style="animation-delay: 0.1s;">
+<td class="px-lg py-md font-body-md text-on-surface-variant">Bugun, 14:20</td>
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-title-md text-on-surface">Go'sht mahsulotlari (Mol)</span>
+<span class="text-[12px] text-on-surface-variant">Shtrix-kod: 998231</span>
+</div>
+</td>
+<td class="px-lg py-md font-bold text-primary">4,500,000 UZS</td>
+<td class="px-lg py-md">
+<span class="px-md py-xs rounded-full bg-success-bg text-success-green font-label-md inline-flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-success-green"></span>
+                                            To'langan
+                                        </span>
+</td>
+<td class="px-lg py-md text-right">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="more_vert">more_vert</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors animate-fade-in" style="animation-delay: 0.2s;">
+<td class="px-lg py-md font-body-md text-on-surface-variant">Kecha, 11:45</td>
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-title-md text-on-surface">Elektr energiyasi</span>
+<span class="text-[12px] text-on-surface-variant">Avgust oyi uchun</span>
+</div>
+</td>
+<td class="px-lg py-md font-bold text-primary">1,250,000 UZS</td>
+<td class="px-lg py-md">
+<span class="px-md py-xs rounded-full bg-error-container text-on-error-container font-label-md inline-flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                            Kutilmoqda
+                                        </span>
+</td>
+<td class="px-lg py-md text-right">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="more_vert">more_vert</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors animate-fade-in" style="animation-delay: 0.3s;">
+<td class="px-lg py-md font-body-md text-on-surface-variant">12 Sentabr</td>
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-title-md text-on-surface">Instagram Reklama</span>
+<span class="text-[12px] text-on-surface-variant">Target kampaniyasi</span>
+</div>
+</td>
+<td class="px-lg py-md font-bold text-primary">800,000 UZS</td>
+<td class="px-lg py-md">
+<span class="px-md py-xs rounded-full bg-success-bg text-success-green font-label-md inline-flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-success-green"></span>
+                                            To'langan
+                                        </span>
+</td>
+<td class="px-lg py-md text-right">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="more_vert">more_vert</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors animate-fade-in" style="animation-delay: 0.4s;">
+<td class="px-lg py-md font-body-md text-on-surface-variant">10 Sentabr</td>
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-title-md text-on-surface">Yangi idishlar to'plami</span>
+<span class="text-[12px] text-on-surface-variant">Premium Chinni</span>
+</div>
+</td>
+<td class="px-lg py-md font-bold text-primary">3,100,000 UZS</td>
+<td class="px-lg py-md">
+<span class="px-md py-xs rounded-full bg-success-bg text-success-green font-label-md inline-flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-success-green"></span>
+                                            To'langan
+                                        </span>
+</td>
+<td class="px-lg py-md text-right">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="more_vert">more_vert</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors animate-fade-in" style="animation-delay: 0.5s;">
+<td class="px-lg py-md font-body-md text-on-surface-variant">08 Sentabr</td>
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-title-md text-on-surface">Mebel ta'miri</span>
+<span class="text-[12px] text-on-surface-variant">VIP xona kursilari</span>
+</div>
+</td>
+<td class="px-lg py-md font-bold text-primary">550,000 UZS</td>
+<td class="px-lg py-md">
+<span class="px-md py-xs rounded-full bg-error-container text-on-error-container font-label-md inline-flex items-center gap-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                            Kutilmoqda
+                                        </span>
+</td>
+<td class="px-lg py-md text-right">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary" data-icon="more_vert">more_vert</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-auto p-lg flex justify-center border-t border-outline-variant/10">
+<button class="text-primary font-label-lg hover:underline transition-all">Barcha xarajatlarni ko'rish</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed right-lg bottom-lg w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform duration-300" data-icon="add">add</span>
+<div class="absolute right-20 bg-primary text-on-primary px-lg py-sm rounded-xl whitespace-nowrap font-label-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">
+                Yangi xarajat qo'shish
+            </div>
+</button>
+</main>
+<script>
+        // Micro-interaction for hover effects on category bars
+        document.querySelectorAll('.cursor-pointer').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                el.style.transform = 'translateX(4px)';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'translateX(0)';
+            });
+        });
+
+        // Simple state simulation for switching tabs (Kunlik/Oylik/Yillik)
+        const tabs = document.querySelectorAll('header .gap-lg span');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => {
+                    t.classList.remove('text-primary', 'font-bold', 'border-b-2', 'border-primary', 'pb-1');
+                    t.classList.add('text-on-surface-variant');
+                });
+                tab.classList.remove('text-on-surface-variant');
+                tab.classList.add('text-primary', 'font-bold', 'border-b-2', 'border-primary', 'pb-1');
+            });
+        });
+    </script>
+</body></html>

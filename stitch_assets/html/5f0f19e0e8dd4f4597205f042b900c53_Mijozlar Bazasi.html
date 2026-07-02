@@ -1,0 +1,465 @@
+<!DOCTYPE html><html lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Safranbonu POS - Mijozlar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#ffdbc8",
+                    "surface-container": "#f0eded",
+                    "on-secondary-container": "#00355c",
+                    "surface": "#fcf9f8",
+                    "outline-variant": "#e0c0af",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#994700",
+                    "on-tertiary-fixed-variant": "#7b008f",
+                    "inverse-surface": "#303030",
+                    "secondary-container": "#33a0fd",
+                    "tertiary-container": "#e670f7",
+                    "secondary-fixed": "#d1e4ff",
+                    "surface-bright": "#fcf9f8",
+                    "tertiary-fixed-dim": "#f9abff",
+                    "secondary-fixed-dim": "#9ecaff",
+                    "on-tertiary-container": "#620072",
+                    "on-error": "#ffffff",
+                    "tertiary": "#9a25ae",
+                    "primary": "#994700",
+                    "surface-container-highest": "#e5e2e1",
+                    "on-primary-fixed": "#321200",
+                    "background": "#fcf9f8",
+                    "surface-variant": "#e5e2e1",
+                    "on-primary-container": "#5c2800",
+                    "on-tertiary-fixed": "#35003f",
+                    "on-surface-variant": "#584235",
+                    "on-surface": "#1b1b1c",
+                    "on-background": "#1b1b1c",
+                    "on-secondary-fixed": "#001d36",
+                    "secondary": "#0061a4",
+                    "surface-container-high": "#eae7e7",
+                    "on-error-container": "#93000a",
+                    "outline": "#8c7263",
+                    "on-primary-fixed-variant": "#753400",
+                    "on-secondary-fixed-variant": "#00497d",
+                    "primary-fixed-dim": "#ffb68b",
+                    "inverse-on-surface": "#f3f0ef",
+                    "tertiary-fixed": "#ffd6fe",
+                    "primary-container": "#ff7a00",
+                    "surface-dim": "#dcd9d9",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-low": "#f6f3f2",
+                    "inverse-primary": "#ffb68b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "base": "8px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "margin": "24px",
+                    "gutter": "20px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "label-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-tab-pill {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e0c0af; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8c7263; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar (Authority: JSON & Rules) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-lg border-r border-outline-variant bg-surface dark:bg-inverse-surface w-64 z-[60]">
+<div class="px-md mb-xl flex flex-col items-center">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Safranbonu POS</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant opacity-70">Premium Management</span>
+</div>
+<nav class="flex-1 space-y-xs overflow-y-auto px-xs">
+<!-- Navigation Items Mapping -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-lg text-label-lg">POS</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">table_restaurant</span>
+<span class="font-label-lg text-label-lg">Tables</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Warehouse</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="font-label-lg text-label-lg">Products</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">category</span>
+<span class="font-label-lg text-label-lg">Categories</span>
+</a>
+<!-- Active State Hierarchy: This is the Customers page -->
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-xl px-md py-sm mx-sm active-tab-pill shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-label-lg text-label-lg">Customers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-lg text-label-lg">Suppliers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-lg text-label-lg">Expenses</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">bar_chart</span>
+<span class="font-label-lg text-label-lg">Reports</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-lg text-label-lg">Employees</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+</aside>
+<main class="flex-1 ml-64 min-h-screen flex flex-col">
+<!-- TopNavBar (Authority: JSON) -->
+<header class="flex justify-between items-center w-full px-lg py-sm sticky top-0 z-50 bg-surface dark:bg-inverse-surface border-b border-outline-variant">
+<div class="flex items-center gap-lg">
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-xl py-sm font-body-md text-body-md focus:ring-2 focus:ring-primary outline-none" placeholder="Mijozlarni qidirish..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors relative">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="flex items-center gap-sm pl-md border-l border-outline-variant">
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-on-surface">Admin</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Manager</p>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-fixed overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a restaurant manager with a friendly expression, wearing a sleek black uniform, set against a blurred high-end restaurant interior background with soft amber lighting and modern decor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsqKyHqojvy9h02bNvBf5yW9BSp3W1-5Sc2YSxMJcMF9TldwF75SwZ5bpXl4YSO9LGzq4h4aFkPWe7SHAEmQ0wTlbRRsr5q84plIGN1OwvJCy6pU2i-rAwmH4vFwMuX60KZIj3uTD-H9k1tH1fCRGnx-shZFnHpOs8tY6EOObOMUfvGwCwKctwQ0gjs9vlUao1TioWPVTyzYLqOzMFs-nnNfDhRfrbiHmWr6_XGkndr_rkGtpXu-frutBqnt2qdS2_rfYfNaGhiel1">
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<section class="p-lg space-y-lg flex-1">
+<!-- Page Header Actions -->
+<div class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface font-bold">Mijozlar boshqaruvi</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Tizimdagi barcha faol mijozlar va sodiqlik dasturi a'zolari.</p>
+</div>
+<button class="bg-primary-container text-on-primary-container px-lg py-sm rounded-xl font-title-md text-title-md flex items-center gap-sm hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined">person_add</span>
+                    Yangi mijoz qo'shish
+                </button>
+</div>
+<!-- Bento Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md">
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant/30 flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed-dim/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Jami mijozlar</p>
+<p class="font-headline-md text-headline-md font-bold">1,284</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant/30 flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stars</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">VIP (Gold)</p>
+<p class="font-headline-md text-headline-md font-bold">156</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant/30 flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-tertiary-fixed/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">loyalty</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Faol kuponlar</p>
+<p class="font-headline-md text-headline-md font-bold">42</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant/30 flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-700">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant">Yangi (bu oy)</p>
+<p class="font-headline-md text-headline-md font-bold">+84</p>
+</div>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex gap-sm items-center overflow-x-auto pb-xs">
+<span class="font-label-lg text-label-lg text-on-surface-variant mr-sm whitespace-nowrap">Darajalar:</span>
+<button class="bg-primary text-on-primary px-md py-xs rounded-full font-label-lg text-label-lg">Barchasi</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-xs rounded-full font-label-lg text-label-lg hover:bg-outline-variant/30 transition-colors">Gold</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-xs rounded-full font-label-lg text-label-lg hover:bg-outline-variant/30 transition-colors">Silver</button>
+<button class="bg-surface-container-high text-on-surface-variant px-md py-xs rounded-full font-label-lg text-label-lg hover:bg-outline-variant/30 transition-colors">Bronze</button>
+<button class="ml-auto flex items-center gap-xs font-label-lg text-label-lg text-primary">
+<span class="material-symbols-outlined text-body-lg">filter_list</span>
+                    Filtrlar
+                </button>
+</div>
+<!-- Table Container (Glassmorphism influence) -->
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm border border-outline-variant/30 overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant">MIJOZ</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant">TELEFON</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant text-center">SODIQLIK DARAJASI</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant">UMUMIY HARID</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant">OXIRGI TASHRIF</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant text-right">AMALLAR</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<!-- Customer Row 1 (Gold) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center font-bold text-primary">AA</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Anvar Alimov</p>
+<p class="font-label-md text-label-md text-on-surface-variant">anvar@example.uz</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-body-md">+998 90 123 45 67</td>
+<td class="px-lg py-md text-center">
+<span class="px-md py-xs rounded-full bg-yellow-100 text-yellow-800 font-label-lg text-label-lg flex items-center gap-xs justify-center w-fit mx-auto border border-yellow-200">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                                    Gold
+                                </span>
+</td>
+<td class="px-lg py-md font-title-md text-title-md font-bold">4,250,000 UZS</td>
+<td class="px-lg py-md font-body-md text-body-md">Kecha, 19:45</td>
+<td class="px-lg py-md text-right">
+<div class="flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-xs hover:text-primary transition-colors"><span class="material-symbols-outlined">edit</span></button>
+<button class="p-xs hover:text-secondary transition-colors"><span class="material-symbols-outlined">history</span></button>
+<button class="p-xs hover:text-error transition-colors"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Customer Row 2 (Silver) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-secondary">NB</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Nigora Boboyeva</p>
+<p class="font-label-md text-label-md text-on-surface-variant">n_boboeva@mail.uz</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-body-md">+998 93 987 65 43</td>
+<td class="px-lg py-md text-center">
+<span class="px-md py-xs rounded-full bg-slate-100 text-slate-700 font-label-lg text-label-lg flex items-center gap-xs justify-center w-fit mx-auto border border-slate-200">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                                    Silver
+                                </span>
+</td>
+<td class="px-lg py-md font-title-md text-title-md font-bold">1,890,000 UZS</td>
+<td class="px-lg py-md font-body-md text-body-md">12 May, 2024</td>
+<td class="px-lg py-md text-right">
+<div class="flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-xs hover:text-primary transition-colors"><span class="material-symbols-outlined">edit</span></button>
+<button class="p-xs hover:text-secondary transition-colors"><span class="material-symbols-outlined">history</span></button>
+<button class="p-xs hover:text-error transition-colors"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Customer Row 3 (Bronze) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center font-bold text-orange-800/60">OK</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Otabek Karimov</p>
+<p class="font-label-md text-label-md text-on-surface-variant">otabek.k@pos.uz</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-body-md">+998 99 555 44 22</td>
+<td class="px-lg py-md text-center">
+<span class="px-md py-xs rounded-full bg-orange-100 text-orange-700 font-label-lg text-label-lg flex items-center gap-xs justify-center w-fit mx-auto border border-orange-200">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                                    Bronze
+                                </span>
+</td>
+<td class="px-lg py-md font-title-md text-title-md font-bold">540,000 UZS</td>
+<td class="px-lg py-md font-body-md text-body-md">08 May, 2024</td>
+<td class="px-lg py-md text-right">
+<div class="flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-xs hover:text-primary transition-colors"><span class="material-symbols-outlined">edit</span></button>
+<button class="p-xs hover:text-secondary transition-colors"><span class="material-symbols-outlined">history</span></button>
+<button class="p-xs hover:text-error transition-colors"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</td>
+</tr>
+<!-- Customer Row 4 (Gold) -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center font-bold text-primary">SM</div>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Sitora Murodova</p>
+<p class="font-label-md text-label-md text-on-surface-variant">sitora_m@gmail.uz</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-body-md">+998 94 333 11 00</td>
+<td class="px-lg py-md text-center">
+<span class="px-md py-xs rounded-full bg-yellow-100 text-yellow-800 font-label-lg text-label-lg flex items-center gap-xs justify-center w-fit mx-auto border border-yellow-200">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+                                    Gold
+                                </span>
+</td>
+<td class="px-lg py-md font-title-md text-title-md font-bold">3,120,000 UZS</td>
+<td class="px-lg py-md font-body-md text-body-md">Bugun, 12:30</td>
+<td class="px-lg py-md text-right">
+<div class="flex justify-end gap-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-xs hover:text-primary transition-colors"><span class="material-symbols-outlined">edit</span></button>
+<button class="p-xs hover:text-secondary transition-colors"><span class="material-symbols-outlined">history</span></button>
+<button class="p-xs hover:text-error transition-colors"><span class="material-symbols-outlined">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Pagination -->
+<div class="px-lg py-md bg-surface-container-low flex justify-between items-center border-t border-outline-variant">
+<p class="font-label-md text-label-md text-on-surface-variant">Ko'rsatilmoqda: 1-10 (Jami: 1,284)</p>
+<div class="flex gap-xs">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center border border-outline-variant text-on-surface-variant hover:bg-surface-variant">
+<span class="material-symbols-outlined text-body-lg">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center bg-primary text-on-primary font-label-lg text-label-lg">1</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center border border-outline-variant text-on-surface-variant hover:bg-surface-variant font-label-lg text-label-lg">2</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center border border-outline-variant text-on-surface-variant hover:bg-surface-variant font-label-lg text-label-lg">3</button>
+<button class="w-8 h-8 rounded-lg flex items-center justify-center border border-outline-variant text-on-surface-variant hover:bg-surface-variant">
+<span class="material-symbols-outlined text-body-lg">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Promotion / Action Cards Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg pt-lg">
+<div class="relative overflow-hidden rounded-2xl h-48 bg-secondary flex flex-col justify-center px-xl text-on-secondary shadow-xl">
+<div class="absolute -right-12 -bottom-12 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
+<h3 class="font-headline-md text-headline-md font-bold mb-xs">Sodiqlik kampaniyasi</h3>
+<p class="font-body-md text-body-md mb-md opacity-90 max-w-xs">Gold darajadagi mijozlar uchun yangi 20% chegirma kampaniyasini ishga tushiring.</p>
+<button class="bg-white text-secondary px-lg py-xs rounded-full font-label-lg text-label-lg w-fit hover:bg-secondary-fixed transition-colors">Boshqarish</button>
+</div>
+<div class="relative overflow-hidden rounded-2xl h-48 bg-primary-container flex flex-col justify-center px-xl text-on-primary-container shadow-xl">
+<div class="absolute -right-8 -top-8 w-40 h-40 bg-black/10 rounded-full blur-2xl"></div>
+<h3 class="font-headline-md text-headline-md font-bold mb-xs">SMS Xabarnomalar</h3>
+<p class="font-body-md text-body-md mb-md opacity-90 max-w-xs">Oxirgi 30 kunda kelmagan mijozlarga taklifnoma yuboring.</p>
+<button class="bg-primary text-white px-lg py-xs rounded-full font-label-lg text-label-lg w-fit hover:shadow-lg transition-all">Xabar yuborish</button>
+</div>
+</div>
+</section>
+<!-- Footer info -->
+<footer class="p-lg bg-surface text-center opacity-50 border-t border-outline-variant/10">
+<p class="font-label-md text-label-md">© 2024 Safranbonu POS Premium Management System. Barcha huquqlar himoyalangan.</p>
+</footer>
+</main>
+<!-- Floating Action Button (FAB) -->
+<button class="fixed bottom-lg right-lg w-16 h-16 bg-primary-container text-on-primary-container rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50 group">
+<span class="material-symbols-outlined text-4xl group-hover:rotate-90 transition-transform">add</span>
+</button>
+<script>
+        // Micro-interaction for table rows
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mousedown', () => {
+                row.classList.add('scale-[0.995]');
+            });
+            row.addEventListener('mouseup', () => {
+                row.classList.remove('scale-[0.995]');
+            });
+            row.addEventListener('mouseleave', () => {
+                row.classList.remove('scale-[0.995]');
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Safranbonu POS - Mijoz Profili</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#e670f7",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-primary-fixed": "#321200",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#f3f0ef",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#e0c0af",
+                    "on-tertiary-container": "#620072",
+                    "on-secondary-container": "#00355c",
+                    "on-secondary-fixed": "#001d36",
+                    "surface-container-low": "#f6f3f2",
+                    "surface-bright": "#fcf9f8",
+                    "inverse-surface": "#303030",
+                    "surface-tint": "#994700",
+                    "inverse-primary": "#ffb68b",
+                    "surface": "#fcf9f8",
+                    "tertiary-fixed-dim": "#f9abff",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#9a25ae",
+                    "on-tertiary-fixed": "#35003f",
+                    "primary": "#994700",
+                    "primary-container": "#ff7a00",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#ffb68b",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#d1e4ff",
+                    "surface-container": "#f0eded",
+                    "on-tertiary-fixed-variant": "#7b008f",
+                    "outline": "#8c7263",
+                    "secondary-container": "#33a0fd",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed-variant": "#753400",
+                    "background": "#fcf9f8",
+                    "surface-container-highest": "#e5e2e1",
+                    "primary-fixed": "#ffdbc8",
+                    "on-primary-container": "#5c2800",
+                    "secondary": "#0061a4",
+                    "tertiary-fixed": "#ffd6fe",
+                    "surface-variant": "#e5e2e1",
+                    "surface-dim": "#dcd9d9",
+                    "secondary-fixed-dim": "#9ecaff",
+                    "surface-container-high": "#eae7e7",
+                    "on-surface-variant": "#584235",
+                    "on-surface": "#1b1b1c",
+                    "on-secondary-fixed-variant": "#00497d",
+                    "on-background": "#1b1b1c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "margin": "24px",
+                    "md": "16px",
+                    "sm": "12px",
+                    "gutter": "20px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "base": "8px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "title-md": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fcf9f8;
+            font-family: 'Inter', sans-serif;
+        }
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e5e2e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-on-background">
+<!-- Side Navigation Bar (As per JSON Blueprint) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-lg border-r border-outline-variant bg-surface dark:bg-inverse-surface shadow-sm w-64 z-50">
+<div class="px-md mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Safranbonu POS</h1>
+<p class="font-label-lg text-label-lg text-on-surface-variant opacity-70">Premium Management</p>
+</div>
+<nav class="flex-1 space-y-xs overflow-y-auto custom-scrollbar">
+<!-- Active state: Customers (since this is a customer profile) -->
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">point_of_sale</span>
+<span class="font-label-lg text-label-lg">POS</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-lg text-label-lg">Orders</span>
+</a>
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-xl px-md py-sm mx-sm shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-label-lg text-label-lg">Customers</span>
+</a>
+<!-- Minimal placeholder for other items -->
+<div class="pt-sm px-md opacity-40 uppercase tracking-widest font-bold text-[10px]">Inventar</div>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-lg text-label-lg">Warehouse</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Top Navigation Bar (As per JSON Blueprint) -->
+<header class="flex justify-between items-center w-full px-lg py-sm sticky top-0 z-40 ml-64 w-[calc(100%-16rem)] bg-surface dark:bg-inverse-surface border-b border-outline-variant">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 font-body-md text-body-md focus:ring-2 focus:ring-primary-container" placeholder="Mijozlarni qidirish..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<button class="relative p-2 text-on-surface-variant hover:text-primary transition-opacity">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="flex items-center gap-sm border-l border-outline-variant pl-lg">
+<div class="text-right">
+<p class="font-label-lg text-label-lg text-on-surface font-bold">Admin Manager</p>
+<p class="font-label-md text-label-md text-on-surface-variant">Smena boshlig'i</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover border-2 border-primary-fixed shadow-sm" data-alt="A professional portrait of a restaurant manager in a minimalist premium office setting. The lighting is soft and warm, reflecting a high-end light-mode aesthetic with subtle orange accents. The manager is wearing a clean professional uniform, exuding confidence and high-quality service standards. Cinematic quality with a shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJ4krIYSOVrsrCUPOtE71-Bp9UxrF9w2lova3gHnx_9xx7gGj6bCijpCnIDP76ClH6hqQJqETyfOBjU4ADZJPz0sNdkf8PGSErioRl_S1Y_PWDu5vZjpL5Aloa6QT1FRta7L08HUicf1QDJbJe1nlzXYvuHeoOp2JrNiYimpcB3mGCFtSMSB1yeFVJqbRYdH6zd28qrOFnYeeIz-z0oOQJrCKTsHNk4J36Yjl2_dImJz1aAyOQiqB33NvEXcXKSmOp0w4_lyXnS9K1">
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-lg pt-xl">
+<div class="max-w-7xl mx-auto space-y-lg">
+<!-- Hero Profile Section -->
+<section class="bg-surface-container-lowest rounded-[24px] p-lg shadow-sm border border-outline-variant/30 relative overflow-hidden">
+<!-- Background decorative mesh -->
+<div class="absolute -right-20 -top-20 w-64 h-64 bg-primary-container/5 rounded-full blur-3xl"></div>
+<div class="absolute -left-10 bottom-0 w-48 h-48 bg-secondary-container/5 rounded-full blur-2xl"></div>
+<div class="flex flex-col md:flex-row gap-xl items-start relative z-10">
+<div class="relative">
+<img class="w-32 h-32 rounded-[24px] object-cover shadow-lg border-2 border-white" data-alt="A portrait of an elegant Uzbek gentleman named Alisher Navoiy, looking professional and friendly. He is depicted in a high-end restaurant setting with warm ambient lighting. The visual style is premium, clean, and modern, using the restaurant's signature orange highlights and a minimalist background. High resolution, professional photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsqBihI1whKUvAsv9bpEa8RRl70JSwKSsD4EQjyhYuo7bxT7QGwXKcZtfmhAW9dW5rMlLGCxKTeqawLfUAv7v0f18KMJHSZWgWi1xxVmdf3nPSNW4-ag7dnZ5q4hdKxikiYnJ786LK2Ewu3paCqQJqeyTgmOg8Yduscqbz7rJjvV--6QD-dfAZK8H3FiG9fwpr_olu83HtYYtdoXZFDJZQ70bRBFppzqFhuUDBronaFVULtrcoKGltUdoQDG7ZQ0pLGkAHpqZ2U7e3">
+<div class="absolute -bottom-3 -right-3 bg-primary-container text-on-primary-container font-bold text-[10px] px-3 py-1 rounded-full shadow-md border-2 border-white flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+                            GOLD VIP
+                        </div>
+</div>
+<div class="flex-1 space-y-md">
+<div class="flex flex-wrap justify-between items-start gap-md">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Alisher Navoiy</h2>
+<p class="font-label-lg text-label-lg text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">fingerprint</span>
+                                    Mijoz ID: #C-2938
+                                </p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-sm bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-lg text-label-lg px-md py-sm rounded-xl transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined text-[20px]">edit</span>
+                                    Tahrirlash
+                                </button>
+<button class="flex items-center gap-sm bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-lg text-label-lg px-md py-sm rounded-xl transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined text-[20px]">add_notes</span>
+                                    Eslatma qo'shish
+                                </button>
+<button class="flex items-center gap-sm bg-primary-container hover:brightness-110 text-on-primary-container font-label-lg text-label-lg px-lg py-sm rounded-xl shadow-md transition-all active:scale-95 duration-150">
+<span class="material-symbols-outlined text-[20px]">loyalty</span>
+                                    Chegirma berish
+                                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-sm pt-sm">
+<div class="flex items-center gap-md bg-surface-container-low/50 p-sm rounded-xl">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">call</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase">Telefon</p>
+<p class="font-title-md text-title-md">+998 90 123 45 67</p>
+</div>
+</div>
+<div class="flex items-center gap-md bg-surface-container-low/50 p-sm rounded-xl">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase">Email</p>
+<p class="font-title-md text-title-md">alisher@example.com</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Stats and Highlights -->
+<div class="bento-grid">
+<!-- Statistics Card -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-[24px] p-lg shadow-sm border border-outline-variant/30">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                        Asosiy ko'rsatkichlar
+                    </h3>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<div class="p-md rounded-2xl bg-surface-container border border-outline-variant/20 hover:border-primary-container/30 transition-all">
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Jami xarajat</p>
+<p class="font-headline-md text-headline-md text-primary">4.5M</p>
+<p class="text-[10px] text-on-surface-variant font-bold">UZS</p>
+</div>
+<div class="p-md rounded-2xl bg-surface-container border border-outline-variant/20">
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">Tashriflar</p>
+<p class="font-headline-md text-headline-md text-on-surface">42</p>
+<div class="w-full bg-surface-variant h-1 rounded-full mt-2">
+<div class="bg-primary w-3/4 h-full rounded-full"></div>
+</div>
+</div>
+<div class="p-md rounded-2xl bg-surface-container border border-outline-variant/20">
+<p class="font-label-md text-label-md text-on-surface-variant mb-xs">O'rtacha chek</p>
+<p class="font-headline-md text-headline-md text-on-surface">107k</p>
+<p class="text-[10px] text-on-surface-variant font-bold">UZS</p>
+</div>
+<div class="p-md rounded-2xl bg-primary-container/10 border border-primary-container/20">
+<p class="font-label-md text-label-md text-primary mb-xs">Oxirgi tashrif</p>
+<p class="font-title-lg text-title-lg text-primary font-bold">Bugun</p>
+<p class="font-label-md text-label-md text-primary/80">Soat 14:20</p>
+</div>
+</div>
+</div>
+<!-- Favorite Dishes Card -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container-lowest rounded-[24px] p-lg shadow-sm border border-outline-variant/30 flex flex-col">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">favorite</span>
+                        Sevimli taomlar
+                    </h3>
+<div class="space-y-sm flex-1">
+<div class="flex items-center gap-md p-xs pr-md rounded-2xl hover:bg-surface-container transition-colors group">
+<img class="w-14 h-14 rounded-xl object-cover shadow-sm group-hover:scale-105 transition-transform" data-alt="A close-up shot of a gourmet traditional Uzbek Plov, featuring glistening rice, tender meat, and colorful carrots, presented in a minimalist high-end restaurant style. Warm, appetizing lighting with vibrant orange tones. 8k resolution, food commercial photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEb99Qg1pdgcxYkHa9enP-zrKNyPlDgQ1HEunRYaX8H3Mc7Ktlnm3fdlwilmFC1L46iA0_QT3KtYzjlB6dDOtg6g4FdUC1W-I1B7JqUogwYWzkKjMw3Tqevj55g5_a97TKK0tbUNHi6r8HomZV6tQ5xK7yMP7HYgt0qukhXna7ZHVzBci5q400w3GNWrShgf7TvMqm-ucoqkJYt4D-NhxMMZpIwOH3sEyHpwXAHl4Df9bCp-zIxHfdA_KtpYhLPnjW8EW2drxlW-Ff">
+<div class="flex-1">
+<p class="font-title-md text-title-md text-on-surface">Osh (Plov)</p>
+<p class="font-label-md text-label-md text-on-surface-variant">18 marta buyurtma</p>
+</div>
+<span class="material-symbols-outlined text-primary opacity-30 group-hover:opacity-100 transition-opacity">trending_up</span>
+</div>
+<div class="flex items-center gap-md p-xs pr-md rounded-2xl hover:bg-surface-container transition-colors group">
+<img class="w-14 h-14 rounded-xl object-cover shadow-sm group-hover:scale-105 transition-transform" data-alt="A delicious grilled beef shashlik with fresh onion rings and herbs on a high-end ceramic plate. Minimalist presentation, studio lighting, part of a premium restaurant branding series. Vibrant colors, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrAh1_NFDwLpQXvacRki8fOcnguqjVoUXGzpMgSct0zsmkYHtgs8DGB71te3Vw87XQZsSVeWHFa6ytDkJtA1oF5c56K9M6CdcBazpRNi5V3_vERb6OSh-M4Jfv87uRWOJnK5JHXRWOxuwtMjcJmnQE7lTM6VJMrwmN40HZWa8RvjIQlt0vpIiuNSantqoPjbKtfvKJescT7iV-kuUiZY-1lw9NMkIY5rKlm3zeSNyXiW5CoQ69ggb6fVIwaoxJQedGfrfZjlcRPlVZ">
+<div class="flex-1">
+<p class="font-title-md text-title-md text-on-surface">Mol go'shti shashlik</p>
+<p class="font-label-md text-label-md text-on-surface-variant">12 marta buyurtma</p>
+</div>
+</div>
+<div class="flex items-center gap-md p-xs pr-md rounded-2xl hover:bg-surface-container transition-colors group">
+<img class="w-14 h-14 rounded-xl object-cover shadow-sm group-hover:scale-105 transition-transform" data-alt="Freshly baked hot Uzbek flatbread (Non) with beautiful patterns on top, Steam rising slightly, warm lighting, rustic yet premium feel. Neutral background with orange accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA2yBa_KO0MrQDpMS1UCv7XKrpY-GXcjPFSLpneoOfjYvLc26YK4zzwh18dAiq4kF6srnieJUhqm0qoOvwZ_8TLuixF5ZmpczuPsckSSx9bZGIoP95C8URQTiBihn7urq7FOmqHC5mQJiEY-dQ9t7II8myENzTBns0ugJGjTi_oHFSCwIbp3UQb4ioF9sbAuo2RBAajCkwrWQcnm7KM3mpU9g29TbjSp66eIMHapOFy1ArpPgT9XdssRJ0PNStL6OogsyfjrRrbkjL">
+<div class="flex-1">
+<p class="font-title-md text-title-md text-on-surface">Issiq non</p>
+<p class="font-label-md text-label-md text-on-surface-variant">11 marta buyurtma</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Order History Table Card -->
+<div class="col-span-12 lg:col-span-9 bg-surface-container-lowest rounded-[24px] shadow-sm border border-outline-variant/30 overflow-hidden">
+<div class="p-lg flex justify-between items-center border-b border-outline-variant/20">
+<h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">history</span>
+                            Buyurtmalar tarixi
+                        </h3>
+<button class="text-primary font-label-lg text-label-lg hover:underline transition-all">Barchasini ko'rish</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">ID</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Sana</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Stol</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Elementlar</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider text-right">Summa</th>
+<th class="px-lg py-md font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider text-center">Holat</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md font-title-md text-title-md">#ORD-4581</td>
+<td class="px-lg py-md font-body-md text-body-md">24 May, 14:20</td>
+<td class="px-lg py-md font-body-md text-body-md">Table 12</td>
+<td class="px-lg py-md font-body-md text-body-md">Osh, Salat, Choy...</td>
+<td class="px-lg py-md font-title-md text-title-md text-right">245,000</td>
+<td class="px-lg py-md text-center">
+<span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase">To'langan</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md font-title-md text-title-md">#ORD-4520</td>
+<td class="px-lg py-md font-body-md text-body-md">22 May, 19:45</td>
+<td class="px-lg py-md font-body-md text-body-md">VIP 02</td>
+<td class="px-lg py-md font-body-md text-body-md">Steyk, Sharbat...</td>
+<td class="px-lg py-md font-title-md text-title-md text-right">890,000</td>
+<td class="px-lg py-md text-center">
+<span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-bold uppercase">To'langan</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-lg py-md font-title-md text-title-md">#ORD-4491</td>
+<td class="px-lg py-md font-body-md text-body-md">18 May, 12:15</td>
+<td class="px-lg py-md font-body-md text-body-md">Table 05</td>
+<td class="px-lg py-md font-body-md text-body-md">Lag'mon, Qayloq...</td>
+<td class="px-lg py-md font-title-md text-title-md text-right">156,000</td>
+<td class="px-lg py-md text-center">
+<span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-[10px] font-bold uppercase">Kutilmoqda</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Notes Card -->
+<div class="col-span-12 lg:col-span-3 bg-surface-container-lowest rounded-[24px] p-lg shadow-sm border border-outline-variant/30 flex flex-col">
+<h3 class="font-title-lg text-title-lg text-on-surface mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">sticky_note_2</span>
+                        Eslatmalar
+                    </h3>
+<div class="space-y-md flex-1">
+<div class="p-md rounded-2xl bg-primary-fixed/20 border-l-4 border-primary">
+<p class="font-body-md text-body-md text-on-surface italic">"Piyozni yoqtirmaydi, barcha taomlardan chiqarib tashlang."</p>
+</div>
+<div class="p-md rounded-2xl bg-surface-container border border-outline-variant/20">
+<p class="font-body-md text-body-md text-on-surface">"Har doim deraza yonidagi stolni afzal ko'radi."</p>
+</div>
+<div class="p-md rounded-2xl bg-surface-container border border-outline-variant/20">
+<p class="font-body-md text-body-md text-on-surface">"Muzsiz ichimliklar."</p>
+</div>
+</div>
+<button class="mt-lg w-full py-md border-2 border-dashed border-outline-variant rounded-2xl text-on-surface-variant font-label-lg text-label-lg hover:border-primary-container hover:text-primary transition-all">
+                        + Yangi eslatma
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple micro-interaction for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('scale-95'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('scale-95'));
+            btn.addEventListener('mouseleave', () => btn.classList.remove('scale-95'));
+        });
+
+        // Search bar interaction
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-105');
+            searchInput.parentElement.classList.add('shadow-md');
+            searchInput.parentElement.style.transition = 'all 0.3s ease';
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-105');
+            searchInput.parentElement.classList.remove('shadow-md');
+        });
+    </script>
+</body></html>

@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang='uz'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Safranbonu POS - Xodimlar Boshqaruvi</title>
+<script src='https://cdn.tailwindcss.com?plugins=forms,container-queries'></script>
+<link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap' rel='stylesheet'>
+<link href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap' rel='stylesheet'>
+<style>
+  .glass-panel {background: rgba(255,255,255,0.7);backdrop-filter: blur(12px);border:1px solid rgba(224,192,175,0.3);}
+</style>
+</head>
+<body class='bg-surface font-body-md text-on-background overflow-hidden flex min-h-screen'>
+<aside></aside>
+<main class='ml-64 flex-1 flex flex-col p-lg gap-lg overflow-y-auto'>
+<header></header>
+<section class='flex justify-between items-center mb-lg'>
+<h2 class='font-headline-lg text-headline-lg text-primary'>Xodimlar Boshqaruvi</h2>
+<button class='bg-primary text-on-primary px-lg py-sm rounded-xl' onclick='openEmployeeModal()'>Yangi Xodim</button>
+</section>
+<div class='glass-panel p-lg rounded-xl shadow-lg'>
+<table class='w-full text-left'>
+<thead class='bg-surface-container-high'>
+<tr><th class='p-2'>Ism</th><th class='p-2'>Rol</th><th class='p-2'>Telefon</th><th class='p-2'>Maosh</th><th class='p-2'>Harakat</th></tr>
+</thead>
+<tbody id='employees-tbody'></tbody>
+</table>
+</div>
+</main>
+<!-- Employee Modal -->
+<div id='employee-modal' class='fixed inset-0 bg-black/40 flex items-center justify-center hidden backdrop-blur-sm'>
+<div class='bg-white w-full max-w-md rounded-3xl p-xl'>
+<h3 class='font-headline-md mb-md'>Yangi Xodim</h3>
+<form id='employee-form' class='space-y-4' onsubmit='saveEmployee(event)'>
+<div><label class='block mb-1'>Ism</label><input id='emp-name' class='w-full border rounded p-2' required></div>
+<div><label class='block mb-1'>Rol</label><input id='emp-role' class='w-full border rounded p-2' required></div>
+<div><label class='block mb-1'>Telefon</label><input id='emp-phone' class='w-full border rounded p-2' required></div>
+<div><label class='block mb-1'>Maosh (UZS)</label><input id='emp-salary' type='number' class='w-full border rounded p-2' required></div>
+<button type='submit' class='w-full bg-primary text-on-primary py-2 rounded'>Saqlash</button>
+</form>
+<button class='absolute top-2 right-2' onclick='closeEmployeeModal()'>
+<span class='material-symbols-outlined'>close</span>
+</button>
+</div>
+</div>
+<script src='db.js'></script>
+<script src='shared.js'></script>
+<script>
+function renderEmployees(){
+ const tbody=document.getElementById('employees-tbody');
+ const emps=window.db.getEmployees();
+ tbody.innerHTML='';
+ emps.forEach(e=>{
+   const tr=document.createElement('tr');
+   tr.innerHTML=<td class='p-2'></td>
+                 <td class='p-2'></td>
+                 <td class='p-2'></td>
+                 <td class='p-2'> UZS</td>
+                 <td class='p-2'>
+                   <button class='text-primary' onclick= editEmployee ${e.id} ><span class='material-symbols-outlined'>edit</span></button>
+                   <button class='text-error' onclick= deleteEmployee ${e.id} ><span class='material-symbols-outlined'>delete</span></button>
+                 </td>;
+   tbody.appendChild(tr);
+ });
+}
+function openEmployeeModal(){
+ document.getElementById('employee-modal').classList.remove('hidden');
+ document.getElementById('employee-form').reset();
+ document.getElementById('employee-form').onsubmit=saveEmployee;
+}
+function closeEmployeeModal(){
+ document.getElementById('employee-modal').classList.add('hidden');
+}
+function saveEmployee(e){
+ e.preventDefault();
+ const name=document.getElementById('emp-name').value.trim();
+ const role=document.getElementById('emp-role').value.trim();
+ const phone=document.getElementById('emp-phone').value.trim();
+ const salary=parseInt(document.getElementById('emp-salary').value)||0;
+ const emp={name,role,phone,salary};
+ // if editing, id will be stored in dataset
+ const modal=document.getElementById('employee-modal');
+ const editId=modal.getAttribute('data-edit-id');
+ if(editId){ emp.id=editId; }
+ window.db.saveEmployee(emp);
+ closeEmployeeModal();
+ renderEmployees();
+}
+function editEmployee(id){
+ const emp=window.db.getEmployees().find(x=>x.id===id);
+ if(!emp) return;
+ const modal=document.getElementById('employee-modal');
+ modal.classList.remove('hidden');
+ modal.setAttribute('data-edit-id',id);
+ document.getElementById('emp-name').value=emp.name||'';
+ document.getElementById('emp-role').value=emp.role||'';
+ document.getElementById('emp-phone').value=emp.phone||'';
+ document.getElementById('emp-salary').value=emp.salary||'';
+}
+function deleteEmployee(id){
+ window.db.deleteEmployee(id);
+ renderEmployees();
+}
+window.addEventListener('DOMContentLoaded',renderEmployees);
+</script>
+</body>
+</html>

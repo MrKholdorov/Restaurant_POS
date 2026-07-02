@@ -1,0 +1,346 @@
+<!DOCTYPE html><html lang="uz"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Safranbonu POS - Xodim Qo'shish</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#753400",
+                        "on-secondary-container": "#00355c",
+                        "tertiary-fixed": "#ffd6fe",
+                        "tertiary-container": "#e670f7",
+                        "surface-container": "#f0eded",
+                        "secondary-container": "#33a0fd",
+                        "surface": "#fcf9f8",
+                        "primary": "#994700",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#00497d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7b008f",
+                        "on-primary-fixed": "#321200",
+                        "inverse-surface": "#303030",
+                        "tertiary": "#9a25ae",
+                        "on-background": "#1b1b1c",
+                        "primary-fixed-dim": "#ffb68b",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#001d36",
+                        "surface-container-high": "#eae7e7",
+                        "primary-fixed": "#ffdbc8",
+                        "secondary": "#0061a4",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#994700",
+                        "on-tertiary-container": "#620072",
+                        "on-surface-variant": "#584235",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f3f0ef",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f6f3f2",
+                        "on-primary-container": "#5c2800",
+                        "surface-dim": "#dcd9d9",
+                        "on-tertiary-fixed": "#35003f",
+                        "surface-container-highest": "#e5e2e1",
+                        "primary-container": "#ff7a00",
+                        "surface-bright": "#fcf9f8",
+                        "secondary-fixed": "#d1e4ff",
+                        "outline": "#8c7263",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1b1b1c",
+                        "background": "#fcf9f8",
+                        "inverse-primary": "#ffb68b",
+                        "tertiary-fixed-dim": "#f9abff",
+                        "secondary-fixed-dim": "#9ecaff",
+                        "outline-variant": "#e0c0af",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "20px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "24px",
+                        "md": "16px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "xl": "32px",
+                        "margin": "24px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "title-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #fcf9f8; }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #e0c0af; border-radius: 10px; }
+
+        .form-focus-ring:focus-within {
+            box-shadow: 0 0 0 2px #ff7a00;
+        }
+
+        /* Toggle Switch Animation */
+        .toggle-dot { transition: all 0.3s ease-in-out; }
+        input:checked ~ .toggle-dot { transform: translateX(100%); background-color: #ffffff; }
+        input:checked ~ .toggle-bg { background-color: #994700; }
+    </style>
+</head>
+<body class="bg-background text-on-surface overflow-hidden">
+<!-- Shell Background Layout (Simulated Dashboard) -->
+<div class="flex h-screen w-full blur-sm">
+<!-- Predicted SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col py-lg border-r border-outline-variant bg-surface-container-low w-64">
+<div class="px-md mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Safranbonu POS</h1>
+<p class="text-on-surface-variant font-label-md">Premium Management</p>
+</div>
+<nav class="flex-1 flex flex-col gap-xs">
+<div class="flex items-center gap-md text-on-surface-variant hover:bg-surface-variant rounded-xl px-md py-sm mx-sm">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</div>
+<div class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-xl px-md py-sm mx-sm">
+<span class="material-symbols-outlined">badge</span>
+<span class="font-label-lg text-label-lg">Employees</span>
+</div>
+<!-- ... other items ... -->
+</nav>
+</aside>
+<!-- Main Content Area Placeholder -->
+<main class="ml-64 flex-1 p-lg bg-surface">
+<div class="flex justify-between items-center mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Xodimlar Boshqaruvi</h2>
+<button class="bg-primary text-white px-lg py-md rounded-2xl font-title-md flex items-center gap-md shadow-md">
+<span class="material-symbols-outlined">add</span>
+                    Xodim qo'shish
+                </button>
+</div>
+<div class="grid grid-cols-4 gap-lg">
+<div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border border-outline-variant h-40"></div>
+<div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border border-outline-variant h-40"></div>
+<div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border border-outline-variant h-40"></div>
+<div class="bg-surface-container-lowest p-md rounded-2xl shadow-sm border border-outline-variant h-40"></div>
+</div>
+</main>
+</div>
+<!-- Modal Overlay -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-[2px] transition-opacity duration-300" id="modal-overlay">
+<!-- Modal Content -->
+<div class="bg-surface-container-lowest w-full max-w-[560px] max-h-[921px] rounded-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
+<!-- Header -->
+<header class="flex items-center justify-between px-lg py-md border-b border-outline-variant bg-surface-bright">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">person_add</span>
+</div>
+<div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Yangi xodim qo'shish</h2>
+<p class="font-label-md text-on-surface-variant">Tizim uchun yangi foydalanuvchi ma'lumotlarini kiriting</p>
+</div>
+</div>
+<button class="w-10 h-10 rounded-full hover:bg-surface-variant flex items-center justify-center text-on-surface-variant transition-colors" onclick="closeModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</header>
+<!-- Form Body -->
+<div class="flex-1 overflow-y-auto px-lg py-lg custom-scrollbar">
+<form class="space-y-lg" id="employeeForm">
+<!-- Photo Upload Area -->
+<div class="flex flex-col items-center justify-center mb-xl">
+<div class="relative group cursor-pointer">
+<div class="w-32 h-32 rounded-2xl bg-surface-container-high border-2 border-dashed border-outline-variant flex flex-col items-center justify-center overflow-hidden transition-all hover:border-primary group-hover:bg-primary-fixed">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant mb-xs">add_a_photo</span>
+<span class="font-label-md text-on-surface-variant">Surat yuklash</span>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-sm">edit</span>
+</div>
+<input accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" type="file">
+</div>
+</div>
+<!-- Grid Layout for Inputs -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Full Name -->
+<div class="md:col-span-2">
+<label class="block font-label-lg text-label-lg text-on-surface-variant mb-xs px-sm">Ism-sharif</label>
+<div class="flex items-center bg-surface-container rounded-2xl px-md py-sm border border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-sm">person</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md text-on-surface" placeholder="Masalan: Alisher Navoiy" type="text">
+</div>
+</div>
+<!-- Role Selection -->
+<div>
+<label class="block font-label-lg text-label-lg text-on-surface-variant mb-xs px-sm">Lavozim</label>
+<div class="relative">
+<div class="flex items-center bg-surface-container rounded-2xl px-md py-sm border border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-sm">assignment_ind</span>
+<select class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md text-on-surface appearance-none">
+<option disabled="" selected="" value="">Tanlang</option>
+<option>Admin</option>
+<option>Menejer</option>
+<option>Ofitsiant</option>
+<option>Oshpaz</option>
+<option>Kassir</option>
+</select>
+<span class="material-symbols-outlined text-on-surface-variant absolute right-3 pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Phone Number -->
+<div>
+<label class="block font-label-lg text-label-lg text-on-surface-variant mb-xs px-sm">Telefon raqami</label>
+<div class="flex items-center bg-surface-container rounded-2xl px-md py-sm border border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-sm">call</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md text-on-surface" placeholder="+998 90 123 45 67" type="tel">
+</div>
+</div>
+<!-- PIN Code -->
+<div>
+<label class="block font-label-lg text-label-lg text-on-surface-variant mb-xs px-sm">PIN-kod (Tizimga kirish)</label>
+<div class="flex items-center bg-surface-container rounded-2xl px-md py-sm border border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-sm">lock</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md text-on-surface tracking-widest" maxlength="4" placeholder="****" type="password">
+</div>
+</div>
+<!-- Salary -->
+<div>
+<label class="block font-label-lg text-label-lg text-on-surface-variant mb-xs px-sm">Ish haqi (UZS)</label>
+<div class="flex items-center bg-surface-container rounded-2xl px-md py-sm border border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-sm">payments</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md text-on-surface" placeholder="5,000,000" type="text">
+</div>
+</div>
+<!-- Branch Selection -->
+<div class="md:col-span-2">
+<label class="block font-label-lg text-label-lg text-on-surface-variant mb-xs px-sm">Filial</label>
+<div class="relative">
+<div class="flex items-center bg-surface-container rounded-2xl px-md py-sm border border-transparent focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-sm">store</span>
+<select class="bg-transparent border-none focus:ring-0 w-full text-body-md font-body-md text-on-surface appearance-none">
+<option>Markaziy filial (Safranbonu Main)</option>
+<option>Chilonzor filiali</option>
+<option>Yunusobod filiali</option>
+</select>
+<span class="material-symbols-outlined text-on-surface-variant absolute right-3 pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Toggle Status -->
+<div class="md:col-span-2 flex items-center justify-between p-md bg-surface-container-low rounded-2xl mt-base">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Holati: Faol</p>
+<p class="font-label-md text-on-surface-variant">Xodim tizimdan foydalana oladi</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox">
+<div class="w-12 h-7 bg-surface-variant peer-focus:outline-none rounded-full toggle-bg transition-all"></div>
+<div class="absolute left-1 top-1 bg-on-surface-variant w-5 h-5 rounded-full toggle-dot shadow-sm"></div>
+</label>
+</div>
+</div>
+</form>
+</div>
+<!-- Footer Actions -->
+<footer class="px-lg py-lg bg-surface-bright flex items-center justify-end gap-md border-t border-outline-variant">
+<button class="px-xl py-sm rounded-2xl text-on-surface font-title-md hover:bg-surface-variant transition-colors" onclick="closeModal()">
+                    Bekor qilish
+                </button>
+<button class="px-xl py-sm rounded-2xl bg-primary text-white font-title-md shadow-lg shadow-primary/20 hover:bg-on-primary-fixed-variant active:scale-95 transition-all flex items-center gap-md" onclick="saveEmployee()">
+<span class="material-symbols-outlined text-sm">check</span>
+                    Saqlash
+                </button>
+</footer>
+</div>
+</div>
+<script>
+        function closeModal() {
+            const overlay = document.getElementById('modal-overlay');
+            const modal = overlay.querySelector('div');
+            
+            modal.classList.remove('animate-in', 'fade-in', 'zoom-in');
+            modal.classList.add('animate-out', 'fade-out', 'zoom-out', 'duration-200');
+            overlay.classList.add('opacity-0');
+            
+            setTimeout(() => {
+                // In a real app, you would handle navigation or removal here
+                alert('Modal yopildi. Xodimlar ro\'yxatiga qaytilmoqda.');
+            }, 200);
+        }
+
+        function saveEmployee() {
+            const btn = event.currentTarget;
+            const originalContent = btn.innerHTML;
+            
+            // UI Feedback
+            btn.innerHTML = `
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Saqlanmoqda...
+            `;
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = `<span class="material-symbols-outlined">done_all</span> Muvaffaqiyatli!`;
+                btn.classList.replace('bg-primary', 'bg-green-600');
+                
+                setTimeout(() => {
+                    closeModal();
+                }, 1000);
+            }, 1500);
+        }
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Close on overlay click
+        document.getElementById('modal-overlay').addEventListener('click', (e) => {
+            if (e.target.id === 'modal-overlay') closeModal();
+        });
+    </script>
+</body></html>
