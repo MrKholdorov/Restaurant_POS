@@ -518,25 +518,57 @@
         const item = currentOrder.items.find(it => it.id === prodId);
         if (!item) return;
 
+        if (delta < 0) {
+            const user = window.db.getCurrentSession();
+            if (user && user.role === "Ofitsiant") {
+                const pin = prompt("Miqdorni kamaytirish uchun Admin PIN kodini kiriting:");
+                const admins = window.db.getEmployees().filter(e => e.role === "Admin" || e.role === "Kassir");
+                if (!admins.some(a => a.pin === pin)) {
+                    alert("PIN kod xato! Amaliyot taqiqlandi.");
+                    return;
+                }
+            }
+        }
+
         item.qty += delta;
         if (item.qty <= 0) {
             currentOrder.items = currentOrder.items.filter(it => it.id !== prodId);
         }
 
-        saveCurrentOrderState();
+        if (currentOrder.items.length === 0) {
+            if (currentOrder.id) {
+                window.db.deleteOrder(currentOrder.id);
+                window.db.updateTableStatus(activeTableId, "Bo'sh", null);
+                currentOrder.id = null;
+            }
+            renderTables();
+        } else {
+            saveCurrentOrderState();
+        }
+        
         renderCart();
     }
 
     function clearCart() {
+        const user = window.db.getCurrentSession();
+        if (user && user.role === "Ofitsiant") {
+            const pin = prompt("Savatni tozalash uchun Admin PIN kodini kiriting:");
+            const admins = window.db.getEmployees().filter(e => e.role === "Admin" || e.role === "Kassir");
+            if (!admins.some(a => a.pin === pin)) {
+                alert("PIN kod xato! Amaliyot taqiqlandi.");
+                return;
+            }
+        }
+
         if (confirm("Haqiqatan ham savatni tozalamoqchimisiz?")) {
             currentOrder.items = [];
             currentOrder.customerId = null;
             
             // Delete order from database and mark table free
             if (currentOrder.id) {
-                const orders = window.db.getOrders().filter(o => o.id !== currentOrder.id);
-                localStorage.setItem("safranbonu_orders", JSON.stringify(orders));
+                window.db.deleteOrder(currentOrder.id);
                 window.db.updateTableStatus(activeTableId, "Bo'sh", null);
+                currentOrder.id = null;
             }
             
             selectTable(activeTableId);

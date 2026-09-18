@@ -447,6 +447,16 @@
         // Release Table
         window.db.updateTableStatus(order.tableId, "Bo'sh", null);
 
+        // Deduct Inventory Stock
+        order.items.forEach(item => {
+            const products = window.db.getProducts();
+            const prod = products.find(p => p.id === item.id);
+            if (prod) {
+                prod.stock = Math.max(0, prod.stock - item.qty);
+                window.db.saveProduct(prod);
+            }
+        });
+
         // Add Loyalty Points if customer exists
         if (order.customerId) {
             const customers = window.db.getCustomers();

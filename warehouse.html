@@ -146,6 +146,14 @@
     <!-- TopNavBar -->
     <header></header>
 
+    <div id="low-stock-banner" class="hidden bg-error-container text-on-error-container p-md rounded-xl flex items-center justify-between mt-sm">
+        <div class="flex items-center gap-sm">
+            <span class="material-symbols-outlined">warning</span>
+            <span class="font-title-md font-bold">Diqqat! Omboringizda kam qolgan (< 50 dona) mahsulotlar mavjud.</span>
+        </div>
+        <button class="bg-black/10 hover:bg-black/20 px-md py-sm rounded-lg font-label-lg transition-colors" onclick="selectTab('LowStock')">Ko'rish</button>
+    </div>
+
     <!-- Inventory Dashboard Header -->
     <section class="flex justify-between items-end mt-sm">
         <div>
@@ -311,6 +319,12 @@
         document.getElementById("stat-total-qty").innerText = `${totalQty} dona`;
         document.getElementById("stat-total-value").innerText = new Intl.NumberFormat('uz-UZ').format(totalValue) + " UZS";
 
+        const banner = document.getElementById("low-stock-banner");
+        if(banner) {
+            if (lowStock > 0) banner.classList.remove("hidden");
+            else banner.classList.add("hidden");
+        }
+
         // 2. Render Tabs
         const tabsContainer = document.getElementById("category-tabs");
         let tabsHtml = `
@@ -354,7 +368,9 @@
         const searchInput = document.querySelector('input[placeholder="Mahsulot qidirish..."]');
         const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
 
-        if (activeCategoryTab !== "All") {
+        if (activeCategoryTab === "LowStock") {
+            products = products.filter(p => p.stock < 50);
+        } else if (activeCategoryTab !== "All") {
             products = products.filter(p => p.categoryId === activeCategoryTab);
         }
 

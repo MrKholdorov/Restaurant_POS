@@ -30,12 +30,12 @@ function initMockDatabase() {
         setDB("products", [
             { id: "prod-1", name: "Osh (Choyxona)", price: 45000, categoryId: "cat-1", stock: 150, unit: "pors", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCVoxJ_IT8izGZ7uqU5w3Dc8mgivez4Baf3GJb5OhPLbCo4cBrmRgEmSWWH-HuhHiK6v3kUzKMzDNkqFUoqmXRgcvW-G5lGIEMKFgU5qtxRJsEeodptPnhU5lV_LFDMnJHEj-hmcObtASAL67NofzI6shrWZunoHu40RMjFTPfTYexG1SzmxrySqCmrEJXhCVTDrIIXthppAdol8CTMacQEiRLGA4D3VV8SdHMGEseufWQFZJYWFytlaHiT6aDwCMdKyn8On_sZW3Az" },
             { id: "prod-2", name: "Qo'y qovurdoq", price: 65000, categoryId: "cat-1", stock: 60, unit: "pors", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWYEi9xlHMWuK4X0TjlzmvNNa5GScS2ZoAVuC3Q8eQDa115YmAkstr6OHOzoiH9BNHklbOCh7ZiMXzfc_Un-eeEatO66SPT2QivuC-wg2-Qrfr2_a2Y8Wf47nXQ16PMXATOA84ofqfGJAmO9HzxUpr7dbA4T8nGLYSoBDrAG9y-mR6eEVKyd3ruhouuwqelTV23I1xrirc9P4lZQ1zKBtMGCnFZNk7rzifluLWzK9NGo-fgjCrhVMVx0mTNmY6jsyiw-MbruoyJcY6" },
-            { id: "prod-3", name: "Manti (Katta)", price: 8000, categoryId: "cat-1", stock: 350, unit: "dona", image: "" },
+            { id: "prod-3", name: "Manti (Katta)", price: 8000, categoryId: "cat-1", stock: 350, unit: "dona", image: "https://images.unsplash.com/photo-1541529086526-db283c563270?w=500&auto=format&fit=crop&q=60" },
             { id: "prod-4", name: "Achchiq-chuchuk", price: 15000, categoryId: "cat-2", stock: 120, unit: "pors", image: "https://lh3.googleusercontent.com/aida-public/AB6AXuCYvp5bUS_uIyZ0VtNnrKXzGmEKKFeQ0FrCkkgg-V1aSSsq358dl7lUyuviM58R-VKQOWtfr7J0bktoTXShgcguY1io6_aTFJA_Dyet01jYf-JsZSePlZX7Wm2WI6MguLsU-vGcrK428MMNfx5phpkZ4CLTHaVAjbENhSTnwDZusP51YwizX9Ij_NwM1aZhT9RUiRaZ6J-nsxaJMH2TZnqQ3O4IBRH5voEpFYOCR7xNpAX-Nu_eEaEuyPmVsECkTVUkJxufSO2dYnUQ" },
-            { id: "prod-5", name: "Bahor salati", price: 18000, categoryId: "cat-2", stock: 80, unit: "pors", image: "" },
-            { id: "prod-6", name: "Ko'k choy", price: 5000, categoryId: "cat-3", stock: 400, unit: "choynak", image: "" },
-            { id: "prod-7", name: "Coca-Cola 1.5L", price: 15000, categoryId: "cat-3", stock: 180, unit: "dona", image: "" },
-            { id: "prod-8", name: "Medovik torti", price: 25000, categoryId: "cat-4", stock: 35, unit: "dona", image: "" }
+            { id: "prod-5", name: "Bahor salati", price: 18000, categoryId: "cat-2", stock: 80, unit: "pors", image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500&auto=format&fit=crop&q=60" },
+            { id: "prod-6", name: "Ko'k choy", price: 5000, categoryId: "cat-3", stock: 400, unit: "choynak", image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500&auto=format&fit=crop&q=60" },
+            { id: "prod-7", name: "Coca-Cola 1.5L", price: 15000, categoryId: "cat-3", stock: 180, unit: "dona", image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?w=500&auto=format&fit=crop&q=60" },
+            { id: "prod-8", name: "Medovik torti", price: 25000, categoryId: "cat-4", stock: 35, unit: "dona", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500&auto=format&fit=crop&q=60" }
         ]);
 
         // 3. Tables
@@ -262,6 +262,10 @@ const db = {
         }
         setDB("orders", orders);
         return order;
+    },
+    deleteOrder: (id) => {
+        const orders = getDB("orders").filter(o => o.id !== id);
+        setDB("orders", orders);
     },
     getActiveOrderForTable: (tableId) => {
         return getDB("orders").find(o => o.tableId === tableId && o.status === "Faol");

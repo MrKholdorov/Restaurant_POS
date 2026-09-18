@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang='uz'>
 <head>
 <meta charset='utf-8'>
@@ -53,14 +53,14 @@ function renderEmployees(){
  tbody.innerHTML='';
  emps.forEach(e=>{
    const tr=document.createElement('tr');
-   tr.innerHTML=<td class='p-2'></td>
-                 <td class='p-2'></td>
-                 <td class='p-2'></td>
-                 <td class='p-2'> UZS</td>
-                 <td class='p-2'>
-                   <button class='text-primary' onclick= editEmployee ${e.id} ><span class='material-symbols-outlined'>edit</span></button>
-                   <button class='text-error' onclick= deleteEmployee ${e.id} ><span class='material-symbols-outlined'>delete</span></button>
-                 </td>;
+   tr.innerHTML=`<td class='p-2'>${e.name}</td>
+                 <td class='p-2'>${e.role}</td>
+                 <td class='p-2'>${e.phone}</td>
+                 <td class='p-2'>${e.salary}</td>
+                 <td class='p-2 flex gap-sm'>
+                   <button class='text-primary hover:bg-primary/10 p-1 rounded-full' onclick='editEmployee("${e.id}")'><span class='material-symbols-outlined'>edit</span></button>
+                   <button class='text-error hover:bg-error/10 p-1 rounded-full' onclick='deleteEmployee("${e.id}")'><span class='material-symbols-outlined'>delete</span></button>
+                 </td>`;
    tbody.appendChild(tr);
  });
 }
