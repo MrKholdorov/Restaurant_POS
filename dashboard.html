@@ -113,7 +113,7 @@
             const dayOrders = orders.filter(o=> o.date===d.toISOString().split('T')[0] && o.status==='Yakunlandi');
             data.push(dayOrders.reduce((s,o)=>s+o.amount,0));
         }
-        new Chart(ctx,{type:'line',data:{labels,datasets:[{label:'Daromad',data,borderColor:'#994700',backgroundColor:'rgba(153,71,0,0.2)',tension:0.4,fill:true}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}});
+        new Chart(ctx,{type:'line',data:{labels,datasets:[{label:'Daromad',data,borderColor:'#994700',backgroundColor:'rgba(153,71,0,0.2)',tension:0.4,fill:true}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}});
     </script>
 </body>
 </html>
