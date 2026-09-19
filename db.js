@@ -211,6 +211,10 @@ const db = {
         setDB("customers", custs);
         return cust;
     },
+    deleteCustomer: (id) => {
+        const custs = getDB("customers").filter(c => c.id !== id);
+        setDB("customers", custs);
+    },
 
     getEmployees: () => getDB("employees"),
     saveEmployee: (emp) => {
@@ -232,12 +236,49 @@ const db = {
         setDB("employees", emps);
     },
 
+    getExpenseCategories: () => {
+        let cats = getDB("expenseCategories");
+        if (!cats || cats.length === 0) {
+            cats = [
+                { id: "ecat-1", name: "Oziq-ovqat va masalliqlar" },
+                { id: "ecat-2", name: "Xodimlar maoshi" },
+                { id: "ecat-3", name: "Kommunal to'lovlar" },
+                { id: "ecat-4", name: "Ijara" },
+                { id: "ecat-5", name: "Soliqlar va yig'imlar" },
+                { id: "ecat-6", name: "Boshqa xarajatlar" }
+            ];
+            setDB("expenseCategories", cats);
+        }
+        return cats;
+    },
+    saveExpenseCategory: (cat) => {
+        const cats = db.getExpenseCategories();
+        if (cat.id) {
+            const index = cats.findIndex(c => c.id === cat.id);
+            if (index !== -1) cats[index] = cat;
+        } else {
+            cat.id = "ecat-" + Date.now();
+            cats.push(cat);
+        }
+        setDB("expenseCategories", cats);
+        return cat;
+    },
+    deleteExpenseCategory: (id) => {
+        const cats = db.getExpenseCategories().filter(c => c.id !== id);
+        setDB("expenseCategories", cats);
+    },
+
     getExpenses: () => getDB("expenses"),
     saveExpense: (exp) => {
         const exps = getDB("expenses");
-        exp.id = "exp-" + Date.now();
-        if (!exp.date) exp.date = new Date().toISOString().split('T')[0];
-        exps.push(exp);
+        if (exp.id) {
+            const index = exps.findIndex(e => e.id === exp.id);
+            if (index !== -1) exps[index] = exp;
+        } else {
+            exp.id = "exp-" + Date.now();
+            if (!exp.date) exp.date = new Date().toISOString().split('T')[0];
+            exps.push(exp);
+        }
         setDB("expenses", exps);
         return exp;
     },

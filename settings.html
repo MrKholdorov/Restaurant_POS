@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safranbonu POS - Sozlamalar</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#994700",
+                        "primary-container": "#ff7a00",
+                        "surface": "#fcf9f8",
+                        "surface-variant": "#e5e2e1",
+                        "on-surface": "#1b1b1c",
+                        "on-surface-variant": "#584235"
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 192, 175, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface overflow-hidden flex min-h-screen">
+    <aside></aside>
+    <main class="ml-64 flex-1 flex flex-col p-lg gap-lg overflow-y-auto">
+        <header></header>
+        
+        <section class="flex justify-between items-end mt-sm">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">Sozlamalar</h2>
+                <p class="text-on-surface-variant font-body-lg">Tizim va moliya sozlamalari</p>
+            </div>
+            <div>
+                <button class="bg-primary text-white hover:bg-primary/90 px-xl py-md rounded-xl transition-colors font-semibold shadow-sm flex items-center gap-xs text-lg" onclick="saveAllSettings()">
+                    <span class="material-symbols-outlined">save</span> Saqlash
+                </button>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-lg mt-md">
+            <!-- Restaurant Info -->
+            <div class="glass-panel p-xl rounded-2xl shadow-sm border border-outline-variant/20">
+                <h3 class="font-title-lg font-bold mb-lg text-on-surface flex items-center gap-sm">
+                    <span class="material-symbols-outlined text-primary">store</span> Restoran Ma'lumotlari
+                </h3>
+                <div class="space-y-md">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Restoran nomi</label>
+                        <input type="text" id="set-rest-name" class="w-full border border-gray-300 rounded-lg p-sm outline-none focus:border-primary" placeholder="Masalan: Safranbonu">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Manzil</label>
+                        <input type="text" id="set-rest-address" class="w-full border border-gray-300 rounded-lg p-sm outline-none focus:border-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Telefon (Kvitansiya uchun)</label>
+                        <input type="text" id="set-rest-phone" class="w-full border border-gray-300 rounded-lg p-sm outline-none focus:border-primary">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Settings -->
+            <div class="glass-panel p-xl rounded-2xl shadow-sm border border-outline-variant/20">
+                <h3 class="font-title-lg font-bold mb-lg text-on-surface flex items-center gap-sm">
+                    <span class="material-symbols-outlined text-primary">request_quote</span> Moliyaviy Sozlamalar
+                </h3>
+                <div class="space-y-md">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">QQS (Soliq) foizi %</label>
+                        <input type="number" id="set-tax-percent" class="w-full border border-gray-300 rounded-lg p-sm outline-none focus:border-primary" placeholder="Masalan: 12">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Xizmat haqi foizi %</label>
+                        <input type="number" id="set-service-percent" class="w-full border border-gray-300 rounded-lg p-sm outline-none focus:border-primary" placeholder="Masalan: 10">
+                    </div>
+                </div>
+                <div class="mt-lg p-md bg-surface-variant/50 rounded-xl">
+                    <p class="text-sm text-on-surface-variant">Ushbu foizlar "Sotuv (POS)" bo'limida har bir yangi hisob (chek) ochilganda avtomatik ravishda umumiy summaga qo'shiladi.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification -->
+        <div id="toast" class="fixed bottom-10 right-10 bg-gray-800 text-white px-lg py-md rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-sm">
+            <span class="material-symbols-outlined text-green-400">check_circle</span>
+            <span class="font-semibold">Sozlamalar saqlandi!</span>
+        </div>
+    </main>
+
+    <script src="db.js"></script>
+    <script src="shared.js"></script>
+    <script>
+        function loadSettings() {
+            const settings = window.db.getSettings();
+            document.getElementById("set-rest-name").value = settings.restaurantName || "Safranbonu";
+            document.getElementById("set-rest-address").value = settings.address || "";
+            document.getElementById("set-rest-phone").value = settings.phone || "";
+            document.getElementById("set-tax-percent").value = settings.taxPercent || 0;
+            document.getElementById("set-service-percent").value = settings.servicePercent || 0;
+        }
+
+        function saveAllSettings() {
+            const settings = {
+                restaurantName: document.getElementById("set-rest-name").value.trim(),
+                address: document.getElementById("set-rest-address").value.trim(),
+                phone: document.getElementById("set-rest-phone").value.trim(),
+                taxPercent: parseFloat(document.getElementById("set-tax-percent").value) || 0,
+                servicePercent: parseFloat(document.getElementById("set-service-percent").value) || 0
+            };
+            
+            window.db.saveSettings(settings);
+            
+            // Show toast
+            const toast = document.getElementById("toast");
+            toast.classList.remove("translate-y-20", "opacity-0");
+            setTimeout(() => {
+                toast.classList.add("translate-y-20", "opacity-0");
+            }, 3000);
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            loadSettings();
+        });
+    </script>
+</body>
+</html>

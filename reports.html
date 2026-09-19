@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safranbonu POS - Hisobotlar</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#994700",
+                        "primary-container": "#ff7a00",
+                        "surface": "#fcf9f8",
+                        "surface-variant": "#e5e2e1",
+                        "on-surface": "#1b1b1c",
+                        "on-surface-variant": "#584235"
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 192, 175, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface overflow-hidden flex min-h-screen">
+    <aside></aside>
+    <main class="ml-64 flex-1 flex flex-col p-lg gap-lg overflow-y-auto">
+        <header></header>
+        
+        <section class="flex justify-between items-end mt-sm">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">Hisobotlar</h2>
+                <p class="text-on-surface-variant font-body-lg">Barcha sotuvlar tarixi va tahlili</p>
+            </div>
+            <div class="flex gap-md">
+                <input type="date" id="filter-date" class="border border-gray-300 rounded-lg p-sm outline-none focus:border-primary" onchange="renderReports()">
+                <button class="bg-surface-variant text-on-surface hover:bg-gray-300 px-lg py-sm rounded-xl transition-colors font-semibold shadow-sm flex items-center gap-xs" onclick="resetFilter()">
+                    <span class="material-symbols-outlined">restart_alt</span> Tozalash
+                </button>
+            </div>
+        </section>
+
+        <!-- Stats row -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+            <div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20">
+                <h3 class="font-label-lg text-on-surface-variant uppercase tracking-wider mb-xs">Tanlangan davr tushumi</h3>
+                <p class="font-headline-md font-bold text-primary" id="rep-total-revenue">0 UZS</p>
+            </div>
+            <div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20">
+                <h3 class="font-label-lg text-on-surface-variant uppercase tracking-wider mb-xs">Buyurtmalar soni</h3>
+                <p class="font-headline-md font-bold text-on-surface" id="rep-total-orders">0 ta</p>
+            </div>
+            <div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20">
+                <h3 class="font-label-lg text-on-surface-variant uppercase tracking-wider mb-xs">O'rtacha chek</h3>
+                <p class="font-headline-md font-bold text-on-surface" id="rep-avg-check">0 UZS</p>
+            </div>
+        </section>
+
+        <!-- Orders Table -->
+        <section class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden flex-1 flex flex-col">
+            <h3 class="font-title-lg font-bold mb-md text-on-surface">Buyurtmalar Tarixi</h3>
+            <div class="overflow-x-auto flex-1">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-surface-variant/30 border-y border-outline-variant/10">
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase">Sana</th>
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase">ID / Stol</th>
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase">Holat</th>
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase">To'lov turi</th>
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase text-right">Summa</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reports-table-body">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="db.js"></script>
+    <script src="shared.js"></script>
+    <script>
+        const formatCurrency = (val) => new Intl.NumberFormat('uz-UZ').format(val) + " UZS";
+
+        function resetFilter() {
+            document.getElementById("filter-date").value = "";
+            renderReports();
+        }
+
+        function renderReports() {
+            const allOrders = window.db.getOrders().sort((a,b) => new Date(b.date) - new Date(a.date));
+            const filterDate = document.getElementById("filter-date").value;
+            
+            let filteredOrders = allOrders.filter(o => o.status === "Yakunlandi"); // Only show completed orders in reports
+            
+            if (filterDate) {
+                filteredOrders = filteredOrders.filter(o => o.date === filterDate);
+            }
+
+            // Calculate stats
+            const totalRevenue = filteredOrders.reduce((sum, o) => sum + o.amount, 0);
+            const totalCount = filteredOrders.length;
+            const avgCheck = totalCount > 0 ? Math.round(totalRevenue / totalCount) : 0;
+
+            document.getElementById("rep-total-revenue").innerText = formatCurrency(totalRevenue);
+            document.getElementById("rep-total-orders").innerText = totalCount + " ta";
+            document.getElementById("rep-avg-check").innerText = formatCurrency(avgCheck);
+
+            const tbody = document.getElementById("reports-table-body");
+            tbody.innerHTML = "";
+            
+            if (filteredOrders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-xl text-on-surface-variant">Sotuvlar topilmadi.</td></tr>`;
+                return;
+            }
+
+            filteredOrders.forEach(o => {
+                const tableLabel = o.tableId ? `Stol ${o.tableId}` : "Olib ketish";
+                tbody.innerHTML += `
+                <tr class="hover:bg-surface-variant/30 transition-colors border-b border-outline-variant/10">
+                    <td class="px-xl py-md font-mono text-sm">${o.date}</td>
+                    <td class="px-xl py-md">
+                        <p class="font-bold">${o.id.toUpperCase()}</p>
+                        <p class="text-sm text-on-surface-variant">${tableLabel}</p>
+                    </td>
+                    <td class="px-xl py-md">
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase">${o.status}</span>
+                    </td>
+                    <td class="px-xl py-md font-semibold">${o.paymentMethod || "-"}</td>
+                    <td class="px-xl py-md font-bold text-primary text-right">${formatCurrency(o.amount)}</td>
+                </tr>
+                `;
+            });
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            renderReports();
+        });
+    </script>
+</body>
+</html>

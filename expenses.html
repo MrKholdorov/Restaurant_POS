@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safranbonu POS - Xarajatlar</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#994700",
+                        "primary-container": "#ff7a00",
+                        "surface": "#fcf9f8",
+                        "surface-variant": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "on-surface": "#1b1b1c",
+                        "on-surface-variant": "#584235"
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(224, 192, 175, 0.3);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface overflow-hidden flex min-h-screen">
+    <aside></aside>
+    <main class="ml-64 flex-1 flex flex-col p-lg gap-lg overflow-y-auto">
+        <header></header>
+        
+        <section class="flex justify-between items-end mt-sm">
+            <div>
+                <h2 class="font-headline-lg text-headline-lg text-on-surface font-bold">Xarajatlar</h2>
+                <p class="text-on-surface-variant font-body-lg">Kunlik va oylik xarajatlar ro'yxati</p>
+            </div>
+            <div class="flex gap-md">
+                <button class="bg-surface-variant text-on-surface hover:bg-gray-300 px-lg py-sm rounded-xl transition-colors font-semibold shadow-sm" onclick="openCategoriesModal()">Toifalar</button>
+                <button class="bg-primary text-white hover:bg-primary/90 px-lg py-sm rounded-xl transition-colors font-semibold shadow-sm flex items-center gap-xs" onclick="openExpenseModal()">
+                    <span class="material-symbols-outlined">add</span> Yangi Xarajat
+                </button>
+            </div>
+        </section>
+
+        <!-- Expenses List -->
+        <section class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden flex-1 flex flex-col">
+            <h3 class="font-title-lg font-bold mb-md text-on-surface">Barcha xarajatlar</h3>
+            <div class="overflow-x-auto flex-1">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-surface-variant/30 border-y border-outline-variant/10">
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase">Sana</th>
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase">Toifa</th>
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase">Tavsif</th>
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase">Summa</th>
+                            <th class="px-xl py-md font-semibold text-on-surface-variant uppercase text-right">Amal</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenses-table-body">
+                        <!-- Filled by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Expense Modal -->
+    <div id="expense-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden z-50 transition-opacity">
+        <div class="bg-white p-xl rounded-2xl shadow-2xl w-[400px]">
+            <h3 class="font-headline-md font-bold mb-lg text-on-surface">Xarajat kiritish</h3>
+            <form onsubmit="saveExpense(event)">
+                <div class="mb-md">
+                    <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Toifa</label>
+                    <select id="expense-category" class="w-full border border-gray-300 rounded-lg p-sm outline-none focus:border-primary" required></select>
+                </div>
+                <div class="mb-md">
+                    <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Summa (UZS)</label>
+                    <input type="number" id="expense-amount" class="w-full border border-gray-300 rounded-lg p-sm outline-none focus:border-primary" required>
+                </div>
+                <div class="mb-lg">
+                    <label class="block text-sm font-semibold mb-1 text-on-surface-variant">Tavsif / Izoh</label>
+                    <input type="text" id="expense-desc" class="w-full border border-gray-300 rounded-lg p-sm outline-none focus:border-primary" required>
+                </div>
+                <div class="flex justify-end gap-sm">
+                    <button type="button" class="px-md py-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-semibold" onclick="closeExpenseModal()">Bekor qilish</button>
+                    <button type="submit" class="px-md py-sm bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-semibold">Saqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Categories Modal -->
+    <div id="categories-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden z-50 transition-opacity">
+        <div class="bg-white p-xl rounded-2xl shadow-2xl w-[400px]">
+            <h3 class="font-headline-md font-bold mb-lg text-on-surface">Xarajat Toifalari</h3>
+            <div class="max-h-60 overflow-y-auto mb-md space-y-2" id="categories-list">
+                <!-- Filled by JS -->
+            </div>
+            <form onsubmit="saveCategory(event)" class="flex gap-2 mb-lg">
+                <input type="text" id="new-category-name" class="flex-1 border border-gray-300 rounded-lg p-xs px-sm outline-none focus:border-primary" placeholder="Yangi toifa nomi" required>
+                <button type="submit" class="bg-primary text-white px-md py-xs rounded-lg font-semibold hover:bg-primary/90">Qo'shish</button>
+            </form>
+            <div class="flex justify-end">
+                <button class="px-md py-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors font-semibold" onclick="closeCategoriesModal()">Yopish</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="db.js"></script>
+    <script src="shared.js"></script>
+    <script>
+        const formatCurrency = (val) => new Intl.NumberFormat('uz-UZ').format(val) + " UZS";
+
+        function renderExpenses() {
+            const expenses = window.db.getExpenses().sort((a,b) => new Date(b.date) - new Date(a.date));
+            const tbody = document.getElementById("expenses-table-body");
+            tbody.innerHTML = "";
+            if (expenses.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-xl text-on-surface-variant">Xarajatlar topilmadi.</td></tr>`;
+                return;
+            }
+            expenses.forEach(e => {
+                tbody.innerHTML += `
+                <tr class="hover:bg-surface-variant/30 transition-colors border-b border-outline-variant/10">
+                    <td class="px-xl py-md font-mono text-sm">${e.date}</td>
+                    <td class="px-xl py-md font-semibold">${e.category}</td>
+                    <td class="px-xl py-md text-on-surface-variant">${e.description}</td>
+                    <td class="px-xl py-md font-bold text-error">${formatCurrency(e.amount)}</td>
+                    <td class="px-xl py-md text-right">
+                        <button onclick="deleteExpense('${e.id}')" class="text-error hover:text-error/70 transition-colors p-1 rounded-md">
+                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                        </button>
+                    </td>
+                </tr>
+                `;
+            });
+        }
+
+        function populateCategoryDropdown() {
+            const cats = window.db.getExpenseCategories();
+            const select = document.getElementById("expense-category");
+            select.innerHTML = "";
+            cats.forEach(c => {
+                const opt = document.createElement("option");
+                opt.value = c.name;
+                opt.innerText = c.name;
+                select.appendChild(opt);
+            });
+        }
+
+        function openExpenseModal() {
+            populateCategoryDropdown();
+            document.getElementById("expense-modal").classList.remove("hidden");
+            document.getElementById("expense-amount").value = "";
+            document.getElementById("expense-desc").value = "";
+        }
+        function closeExpenseModal() {
+            document.getElementById("expense-modal").classList.add("hidden");
+        }
+
+        function saveExpense(e) {
+            e.preventDefault();
+            const cat = document.getElementById("expense-category").value;
+            const amt = parseInt(document.getElementById("expense-amount").value);
+            const desc = document.getElementById("expense-desc").value.trim();
+            if (!cat || !amt || !desc) return;
+
+            window.db.saveExpense({
+                category: cat,
+                amount: amt,
+                description: desc
+            });
+            closeExpenseModal();
+            renderExpenses();
+        }
+
+        function deleteExpense(id) {
+            if (confirm("Ushbu xarajatni o'chirishni tasdiqlaysizmi?")) {
+                window.db.deleteExpense(id);
+                renderExpenses();
+            }
+        }
+
+        // Categories management
+        function openCategoriesModal() {
+            renderCategoriesList();
+            document.getElementById("categories-modal").classList.remove("hidden");
+        }
+        function closeCategoriesModal() {
+            document.getElementById("categories-modal").classList.add("hidden");
+            populateCategoryDropdown();
+        }
+
+        function renderCategoriesList() {
+            const cats = window.db.getExpenseCategories();
+            const list = document.getElementById("categories-list");
+            list.innerHTML = "";
+            cats.forEach(c => {
+                list.innerHTML += `
+                <div class="flex justify-between items-center bg-surface-variant/30 p-2 rounded-lg border border-outline-variant/20">
+                    <span class="font-semibold">${c.name}</span>
+                    <button onclick="deleteCategory('${c.id}')" class="text-error hover:bg-error/10 p-1 rounded transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    </button>
+                </div>
+                `;
+            });
+        }
+
+        function saveCategory(e) {
+            e.preventDefault();
+            const name = document.getElementById("new-category-name").value.trim();
+            if (name) {
+                window.db.saveExpenseCategory({ name });
+                document.getElementById("new-category-name").value = "";
+                renderCategoriesList();
+            }
+        }
+
+        function deleteCategory(id) {
+            if (confirm("Toifani o'chirmoqchimisiz?")) {
+                window.db.deleteExpenseCategory(id);
+                renderCategoriesList();
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", () => {
+            renderExpenses();
+        });
+    </script>
+</body>
+</html>
