@@ -287,6 +287,14 @@
             errorAlert.classList.remove('hidden');
         }
 
+        function redirectUser(user) {
+            if (user.role === "Ofitsiant") {
+                window.location.href = "pos.html";
+            } else {
+                window.location.href = "dashboard.html";
+            }
+        }
+
         function handlePin(val) {
             if (val === 'back') {
                 currentPin = currentPin.slice(0, -1);
@@ -302,7 +310,7 @@
                     const matchedUser = employees.find(e => e.pin === currentPin);
                     if (matchedUser) {
                         localStorage.setItem("safranbonu_session", JSON.stringify(matchedUser));
-                        window.location.href = "index.html";
+                        redirectUser(matchedUser);
                     } else {
                         showError("PIN Kod noto'g'ri kiritildi!");
                         currentPin = "";
@@ -334,15 +342,21 @@
             // Standardize username check
             const user = window.db.login(usernameInput, passwordInput);
             if (user) {
-                window.location.href = "dashboard.html";
+                redirectUser(user);
             } else {
                 showError("Foydalanuvchi nomi yoki parol xato!");
             }
         });
         
-        // If already logged in, redirect to index
-        if (localStorage.getItem("safranbonu_session")) {
-            window.location.href = "index.html";
+        // If already logged in, redirect
+        const sessionStr = localStorage.getItem("safranbonu_session");
+        if (sessionStr) {
+            try {
+                const sessionUser = JSON.parse(sessionStr);
+                redirectUser(sessionUser);
+            } catch(e) {
+                localStorage.removeItem("safranbonu_session");
+            }
         }
     </script>
 </body></html>
