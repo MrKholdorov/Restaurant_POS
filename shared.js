@@ -200,9 +200,4 @@ function loadPage(page) {
 // Initialize navigation on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
-    // Load default page if none specified
-    const currentPath = window.location.pathname;
-    if (currentPath.endsWith('index.html') || currentPath.endsWith('/')) {
-        loadPage('dashboard.html');
-    }
 });
