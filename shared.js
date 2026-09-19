@@ -42,7 +42,7 @@ function renderSidebar(aside, user) {
     };
 
     const navItems = [
-        { name: "Dashboard", file: "dashboard.html", icon: "dashboard" },
+        { name: "Dashboard", file: "index.html", icon: "dashboard" },
         { name: "POS Sotuv", file: "pos.html", icon: "point_of_sale" },
         { name: "Ombor", file: "warehouse.html", icon: "warehouse" },
         { name: "Mijozlar", file: "customers.html", icon: "group" },
