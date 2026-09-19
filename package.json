@@ -1,13 +1,13 @@
-﻿{
-  " name\: \safranbonu-pos\,
- \version\: \1.0.0\,
- \private\: true,
- \scripts\: {
- \dev\: \vercel dev\,
- \start\: \vercel dev\,
- \build\: \echo \No build step needed for static site\\
- },
- \engines\: {
- \node\: \>=14\
- }
+{
+  "name": "safranbonu-pos",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "start": "vercel dev",
+    "build": "echo \"No build step needed for static site\""
+  },
+  "engines": {
+    "node": ">=14"
+  }
 }
