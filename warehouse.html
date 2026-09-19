@@ -233,6 +233,9 @@
             </button>
         </header>
         <div class="p-xl">
+            <div id="category-list-container" class="max-h-40 overflow-y-auto mb-md space-y-2 custom-scrollbar">
+                <!-- Categories filled by JS -->
+            </div>
             <form id="category-form" class="space-y-6" onsubmit="saveCategorySubmit(event)">
                 <div class="space-y-2">
                     <label class="font-label-lg text-label-lg text-primary uppercase tracking-wider block">Toifa nomi</label>
@@ -408,9 +411,14 @@
                     <h4 class="font-title-lg text-title-lg text-on-surface mb-sm font-bold truncate">${p.name}</h4>
                     <div class="flex justify-between items-center">
                         <span class="text-primary font-headline-md font-bold">${new Intl.NumberFormat('uz-UZ').format(p.price)} <span class="text-label-lg">UZS/${p.unit}</span></span>
-                        <button class="p-base bg-surface-container-high rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all" onclick="editProduct('${p.id}')">
-                            <span class="material-symbols-outlined text-[20px]">edit</span>
-                        </button>
+                        <div class="flex gap-xs">
+                            <button class="p-base bg-surface-container-high rounded-full hover:bg-primary-container hover:text-on-primary-container transition-all" onclick="editProduct('${p.id}')">
+                                <span class="material-symbols-outlined text-[20px]">edit</span>
+                            </button>
+                            <button class="p-base bg-error-container text-error rounded-full hover:bg-error hover:text-white transition-all" onclick="deleteProduct('${p.id}')">
+                                <span class="material-symbols-outlined text-[20px]">delete</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -430,6 +438,7 @@
 
     // 3. Category Modal Logic
     function openCategoryModal() {
+        renderCategoryList();
         document.getElementById("category-modal").classList.remove("hidden");
         document.getElementById("cat-name-input").value = "";
     }
@@ -438,14 +447,48 @@
         document.getElementById("category-modal").classList.add("hidden");
     }
 
+    function renderCategoryList() {
+        const list = document.getElementById("category-list-container");
+        if (!list) return; // If container doesn't exist, ignore
+        list.innerHTML = "";
+        window.db.getCategories().forEach(c => {
+            list.innerHTML += `
+            <div class="flex justify-between items-center bg-surface-variant/30 p-2 rounded-lg border border-outline-variant/20 mb-2">
+                <span class="font-semibold">${c.name}</span>
+                <button onclick="deleteCategory('${c.id}')" class="text-error hover:bg-error/10 p-1 rounded transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                </button>
+            </div>
+            `;
+        });
+    }
+
     function saveCategorySubmit(e) {
         e.preventDefault();
         const name = document.getElementById("cat-name-input").value.trim();
         if (!name) return;
 
         window.db.saveCategory({ name });
-        closeCategoryModal();
+        document.getElementById("cat-name-input").value = "";
+        renderCategoryList();
         loadWarehouseDashboard(); // reload dashboard
+    }
+
+    function deleteCategory(id) {
+        // Prevent deleting if category has products
+        const hasProducts = window.db.getProducts().some(p => p.categoryId === id);
+        if (hasProducts) {
+            alert("Ushbu toifada mahsulotlar bor. Avval mahsulotlarni o'chiring yoki boshqa toifaga o'tkazing.");
+            return;
+        }
+
+        if (confirm("Toifani o'chirishni tasdiqlaysizmi?")) {
+            // Need a deleteCategory function in db.js, let's just do it directly via setDB for now or add it later
+            const cats = window.db.getCategories().filter(c => c.id !== id);
+            localStorage.setItem("safranbonu_categories", JSON.stringify(cats));
+            renderCategoryList();
+            loadWarehouseDashboard();
+        }
     }
 
     // 4. Product Modal Logic
@@ -513,6 +556,13 @@
         window.db.saveProduct(prod);
         closeProductModal();
         loadWarehouseDashboard();
+    }
+
+    function deleteProduct(id) {
+        if (confirm("Mahsulotni o'chirishni tasdiqlaysizmi?")) {
+            window.db.deleteProduct(id);
+            loadWarehouseDashboard();
+        }
     }
 </script>
 </body></html>

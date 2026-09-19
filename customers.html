@@ -34,6 +34,9 @@ function loadCustomers(){
      <div class='flex justify-between items-start mb-sm'>
        <h4 class='font-title-lg font-bold text-on-surface'>${c.name}</h4>
        <div class='flex gap-xs'>
+         <button onclick='editCustomer("${c.id}")' class='text-primary hover:bg-primary-container p-1 rounded-md transition-colors'>
+           <span class='material-symbols-outlined text-[20px]'>edit</span>
+         </button>
          <button onclick='deleteCustomer("${c.id}")' class='text-error hover:bg-error-container p-1 rounded-md transition-colors'>
            <span class='material-symbols-outlined text-[20px]'>delete</span>
          </button>
@@ -60,20 +63,41 @@ function deleteCustomer(id) {
 function openCustomerModal(){
  const modal=document.getElementById('customer-modal');
  modal.classList.remove('hidden');
+ modal.removeAttribute('data-edit-id');
  document.getElementById('cust-name-input').value='';
  document.getElementById('cust-phone-input').value='';
 }
 function closeCustomerModal(){
- document.getElementById('customer-modal').classList.add('hidden');
+ const modal=document.getElementById('customer-modal');
+ modal.classList.add('hidden');
+ modal.removeAttribute('data-edit-id');
 }
 function saveCustomer(e){
  e.preventDefault();
  const name=document.getElementById('cust-name-input').value.trim();
  const phone=document.getElementById('cust-phone-input').value.trim();
  if(!name||!phone) return;
- window.db.saveCustomer({name,phone});
+ 
+ const modal=document.getElementById('customer-modal');
+ const editId=modal.getAttribute('data-edit-id');
+ 
+ const cust = {name, phone};
+ if(editId) cust.id = editId; // db.saveCustomer handles update if id exists
+
+ window.db.saveCustomer(cust);
  closeCustomerModal();
  loadCustomers();
+}
+function editCustomer(id) {
+    const cust = window.db.getCustomers().find(c => c.id === id);
+    if(!cust) return;
+    
+    const modal=document.getElementById('customer-modal');
+    modal.classList.remove('hidden');
+    modal.setAttribute('data-edit-id', id);
+    
+    document.getElementById('cust-name-input').value = cust.name || '';
+    document.getElementById('cust-phone-input').value = cust.phone || '';
 }
 window.addEventListener('DOMContentLoaded',()=>{loadCustomers();});
 </script>

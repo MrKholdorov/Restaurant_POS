@@ -66,11 +66,13 @@ function renderEmployees(){
 }
 function openEmployeeModal(){
  document.getElementById('employee-modal').classList.remove('hidden');
+ document.getElementById('employee-modal').removeAttribute('data-edit-id');
  document.getElementById('employee-form').reset();
  document.getElementById('employee-form').onsubmit=saveEmployee;
 }
 function closeEmployeeModal(){
  document.getElementById('employee-modal').classList.add('hidden');
+ document.getElementById('employee-modal').removeAttribute('data-edit-id');
 }
 function saveEmployee(e){
  e.preventDefault();
@@ -99,8 +101,10 @@ function editEmployee(id){
  document.getElementById('emp-salary').value=emp.salary||'';
 }
 function deleteEmployee(id){
- window.db.deleteEmployee(id);
- renderEmployees();
+ if(confirm('Ushbu xodimni o\\'chirishni tasdiqlaysizmi?')) {
+   window.db.deleteEmployee(id);
+   renderEmployees();
+ }
 }
 window.addEventListener('DOMContentLoaded',renderEmployees);
 </script>
