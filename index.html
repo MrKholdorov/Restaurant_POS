@@ -1,397 +1,455 @@
-<!DOCTYPE html><html class="light" lang="uz"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Safranbonu POS - Premium Dashboard</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            "colors": {
-                    "primary-container": "#eb8642",
-                    "success-green": "#15803d",
-                    "on-secondary-fixed-variant": "#00497d",
-                    "surface-variant": "#e5e2e3",
-                    "success-bg": "#dcfce7",
-                    "surface-container-highest": "#e5e2e3",
-                    "on-tertiary-fixed-variant": "#7b008f",
-                    "surface-warm": "#fcf9f8",
-                    "surface-tint": "#994700",
-                    "outline-variant": "#e0c0af",
-                    "on-error-container": "#93000a",
-                    "secondary-fixed-dim": "#9fcaff",
-                    "glass-bg": "rgba(255, 255, 255, 0.7)",
-                    "primary-fixed": "#ffdbc8",
-                    "surface": "#fcf8f9",
-                    "tertiary-fixed": "#ffd6fe",
-                    "on-primary-fixed": "#321300",
-                    "surface-bright": "#fcf8f9",
-                    "on-surface-variant": "#584235",
-                    "on-secondary-fixed": "#001d36",
-                    "inverse-surface": "#303031",
-                    "inverse-primary": "#ffb68b",
-                    "tertiary": "#9a25ae",
-                    "on-tertiary": "#ffffff",
-                    "on-error": "#ffffff",
-                    "error-container": "#ffdad6",
-                    "secondary": "#0061a4",
-                    "surface-dim": "#dcd9da",
-                    "on-primary-container": "#5c2800",
-                    "on-secondary-container": "#00477b",
-                    "surface-container-low": "#f6f3f4",
-                    "primary": "#994700",
-                    "on-tertiary-fixed": "#35003f",
-                    "outline": "#8c7263",
-                    "inverse-on-surface": "#f3f0f1",
-                    "on-secondary": "#ffffff",
-                    "on-primary": "#ffffff",
-                    "background": "#fcf8f9",
-                    "surface-container-high": "#eae7e8",
-                    "secondary-fixed": "#d1e4ff",
-                    "surface-container": "#f0edee",
-                    "on-background": "#1b1b1c",
-                    "on-surface": "#1b1b1c",
-                    "secondary-container": "#77b7ff",
-                    "tertiary-container": "#e670f7",
-                    "on-primary-fixed-variant": "#743400",
-                    "primary-fixed-dim": "#ffb68b",
-                    "tertiary-fixed-dim": "#f9abff",
-                    "error": "#ba1a1a",
-                    "on-tertiary-container": "#620072",
-                    "surface-container-lowest": "#ffffff",
-                    "warm-outline": "#8c7263"
+ya
+<!DOCTYPE html>
+<html class="light" lang="uz">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Safranbonu POS - Premium Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#eb8642",
+                        "success-green": "#15803d",
+                        "on-secondary-fixed-variant": "#00497d",
+                        "surface-variant": "#e5e2e3",
+                        "success-bg": "#dcfce7",
+                        "surface-container-highest": "#e5e2e3",
+                        "on-tertiary-fixed-variant": "#7b008f",
+                        "surface-warm": "#fcf9f8",
+                        "surface-tint": "#994700",
+                        "outline-variant": "#e0c0af",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#9fcaff",
+                        "glass-bg": "rgba(255, 255, 255, 0.7)",
+                        "primary-fixed": "#ffdbc8",
+                        "surface": "#fcf8f9",
+                        "tertiary-fixed": "#ffd6fe",
+                        "on-primary-fixed": "#321300",
+                        "surface-bright": "#fcf8f9",
+                        "on-surface-variant": "#584235",
+                        "on-secondary-fixed": "#001d36",
+                        "inverse-surface": "#303031",
+                        "inverse-primary": "#ffb68b",
+                        "tertiary": "#9a25ae",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary": "#0061a4",
+                        "surface-dim": "#dcd9da",
+                        "on-primary-container": "#5c2800",
+                        "on-secondary-container": "#00477b",
+                        "surface-container-low": "#f6f3f4",
+                        "primary": "#994700",
+                        "on-tertiary-fixed": "#35003f",
+                        "outline": "#8c7263",
+                        "inverse-on-surface": "#f3f0f1",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "background": "#fcf8f9",
+                        "surface-container-high": "#eae7e8",
+                        "secondary-fixed": "#d1e4ff",
+                        "surface-container": "#f0edee",
+                        "on-background": "#1b1b1c",
+                        "on-surface": "#1b1b1c",
+                        "secondary-container": "#77b7ff",
+                        "tertiary-container": "#e670f7",
+                        "on-primary-fixed-variant": "#743400",
+                        "primary-fixed-dim": "#ffb68b",
+                        "tertiary-fixed-dim": "#f9abff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#620072",
+                        "surface-container-lowest": "#ffffff",
+                        "warm-outline": "#8c7263"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "12px",
+                        "lg": "24px",
+                        "margin": "24px",
+                        "xs": "4px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "label-lg": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600" }],
+                        "display-lg": ["45px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["11px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                },
             },
-            "borderRadius": {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-            },
-            "spacing": {
-                    "base": "8px",
-                    "xl": "32px",
-                    "md": "16px",
-                    "sm": "12px",
-                    "lg": "24px",
-                    "margin": "24px",
-                    "xs": "4px",
-                    "gutter": "20px"
-            },
-            "fontFamily": {
-                    "headline-md": ["Inter"],
-                    "headline-lg": ["Inter"],
-                    "title-md": ["Inter"],
-                    "label-lg": ["Inter"],
-                    "display-lg": ["Inter"],
-                    "body-md": ["Inter"],
-                    "title-lg": ["Inter"],
-                    "body-lg": ["Inter"],
-                    "label-md": ["Inter"]
-            },
-            "fontSize": {
-                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
-                    "title-md": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
-                    "label-lg": ["12px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "600"}],
-                    "display-lg": ["45px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
-                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                    "title-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
-                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                    "label-md": ["11px", {"lineHeight": "16px", "fontWeight": "500"}]
-            }
-          },
-        },
-      }
+        }
     </script>
-<style>
-        body { font-family: 'Inter', sans-serif; }
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
         .glass-panel {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #e0c0af; border-radius: 10px; }
-    </style>
-</head>
-<body class="bg-background text-on-surface flex min-h-screen">
 
-<!-- SideNavBar -->
-<aside></aside>
-
-<main class="ml-0 md:ml-64 w-full md:w-[calc(100%-16rem)] flex-1 flex flex-col min-h-screen relative overflow-x-hidden">
-    <!-- TopNavBar -->
-    <header></header>
-
-    <!-- Content Canvas -->
-    <div class="p-xl flex-1 flex flex-col gap-xl">
-        <!-- Summary Bento Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
-            <!-- Card 1 -->
-            <div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow group">
-                <div class="flex justify-between items-start mb-md">
-                    <div class="p-sm bg-primary-fixed rounded-xl text-primary">
-                        <span class="material-symbols-outlined">monetization_on</span>
-                    </div>
-                    <span class="text-success-green font-bold flex items-center text-label-lg">+12.5% <span class="material-symbols-outlined text-[16px]">trending_up</span></span>
-                </div>
-                <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Bugungi Sotuv</h3>
-                <p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs" id="stat-sales">0 UZS</p>
-                <div class="mt-md text-label-md text-on-surface-variant/60" id="stat-sales-prev">Kecha: 0 UZS</div>
-            </div>
-            <!-- Card 2 -->
-            <div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
-                <div class="flex justify-between items-start mb-md">
-                    <div class="p-sm bg-secondary-fixed rounded-xl text-secondary">
-                        <span class="material-symbols-outlined">shopping_cart</span>
-                    </div>
-                    <span class="text-success-green font-bold flex items-center text-label-lg">+5.2% <span class="material-symbols-outlined text-[16px]">trending_up</span></span>
-                </div>
-                <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Buyurtmalar</h3>
-                <p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs" id="stat-orders">0 ta</p>
-                <div class="mt-md text-label-md text-on-surface-variant/60" id="stat-orders-avg">O'rtacha chek: 0 UZS</div>
-            </div>
-            <!-- Card 3 -->
-            <div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
-                <div class="flex justify-between items-start mb-md">
-                    <div class="p-sm bg-tertiary-fixed rounded-xl text-tertiary">
-                        <span class="material-symbols-outlined">person</span>
-                    </div>
-                    <span class="text-success-green font-bold flex items-center text-label-lg">+1.8% <span class="material-symbols-outlined text-[16px]">trending_up</span></span>
-                </div>
-                <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Mijozlar Bazasi</h3>
-                <p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs" id="stat-customers">0 nafar</p>
-                <div class="mt-md text-label-md text-on-surface-variant/60" id="stat-customers-new">Bugun: +0 nafar</div>
-            </div>
-            <!-- Card 4 -->
-            <div class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow relative overflow-hidden">
-                <div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full blur-2xl"></div>
-                <div class="flex justify-between items-start mb-md">
-                    <div class="p-sm bg-success-bg rounded-xl text-success-green">
-                        <span class="material-symbols-outlined">payments</span>
-                    </div>
-                    <span class="text-success-green font-bold flex items-center text-label-lg">+15.3% <span class="material-symbols-outlined text-[16px]">trending_up</span></span>
-                </div>
-                <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Bugungi Sof Foyda</h3>
-                <p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs" id="stat-profit">0 UZS</p>
-                <div class="mt-md text-label-md text-on-surface-variant/60" id="stat-profit-desc">Marja: 0%</div>
-            </div>
-        </div>
-
-        <!-- Main Charts Section -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
-            <!-- Large Sales Chart -->
-            <div class="lg:col-span-2 glass-panel p-xl rounded-2xl shadow-sm border border-outline-variant/20">
-                <div class="flex justify-between items-end mb-xl">
-                    <div>
-                        <h2 class="font-title-lg text-title-lg font-bold text-on-surface">Savdo Dinamikasi</h2>
-                        <p class="font-body-md text-body-md text-on-surface-variant">Haftalik sotuvlar ko'rsatkichi</p>
-                    </div>
-                    <div class="flex gap-xs bg-surface-container-high p-xs rounded-lg">
-                        <button class="px-md py-xs bg-surface-container-lowest shadow-sm rounded-md font-label-md text-label-md">Hafta</button>
-                    </div>
-                </div>
-                <div class="relative h-80 w-full mt-lg">
-                    <!-- Simulated Chart Grid -->
-                    <div class="absolute inset-0 flex flex-col justify-between border-b border-l border-outline-variant/30">
-                        <div class="w-full border-t border-outline-variant/10 h-0"></div>
-                        <div class="w-full border-t border-outline-variant/10 h-0"></div>
-                        <div class="w-full border-t border-outline-variant/10 h-0"></div>
-                        <div class="w-full border-t border-outline-variant/10 h-0"></div>
-                        <div class="w-full border-t border-outline-variant/10 h-0"></div>
-                    </div>
-                    <!-- Simulated Bars -->
-                    <div class="absolute inset-0 flex items-end justify-around px-lg pb-2" id="chart-bars">
-                        <!-- Bars dynamically loaded -->
-                    </div>
-                </div>
-                <div class="flex justify-around mt-md font-label-md text-label-md text-on-surface-variant uppercase" id="chart-days">
-                    <span>Du</span><span>Se</span><span>Ch</span><span>Pa</span><span>Ju</span><span>Sh</span><span>Yak</span>
-                </div>
-            </div>
-
-            <!-- Popular Categories -->
-            <div class="glass-panel p-xl rounded-2xl shadow-sm border border-outline-variant/20 flex flex-col gap-lg">
-                <div>
-                    <h2 class="font-title-lg text-title-lg font-bold text-on-surface">Mashhur Taomlar</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant">Eng ko'p sotilganlar</p>
-                </div>
-                <div class="space-y-md flex-1" id="popular-list">
-                    <!-- Popular items dynamically loaded -->
-                </div>
-                <a href="reports.html" class="mt-auto py-md w-full border border-primary-container/30 text-primary font-bold rounded-xl text-center hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-[0.98]">
-                    Barcha hisobotlar
-                </a>
-            </div>
-        </div>
-
-        <!-- Recent Orders Table -->
-        <div class="glass-panel rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
-            <div class="p-xl flex justify-between items-center">
-                <h2 class="font-title-lg text-title-lg font-bold text-on-surface">Oxirgi Buyurtmalar</h2>
-                <a href="pos.html" class="flex items-center gap-xs text-primary font-semibold hover:opacity-70 transition-all">
-                    <span>Yangi buyurtma ochish</span>
-                    <span class="material-symbols-outlined">chevron_right</span>
-                </a>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-surface-container-high/30 border-y border-outline-variant/10">
-                            <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">ID</th>
-                            <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Mijoz / Stol</th>
-                            <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Sana</th>
-                            <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">Summa</th>
-                            <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase text-center">Holat</th>
-                            <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">To'lov</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-outline-variant/10" id="recent-orders-rows">
-                        <!-- Dynamic rows -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Floating Action Button (FAB) -->
-    <a href="pos.html" class="fixed bottom-xl right-xl w-16 h-16 bg-primary-container text-on-primary-container rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group active:scale-90 z-50">
-        <span class="material-symbols-outlined text-[32px] group-hover:rotate-90 transition-transform duration-300" style="font-variation-settings: 'FILL' 1;">add</span>
-        <div class="absolute right-20 bg-on-surface text-surface px-md py-sm rounded-xl font-title-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl text-white">
-            Yangi Buyurtma
-        </div>
-    </a>
-</main>
-
-<script src="db.js"></script>
-<script src="shared.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        loadDashboardStats();
-    });
-
-    function loadDashboardStats() {
-        const orders = window.db.getOrders();
-        const customers = window.db.getCustomers();
-        const expenses = window.db.getExpenses();
-
-        const todayStr = new Date().toISOString().split('T')[0];
-        const yesterdayStr = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-
-        const formatCurrency = (val) => {
-            return new Intl.NumberFormat('uz-UZ').format(val) + " UZS";
-        };
-
-        // 1. Calculations
-        const todayCompletedOrders = orders.filter(o => o.date === todayStr && o.status === "Yakunlandi");
-        const yesterdayCompletedOrders = orders.filter(o => o.date === yesterdayStr && o.status === "Yakunlandi");
-
-        const todaySales = todayCompletedOrders.reduce((sum, o) => sum + o.amount, 0);
-        const yesterdaySales = yesterdayCompletedOrders.reduce((sum, o) => sum + o.amount, 0);
-
-        const todayExpenses = expenses.filter(e => e.date === todayStr).reduce((sum, e) => sum + e.amount, 0);
-
-        const todayProfit = todaySales - todayExpenses;
-        const profitMargin = todaySales > 0 ? Math.round((todayProfit / todaySales) * 100) : 0;
-
-        const totalCustomers = customers.length;
-        const todayNewCustomers = customers.filter(c => c.lastVisit === todayStr).length;
-
-        // Populate Stats
-        document.getElementById("stat-sales").innerText = formatCurrency(todaySales);
-        document.getElementById("stat-sales-prev").innerText = `Kecha: ${formatCurrency(yesterdaySales)}`;
-
-        document.getElementById("stat-orders").innerText = `${todayCompletedOrders.length} ta`;
-        const avgCheck = todayCompletedOrders.length > 0 ? Math.round(todaySales / todayCompletedOrders.length) : 0;
-        document.getElementById("stat-orders-avg").innerText = `O'rtacha chek: ${formatCurrency(avgCheck)}`;
-
-        document.getElementById("stat-customers").innerText = `${totalCustomers} nafar`;
-        document.getElementById("stat-customers-new").innerText = `Bugun: +${todayNewCustomers} nafar`;
-
-        document.getElementById("stat-profit").innerText = formatCurrency(todayProfit);
-        document.getElementById("stat-profit-desc").innerText = `Marja: ${profitMargin}%`;
-
-        // 2. Load 7 days sales dynamics
-        const daysOfWeek = ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh', 'Yak'];
-        const todayIdx = (new Date().getDay() + 6) % 7; // Convert Sunday=0 to Index 6, Monday=0
-
-        // Get dates for past 7 days, aligned to Mon-Sun
-        const chartBars = document.getElementById("chart-bars");
-        chartBars.innerHTML = "";
-
-        // Calculate sales for each of the last 7 calendar days
-        const last7Sales = [];
-        let maxSaleVal = 1000000; // minimum scale
-
-        for (let i = 6; i >= 0; i--) {
-            const d = new Date();
-            d.setDate(d.getDate() - i);
-            const dateStr = d.toISOString().split('T')[0];
-            const dayIdx = (d.getDay() + 6) % 7;
-            
-            const daySales = orders
-                .filter(o => o.date === dateStr && o.status === "Yakunlandi")
-                .reduce((sum, o) => sum + o.amount, 0);
-            
-            last7Sales.push({ dayName: daysOfWeek[dayIdx], value: daySales, isToday: i === 0 });
-            if (daySales > maxSaleVal) maxSaleVal = daySales;
+        ::-webkit-scrollbar {
+            width: 6px;
         }
 
-        // Render bars
-        last7Sales.forEach(item => {
-            const heightPercent = Math.max(10, Math.round((item.value / maxSaleVal) * 85));
-            const barBg = item.isToday ? "bg-primary-container" : "bg-primary-fixed hover:bg-primary";
-            const pulse = item.isToday ? '<div class="absolute top-0 left-0 w-full h-full bg-white/20 animate-pulse rounded-t-lg"></div>' : '';
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
 
-            chartBars.innerHTML += `
+        ::-webkit-scrollbar-thumb {
+            background: #e0c0af;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-on-surface flex min-h-screen">
+
+    <!-- SideNavBar -->
+    <aside></aside>
+
+    <main
+        class="ml-0 md:ml-64 w-full md:w-[calc(100%-16rem)] flex-1 flex flex-col min-h-screen relative overflow-x-hidden">
+        <!-- TopNavBar -->
+        <header></header>
+
+        <!-- Content Canvas -->
+        <div class="p-xl flex-1 flex flex-col gap-xl">
+            <!-- Summary Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-lg">
+                <!-- Card 1 -->
+                <div
+                    class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow group">
+                    <div class="flex justify-between items-start mb-md">
+                        <div class="p-sm bg-primary-fixed rounded-xl text-primary">
+                            <span class="material-symbols-outlined">monetization_on</span>
+                        </div>
+                        <span class="text-success-green font-bold flex items-center text-label-lg">+12.5% <span
+                                class="material-symbols-outlined text-[16px]">trending_up</span></span>
+                    </div>
+                    <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Bugungi
+                        Sotuv</h3>
+                    <p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs" id="stat-sales">0 UZS
+                    </p>
+                    <div class="mt-md text-label-md text-on-surface-variant/60" id="stat-sales-prev">Kecha: 0 UZS</div>
+                </div>
+                <!-- Card 2 -->
+                <div
+                    class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-md">
+                        <div class="p-sm bg-secondary-fixed rounded-xl text-secondary">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                        </div>
+                        <span class="text-success-green font-bold flex items-center text-label-lg">+5.2% <span
+                                class="material-symbols-outlined text-[16px]">trending_up</span></span>
+                    </div>
+                    <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Buyurtmalar
+                    </h3>
+                    <p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs" id="stat-orders">0 ta
+                    </p>
+                    <div class="mt-md text-label-md text-on-surface-variant/60" id="stat-orders-avg">O'rtacha chek: 0
+                        UZS</div>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-md">
+                        <div class="p-sm bg-tertiary-fixed rounded-xl text-tertiary">
+                            <span class="material-symbols-outlined">person</span>
+                        </div>
+                        <span class="text-success-green font-bold flex items-center text-label-lg">+1.8% <span
+                                class="material-symbols-outlined text-[16px]">trending_up</span></span>
+                    </div>
+                    <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Mijozlar
+                        Bazasi</h3>
+                    <p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs" id="stat-customers">0
+                        nafar</p>
+                    <div class="mt-md text-label-md text-on-surface-variant/60" id="stat-customers-new">Bugun: +0 nafar
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div
+                    class="glass-panel p-lg rounded-2xl shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow relative overflow-hidden">
+                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-primary-container/10 rounded-full blur-2xl"></div>
+                    <div class="flex justify-between items-start mb-md">
+                        <div class="p-sm bg-success-bg rounded-xl text-success-green">
+                            <span class="material-symbols-outlined">payments</span>
+                        </div>
+                        <span class="text-success-green font-bold flex items-center text-label-lg">+15.3% <span
+                                class="material-symbols-outlined text-[16px]">trending_up</span></span>
+                    </div>
+                    <h3 class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">Bugungi Sof
+                        Foyda</h3>
+                    <p class="font-headline-md text-headline-md font-bold text-on-surface mt-xs" id="stat-profit">0 UZS
+                    </p>
+                    <div class="mt-md text-label-md text-on-surface-variant/60" id="stat-profit-desc">Marja: 0%</div>
+                </div>
+            </div>
+
+            <!-- Main Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-xl">
+                <!-- Large Sales Chart -->
+                <div class="lg:col-span-2 glass-panel p-xl rounded-2xl shadow-sm border border-outline-variant/20">
+                    <div class="flex justify-between items-end mb-xl">
+                        <div>
+                            <h2 class="font-title-lg text-title-lg font-bold text-on-surface">Savdo Dinamikasi</h2>
+                            <p class="font-body-md text-body-md text-on-surface-variant">Haftalik sotuvlar ko'rsatkichi
+                            </p>
+                        </div>
+                        <div class="flex gap-xs bg-surface-container-high p-xs rounded-lg">
+                            <button
+                                class="px-md py-xs bg-surface-container-lowest shadow-sm rounded-md font-label-md text-label-md">Hafta</button>
+                        </div>
+                    </div>
+                    <div class="relative h-80 w-full mt-lg">
+                        <!-- Simulated Chart Grid -->
+                        <div
+                            class="absolute inset-0 flex flex-col justify-between border-b border-l border-outline-variant/30">
+                            <div class="w-full border-t border-outline-variant/10 h-0"></div>
+                            <div class="w-full border-t border-outline-variant/10 h-0"></div>
+                            <div class="w-full border-t border-outline-variant/10 h-0"></div>
+                            <div class="w-full border-t border-outline-variant/10 h-0"></div>
+                            <div class="w-full border-t border-outline-variant/10 h-0"></div>
+                        </div>
+                        <!-- Simulated Bars -->
+                        <div class="absolute inset-0 flex items-end justify-around px-lg pb-2" id="chart-bars">
+                            <!-- Bars dynamically loaded -->
+                        </div>
+                    </div>
+                    <div class="flex justify-around mt-md font-label-md text-label-md text-on-surface-variant uppercase"
+                        id="chart-days">
+                        <span>Du</span><span>Se</span><span>Ch</span><span>Pa</span><span>Ju</span><span>Sh</span><span>Yak</span>
+                    </div>
+                </div>
+
+                <!-- Popular Categories -->
+                <div
+                    class="glass-panel p-xl rounded-2xl shadow-sm border border-outline-variant/20 flex flex-col gap-lg">
+                    <div>
+                        <h2 class="font-title-lg text-title-lg font-bold text-on-surface">Mashhur Taomlar</h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Eng ko'p sotilganlar</p>
+                    </div>
+                    <div class="space-y-md flex-1" id="popular-list">
+                        <!-- Popular items dynamically loaded -->
+                    </div>
+                    <a href="reports.html"
+                        class="mt-auto py-md w-full border border-primary-container/30 text-primary font-bold rounded-xl text-center hover:bg-primary-container hover:text-on-primary-container transition-all active:scale-[0.98]">
+                        Barcha hisobotlar
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Orders Table -->
+            <div class="glass-panel rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
+                <div class="p-xl flex justify-between items-center">
+                    <h2 class="font-title-lg text-title-lg font-bold text-on-surface">Oxirgi Buyurtmalar</h2>
+                    <a href="pos.html"
+                        class="flex items-center gap-xs text-primary font-semibold hover:opacity-70 transition-all">
+                        <span>Yangi buyurtma ochish</span>
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-surface-container-high/30 border-y border-outline-variant/10">
+                                <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">ID
+                                </th>
+                                <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">
+                                    Mijoz / Stol</th>
+                                <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">
+                                    Sana</th>
+                                <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">
+                                    Summa</th>
+                                <th
+                                    class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase text-center">
+                                    Holat</th>
+                                <th class="px-xl py-md font-label-lg text-label-lg text-on-surface-variant uppercase">
+                                    To'lov</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant/10" id="recent-orders-rows">
+                            <!-- Dynamic rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Action Button (FAB) -->
+        <a href="pos.html"
+            class="fixed bottom-xl right-xl w-16 h-16 bg-primary-container text-on-primary-container rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group active:scale-90 z-50">
+            <span class="material-symbols-outlined text-[32px] group-hover:rotate-90 transition-transform duration-300"
+                style="font-variation-settings: 'FILL' 1;">add</span>
+            <div
+                class="absolute right-20 bg-on-surface text-surface px-md py-sm rounded-xl font-title-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-xl text-white">
+                Yangi Buyurtma
+            </div>
+        </a>
+    </main>
+
+    <script src="db.js"></script>
+    <script src="shared.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            loadDashboardStats();
+        });
+
+        function loadDashboardStats() {
+            const orders = window.db.getOrders();
+            const customers = window.db.getCustomers();
+            const expenses = window.db.getExpenses();
+
+            const todayStr = new Date().toISOString().split('T')[0];
+            const yesterdayStr = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+            const formatCurrency = (val) => {
+                return new Intl.NumberFormat('uz-UZ').format(val) + " UZS";
+            };
+
+            // 1. Calculations
+            const todayCompletedOrders = orders.filter(o => o.date === todayStr && o.status === "Yakunlandi");
+            const yesterdayCompletedOrders = orders.filter(o => o.date === yesterdayStr && o.status === "Yakunlandi");
+
+            const todaySales = todayCompletedOrders.reduce((sum, o) => sum + o.amount, 0);
+            const yesterdaySales = yesterdayCompletedOrders.reduce((sum, o) => sum + o.amount, 0);
+
+            const todayExpenses = expenses.filter(e => e.date === todayStr).reduce((sum, e) => sum + e.amount, 0);
+
+            const todayProfit = todaySales - todayExpenses;
+            const profitMargin = todaySales > 0 ? Math.round((todayProfit / todaySales) * 100) : 0;
+
+            const totalCustomers = customers.length;
+            const todayNewCustomers = customers.filter(c => c.lastVisit === todayStr).length;
+
+            // Populate Stats
+            document.getElementById("stat-sales").innerText = formatCurrency(todaySales);
+            document.getElementById("stat-sales-prev").innerText = `Kecha: ${formatCurrency(yesterdaySales)}`;
+
+            document.getElementById("stat-orders").innerText = `${todayCompletedOrders.length} ta`;
+            const avgCheck = todayCompletedOrders.length > 0 ? Math.round(todaySales / todayCompletedOrders.length) : 0;
+            document.getElementById("stat-orders-avg").innerText = `O'rtacha chek: ${formatCurrency(avgCheck)}`;
+
+            document.getElementById("stat-customers").innerText = `${totalCustomers} nafar`;
+            document.getElementById("stat-customers-new").innerText = `Bugun: +${todayNewCustomers} nafar`;
+
+            document.getElementById("stat-profit").innerText = formatCurrency(todayProfit);
+            document.getElementById("stat-profit-desc").innerText = `Marja: ${profitMargin}%`;
+
+            // 2. Load 7 days sales dynamics
+            const daysOfWeek = ['Du', 'Se', 'Ch', 'Pa', 'Ju', 'Sh', 'Yak'];
+            const todayIdx = (new Date().getDay() + 6) % 7; // Convert Sunday=0 to Index 6, Monday=0
+
+            // Get dates for past 7 days, aligned to Mon-Sun
+            const chartBars = document.getElementById("chart-bars");
+            chartBars.innerHTML = "";
+
+            // Calculate sales for each of the last 7 calendar days
+            const last7Sales = [];
+            let maxSaleVal = 1000000; // minimum scale
+
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                const dateStr = d.toISOString().split('T')[0];
+                const dayIdx = (d.getDay() + 6) % 7;
+
+                const daySales = orders
+                    .filter(o => o.date === dateStr && o.status === "Yakunlandi")
+                    .reduce((sum, o) => sum + o.amount, 0);
+
+                last7Sales.push({ dayName: daysOfWeek[dayIdx], value: daySales, isToday: i === 0 });
+                if (daySales > maxSaleVal) maxSaleVal = daySales;
+            }
+
+            // Render bars
+            last7Sales.forEach(item => {
+                const heightPercent = Math.max(10, Math.round((item.value / maxSaleVal) * 85));
+                const barBg = item.isToday ? "bg-primary-container" : "bg-primary-fixed hover:bg-primary";
+                const pulse = item.isToday ? '<div class="absolute top-0 left-0 w-full h-full bg-white/20 animate-pulse rounded-t-lg"></div>' : '';
+
+                chartBars.innerHTML += `
             <div class="w-12 ${barBg} rounded-t-lg transition-all duration-700 cursor-pointer relative group" style="height: ${heightPercent}%;">
                 <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-surface text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap text-white bg-gray-900">${formatCurrency(item.value)}</div>
                 ${pulse}
             </div>
             `;
-        });
+            });
 
-        // Sync day names on chart bottom
-        const daysLabels = document.getElementById("chart-days");
-        daysLabels.innerHTML = last7Sales.map(item => `<span>${item.dayName}</span>`).join("");
+            // Sync day names on chart bottom
+            const daysLabels = document.getElementById("chart-days");
+            daysLabels.innerHTML = last7Sales.map(item => `<span>${item.dayName}</span>`).join("");
 
-        // 3. Popular dishes
-        const productStats = {};
-        orders.forEach(o => {
-            if (o.status === "Yakunlandi") {
-                o.items.forEach(it => {
-                    productStats[it.name] = (productStats[it.name] || 0) + it.qty;
-                });
-            }
-        });
+            // 3. Popular dishes
+            const productStats = {};
+            orders.forEach(o => {
+                if (o.status === "Yakunlandi") {
+                    o.items.forEach(it => {
+                        productStats[it.name] = (productStats[it.name] || 0) + it.qty;
+                    });
+                }
+            });
 
-        const popularList = document.getElementById("popular-list");
-        popularList.innerHTML = "";
+            const popularList = document.getElementById("popular-list");
+            popularList.innerHTML = "";
 
-        const sortedProducts = Object.entries(productStats)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 3); // top 3
+            const sortedProducts = Object.entries(productStats)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3); // top 3
 
-        const prodsDb = window.db.getProducts();
+            const prodsDb = window.db.getProducts();
 
-        if (sortedProducts.length === 0) {
-            popularList.innerHTML = `<p class="text-body-md text-on-surface-variant/70 text-center py-xl">Hali sotuvlar amalga oshirilmagan.</p>`;
-        } else {
-            const maxQty = sortedProducts[0][1];
-            sortedProducts.forEach(([name, qty]) => {
-                const prodInfo = prodsDb.find(p => p.name === name) || {};
-                const img = prodInfo.image || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=120&auto=format&fit=crop&q=60";
-                const widthPercent = Math.round((qty / maxQty) * 100);
+            if (sortedProducts.length === 0) {
+                popularList.innerHTML = `<p class="text-body-md text-on-surface-variant/70 text-center py-xl">Hali sotuvlar amalga oshirilmagan.</p>`;
+            } else {
+                const maxQty = sortedProducts[0][1];
+                sortedProducts.forEach(([name, qty]) => {
+                    const prodInfo = prodsDb.find(p => p.name === name) || {};
+                    const img = prodInfo.image || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=120&auto=format&fit=crop&q=60";
+                    const widthPercent = Math.round((qty / maxQty) * 100);
 
-                popularList.innerHTML += `
+                    popularList.innerHTML += `
                 <div class="flex items-center gap-md">
                     <div class="w-12 h-12 rounded-xl bg-surface-container-high overflow-hidden shrink-0">
                         <img class="w-full h-full object-cover" src="${img}" alt="${name}">
@@ -407,27 +465,27 @@
                     </div>
                 </div>
                 `;
-            });
-        }
+                });
+            }
 
-        // 4. Recent orders
-        const recentOrdersRows = document.getElementById("recent-orders-rows");
-        recentOrdersRows.innerHTML = "";
+            // 4. Recent orders
+            const recentOrdersRows = document.getElementById("recent-orders-rows");
+            recentOrdersRows.innerHTML = "";
 
-        // Sort descending, show top 5
-        const sortedOrders = [...orders]
-            .sort((a, b) => new Date(b.date + "T" + (b.id.split('-')[1] ? new Date(parseInt(b.id.split('-')[1])).toLocaleTimeString() : '00:00:00')) - new Date(a.date + "T" + (a.id.split('-')[1] ? new Date(parseInt(a.id.split('-')[1])).toLocaleTimeString() : '00:00:00')))
-            .slice(0, 5);
+            // Sort descending, show top 5
+            const sortedOrders = [...orders]
+                .sort((a, b) => new Date(b.date + "T" + (b.id.split('-')[1] ? new Date(parseInt(b.id.split('-')[1])).toLocaleTimeString() : '00:00:00')) - new Date(a.date + "T" + (a.id.split('-')[1] ? new Date(parseInt(a.id.split('-')[1])).toLocaleTimeString() : '00:00:00')))
+                .slice(0, 5);
 
-        sortedOrders.forEach(o => {
-            const customerName = o.customerId ? (customers.find(c => c.id === o.customerId)?.name || "Mijoz") : "Mehmon";
-            const tableLabel = o.tableId ? `Stol ${o.tableId}` : "Olib ketish";
-            const colorClass = o.status === "Yakunlandi" 
-                ? "bg-success-bg text-success-green" 
-                : "bg-primary-fixed text-primary";
-            const pulse = o.status === "Faol" ? '<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>' : '';
-            
-            recentOrdersRows.innerHTML += `
+            sortedOrders.forEach(o => {
+                const customerName = o.customerId ? (customers.find(c => c.id === o.customerId)?.name || "Mijoz") : "Mehmon";
+                const tableLabel = o.tableId ? `Stol ${o.tableId}` : "Olib ketish";
+                const colorClass = o.status === "Yakunlandi"
+                    ? "bg-success-bg text-success-green"
+                    : "bg-primary-fixed text-primary";
+                const pulse = o.status === "Faol" ? '<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>' : '';
+
+                recentOrdersRows.innerHTML += `
             <tr class="hover:bg-surface-container-low transition-colors text-on-surface">
                 <td class="px-xl py-lg font-title-md text-title-md font-mono">${o.id.toUpperCase()}</td>
                 <td class="px-xl py-lg">
@@ -452,9 +510,9 @@
                 <td class="px-xl py-lg font-body-md text-body-md text-on-surface-variant">${o.paymentMethod || "-"}</td>
             </tr>
             `;
-        });
-    }
-</script>
-</body></html>
+            });
+        }
+    </script>
+</body>
 
-
+</html>
