@@ -10,18 +10,17 @@
 <style>
   .glass-panel {background: rgba(255,255,255,0.7);backdrop-filter: blur(12px);border:1px solid rgba(224,192,175,0.3);}
 </style>
-    <link rel="stylesheet" href="premium.css">
 </head>
 <body class='bg-surface font-body-md text-on-background overflow-hidden flex min-h-screen'>
 <aside></aside>
-<main class='ml-64 flex-1 flex flex-col p-lg gap-lg overflow-y-auto'>
+<main class='ml-0 md:ml-64 w-full md:w-[calc(100%-16rem)] flex-1 flex flex-col p-lg gap-lg overflow-y-auto'>
 <header></header>
 <section class='flex justify-between items-center mb-lg'>
 <h2 class='font-headline-lg text-headline-lg text-primary'>Xodimlar Boshqaruvi</h2>
 <button class='bg-primary text-on-primary px-lg py-sm rounded-xl' onclick='openEmployeeModal()'>Yangi Xodim</button>
 </section>
 <div class='glass-panel p-lg rounded-xl shadow-lg overflow-x-auto'>
-<table min-w-max class='w-full text-left'>
+<table class='min-w-max w-full text-left' class='w-full text-left'>
 <thead class='bg-surface-container-high'>
 <tr><th class='p-2'>Ism</th><th class='p-2'>Rol</th><th class='p-2'>Telefon</th><th class='p-2'>Maosh</th><th class='p-2'>Harakat</th></tr>
 </thead>
@@ -31,7 +30,7 @@
 </main>
 <!-- Employee Modal -->
 <div id='employee-modal' class='fixed inset-0 bg-black/40 flex items-center justify-center hidden backdrop-blur-sm'>
-<div class='bg-surface-container-low w-full max-w-md rounded-3xl p-xl'>
+<div class='bg-white w-full max-w-md rounded-3xl p-xl'>
 <h3 class='font-headline-md mb-md'>Yangi Xodim</h3>
 <form id='employee-form' class='space-y-4' onsubmit='saveEmployee(event)'>
 <div><label class='block mb-1'>Ism</label><input id='emp-name' class='w-full border rounded p-2' required></div>
@@ -76,14 +75,14 @@ function closeEmployeeModal(){
  document.getElementById('employee-modal').classList.add('hidden');
  document.getElementById('employee-modal').removeAttribute('data-edit-id');
 }
- function saveEmployee(e){
-  e.preventDefault();
-  const name=document.getElementById('emp-name').value.trim();
-  const role=document.getElementById('emp-role').value.trim();
-  const phone=document.getElementById('emp-phone').value.trim();
-  const pin=document.getElementById('emp-pin').value.trim();
-  const salary=parseInt(document.getElementById('emp-salary').value)||0;
-  const emp={name,role,phone,pin,salary};
+function saveEmployee(e){
+ e.preventDefault();
+ const name=document.getElementById('emp-name').value.trim();
+ const role=document.getElementById('emp-role').value.trim();
+ const phone=document.getElementById('emp-phone').value.trim();
+ const pin=document.getElementById('emp-pin').value.trim();
+ const salary=parseInt(document.getElementById('emp-salary').value)||0;
+ const emp={name,role,phone,pin,salary};
  // if editing, id will be stored in dataset
  const modal=document.getElementById('employee-modal');
  const editId=modal.getAttribute('data-edit-id');
@@ -114,6 +113,7 @@ window.addEventListener('DOMContentLoaded',renderEmployees);
 </script>
 </body>
 </html>
+
 
 
 

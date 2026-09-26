@@ -10,11 +10,10 @@
 <style>
   .glass-panel {background: rgba(255,255,255,0.7);backdrop-filter: blur(12px);border:1px solid rgba(224,192,175,0.3);}
 </style>
-    <link rel="stylesheet" href="premium.css">
 </head>
 <body class='bg-surface font-body-md text-on-background overflow-hidden flex min-h-screen'>
 <aside></aside>
-<main class='ml-64 flex-1 flex flex-col p-lg gap-lg overflow-y-auto'>
+<main class='ml-0 md:ml-64 w-full md:w-[calc(100%-16rem)] flex-1 flex flex-col p-lg gap-lg overflow-y-auto'>
 <header></header>
 <section class='flex justify-between items-end mt-sm'>
 <div><h2 class='font-headline-lg text-headline-lg text-on-surface'>Mijozlar Bazasi</h2><p class='text-on-surface-variant font-body-lg'>Sotuvchilarning mijozlari ro'yxati</p></div>
@@ -103,7 +102,7 @@ function editCustomer(id) {
 window.addEventListener('DOMContentLoaded',()=>{loadCustomers();});
 </script>
 <div id='customer-modal' class='fixed inset-0 bg-black/40 flex items-center justify-center hidden'>
-<div class='bg-surface-container-low p-lg rounded-xl'>
+<div class='bg-white p-lg rounded-xl'>
 <h3 class='font-headline-md'>Yangi mijoz qo'shish</h3>
 <form onsubmit='saveCustomer(event)'>
 <label>Ism</label><input id='cust-name-input' class='border rounded w-full' required>
