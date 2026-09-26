@@ -31,9 +31,9 @@
 <aside></aside>
 
 <!-- Main POS Canvas -->
-<main class="ml-64 flex-1 flex h-full overflow-hidden bg-surface">
+<main class="ml-0 md:ml-64 w-full md:w-[calc(100%-16rem)] flex-1 flex flex-col lg:flex-row h-full overflow-y-auto lg:overflow-hidden bg-surface">
     <!-- Left: Floor Plan Section (35% width) -->
-    <section class="w-[35%] h-full flex flex-col border-r border-outline-variant bg-surface-container-lowest">
+    <section class="w-full lg:w-[35%] h-[500px] lg:h-full shrink-0 flex flex-col border-r border-outline-variant bg-surface-container-lowest">
         <header class="p-lg border-b border-outline-variant">
             <div class="flex items-center justify-between mb-md">
                 <h2 class="font-headline-md text-headline-md text-primary">Stollar xaritasi</h2>
@@ -58,7 +58,7 @@
     </section>
 
     <!-- Center: Product Catalog (40% width) -->
-    <section class="w-[40%] h-full flex flex-col bg-surface border-r border-outline-variant">
+    <section class="w-full lg:w-[40%] h-[700px] lg:h-full shrink-0 flex flex-col bg-surface border-r border-outline-variant">
         <header class="p-lg pb-0">
             <div class="relative w-full mb-md">
                 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">search</span>
@@ -74,7 +74,7 @@
     </section>
 
     <!-- Right: Shopping Cart & Checkout (25% width) -->
-    <section class="w-[25%] h-full flex flex-col bg-surface-container-low shadow-2xl z-20">
+    <section class="w-full lg:w-[25%] h-[500px] lg:h-full shrink-0 flex flex-col bg-surface-container-low shadow-2xl z-20">
         <header class="p-lg border-b border-outline-variant flex items-center justify-between">
             <div>
                 <h2 class="font-headline-md text-headline-md">Savat</h2>
@@ -599,4 +599,7 @@
     }
 </script>
 </body></html>
+
+
+
 

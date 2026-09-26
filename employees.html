@@ -20,8 +20,8 @@
 <h2 class='font-headline-lg text-headline-lg text-primary'>Xodimlar Boshqaruvi</h2>
 <button class='bg-primary text-on-primary px-lg py-sm rounded-xl' onclick='openEmployeeModal()'>Yangi Xodim</button>
 </section>
-<div class='glass-panel p-lg rounded-xl shadow-lg'>
-<table class='w-full text-left'>
+<div class='glass-panel p-lg rounded-xl shadow-lg overflow-x-auto'>
+<table min-w-max class='w-full text-left'>
 <thead class='bg-surface-container-high'>
 <tr><th class='p-2'>Ism</th><th class='p-2'>Rol</th><th class='p-2'>Telefon</th><th class='p-2'>Maosh</th><th class='p-2'>Harakat</th></tr>
 </thead>
@@ -114,4 +114,6 @@ window.addEventListener('DOMContentLoaded',renderEmployees);
 </script>
 </body>
 </html>
+
+
 
