@@ -130,7 +130,7 @@
 <aside></aside>
 
 <!-- Main POS Canvas -->
-<main class="ml-0 md:ml-64 w-full md:w-[calc(100%-16rem)] flex-1 flex h-full overflow-hidden bg-surface">
+<main class="ml-0 md:ml-64 w-full md:w-[calc(100%-16rem)] flex-1 flex flex-col lg:flex-row h-full overflow-y-auto lg:overflow-hidden bg-surface">
     <!-- Left: Floor Plan Section (35% width) -->
     <section class="w-full lg:w-[35%] h-[500px] lg:h-full shrink-0 flex flex-col border-r border-outline-variant bg-surface-container-lowest">
         <header class="p-lg border-b border-outline-variant">
@@ -167,7 +167,7 @@
                 <!-- Loaded dynamically -->
             </div>
         </header>
-        <div class="flex-1 overflow-y-auto p-lg pt-0 grid grid-cols-2 xl:grid-cols-3 gap-md custom-scrollbar" id="product-grid">
+        <div class="flex-1 overflow-y-auto p-lg pt-0 grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-md custom-scrollbar" id="product-grid">
             <!-- Product Cards loaded dynamically -->
         </div>
     </section>
@@ -698,6 +698,7 @@
     }
 </script>
 </body></html>
+
 
 
 

@@ -133,9 +133,9 @@
 <body class="overflow-hidden">
 
 <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 modal-blur-bg px-margin">
-    <div class="bg-surface rounded-3xl shadow-2xl w-full max-w-5xl flex h-[870px] overflow-hidden">
+    <div class="bg-surface rounded-3xl shadow-2xl w-full max-w-5xl flex flex-col lg:flex-row h-full lg:h-[870px] overflow-y-auto lg:overflow-hidden">
         <!-- Left Side: Order Summary -->
-        <div class="w-[350px] bg-surface-container-low border-r border-outline-variant flex flex-col">
+        <div class="w-full lg:w-[350px] h-[400px] lg:h-auto shrink-0 bg-surface-container-low border-b lg:border-b-0 lg:border-r border-outline-variant flex flex-col">
             <div class="p-lg border-b border-outline-variant flex justify-between items-center">
                 <div>
                     <h2 class="font-headline-md text-headline-md text-on-surface">To'lov</h2>
@@ -567,6 +567,7 @@
     }
 </script>
 </body></html>
+
 
 
 
