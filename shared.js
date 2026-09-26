@@ -136,7 +136,7 @@ function renderHeader(header, user) {
             <img class="w-10 h-10 rounded-full border-2 border-primary-container object-cover" src="${userImg}" alt="Avatar">
             
             <!-- Profile Dropdown Menu on Hover/Click -->
-            <div class="absolute right-0 top-12 w-48 bg-white dark:bg-surface-dim border border-outline-variant/30 rounded-xl shadow-lg py-sm hidden group-hover:block hover:block z-50">
+            <div class="absolute right-0 top-12 w-48 bg-surface-container-low dark:bg-surface-dim border border-outline-variant/30 rounded-xl shadow-lg py-sm hidden group-hover:block hover:block z-50">
                 <div class="px-md py-xs border-b border-outline-variant/10 mb-xs">
                     <p class="font-label-md text-label-md font-bold">${user.name}</p>
                     <p class="font-label-md text-[10px] text-on-surface-variant">${user.role}</p>
@@ -201,3 +201,4 @@ function loadPage(page) {
 document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
 });
+

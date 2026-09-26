@@ -10,6 +10,7 @@
 <style>
   .glass-panel {background: rgba(255,255,255,0.7);backdrop-filter: blur(12px);border:1px solid rgba(224,192,175,0.3);}
 </style>
+    <link rel="stylesheet" href="premium.css">
 </head>
 <body class='bg-surface font-body-md text-on-background overflow-hidden flex min-h-screen'>
 <aside></aside>
@@ -30,12 +31,13 @@
 </main>
 <!-- Employee Modal -->
 <div id='employee-modal' class='fixed inset-0 bg-black/40 flex items-center justify-center hidden backdrop-blur-sm'>
-<div class='bg-white w-full max-w-md rounded-3xl p-xl'>
+<div class='bg-surface-container-low w-full max-w-md rounded-3xl p-xl'>
 <h3 class='font-headline-md mb-md'>Yangi Xodim</h3>
 <form id='employee-form' class='space-y-4' onsubmit='saveEmployee(event)'>
 <div><label class='block mb-1'>Ism</label><input id='emp-name' class='w-full border rounded p-2' required></div>
 <div><label class='block mb-1'>Rol</label><input id='emp-role' class='w-full border rounded p-2' required></div>
 <div><label class='block mb-1'>Telefon</label><input id='emp-phone' class='w-full border rounded p-2' required></div>
+<div><label class='block mb-1'>PIN kod</label><input id='emp-pin' class='w-full border rounded p-2' required placeholder='4 xonali son'></div>
 <div><label class='block mb-1'>Maosh (UZS)</label><input id='emp-salary' type='number' class='w-full border rounded p-2' required></div>
 <button type='submit' class='w-full bg-primary text-on-primary py-2 rounded'>Saqlash</button>
 </form>
@@ -74,13 +76,14 @@ function closeEmployeeModal(){
  document.getElementById('employee-modal').classList.add('hidden');
  document.getElementById('employee-modal').removeAttribute('data-edit-id');
 }
-function saveEmployee(e){
- e.preventDefault();
- const name=document.getElementById('emp-name').value.trim();
- const role=document.getElementById('emp-role').value.trim();
- const phone=document.getElementById('emp-phone').value.trim();
- const salary=parseInt(document.getElementById('emp-salary').value)||0;
- const emp={name,role,phone,salary};
+ function saveEmployee(e){
+  e.preventDefault();
+  const name=document.getElementById('emp-name').value.trim();
+  const role=document.getElementById('emp-role').value.trim();
+  const phone=document.getElementById('emp-phone').value.trim();
+  const pin=document.getElementById('emp-pin').value.trim();
+  const salary=parseInt(document.getElementById('emp-salary').value)||0;
+  const emp={name,role,phone,pin,salary};
  // if editing, id will be stored in dataset
  const modal=document.getElementById('employee-modal');
  const editId=modal.getAttribute('data-edit-id');
@@ -98,6 +101,7 @@ function editEmployee(id){
  document.getElementById('emp-name').value=emp.name||'';
  document.getElementById('emp-role').value=emp.role||'';
  document.getElementById('emp-phone').value=emp.phone||'';
+ document.getElementById('emp-pin').value=emp.pin||'';
  document.getElementById('emp-salary').value=emp.salary||'';
 }
 function deleteEmployee(id){
@@ -110,3 +114,4 @@ window.addEventListener('DOMContentLoaded',renderEmployees);
 </script>
 </body>
 </html>
+

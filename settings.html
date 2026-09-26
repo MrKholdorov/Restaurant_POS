@@ -7,23 +7,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#994700",
-                        "primary-container": "#ff7a00",
-                        "surface": "#fcf9f8",
-                        "surface-variant": "#e5e2e1",
-                        "on-surface": "#1b1b1c",
-                        "on-surface-variant": "#584235"
-                    }
-                }
-            }
-        };
-    </script>
+    <script src="tailwind-config.js"></script>
     <style>
         .glass-panel {
             background: rgba(255, 255, 255, 0.7);
@@ -34,6 +18,7 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
     </style>
+    <link rel="stylesheet" href="premium.css">
 </head>
 <body class="bg-surface font-body-md text-on-surface overflow-hidden flex min-h-screen">
     <aside></aside>
@@ -108,19 +93,19 @@
         function loadSettings() {
             const settings = window.db.getSettings();
             document.getElementById("set-rest-name").value = settings.restaurantName || "Safranbonu";
-            document.getElementById("set-rest-address").value = settings.address || "";
-            document.getElementById("set-rest-phone").value = settings.phone || "";
-            document.getElementById("set-tax-percent").value = settings.taxPercent || 0;
-            document.getElementById("set-service-percent").value = settings.servicePercent || 0;
+            document.getElementById("set-rest-address").value = settings.restaurantAddress || "";
+            document.getElementById("set-rest-phone").value = settings.restaurantPhone || "";
+            document.getElementById("set-tax-percent").value = settings.taxRate || 0;
+            document.getElementById("set-service-percent").value = settings.serviceCharge || 0;
         }
 
         function saveAllSettings() {
             const settings = {
                 restaurantName: document.getElementById("set-rest-name").value.trim(),
-                address: document.getElementById("set-rest-address").value.trim(),
-                phone: document.getElementById("set-rest-phone").value.trim(),
-                taxPercent: parseFloat(document.getElementById("set-tax-percent").value) || 0,
-                servicePercent: parseFloat(document.getElementById("set-service-percent").value) || 0
+                restaurantAddress: document.getElementById("set-rest-address").value.trim(),
+                restaurantPhone: document.getElementById("set-rest-phone").value.trim(),
+                taxRate: parseFloat(document.getElementById("set-tax-percent").value) || 0,
+                serviceCharge: parseFloat(document.getElementById("set-service-percent").value) || 0
             };
             
             window.db.saveSettings(settings);
@@ -139,3 +124,4 @@
     </script>
 </body>
 </html>
+

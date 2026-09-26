@@ -155,7 +155,7 @@ const db = {
         const prods = getDB("products");
         if (prod.id) {
             const index = prods.findIndex(p => p.id === prod.id);
-            if (index !== -1) prods[index] = prod;
+            if (index !== -1) prods[index] = { ...prods[index], ...prod };
         } else {
             prod.id = "prod-" + Date.now();
             prods.push(prod);
@@ -173,7 +173,7 @@ const db = {
         const cats = getDB("categories");
         if (cat.id) {
             const index = cats.findIndex(c => c.id === cat.id);
-            if (index !== -1) cats[index] = cat;
+            if (index !== -1) cats[index] = { ...cats[index], ...cat };
         } else {
             cat.id = "cat-" + Date.now();
             cats.push(cat);
@@ -198,7 +198,7 @@ const db = {
         const custs = getDB("customers");
         if (cust.id) {
             const index = custs.findIndex(c => c.id === cust.id);
-            if (index !== -1) custs[index] = cust;
+            if (index !== -1) custs[index] = { ...custs[index], ...cust };
         } else {
             cust.id = "cust-" + Date.now();
             cust.points = 0;
@@ -221,7 +221,7 @@ const db = {
         const emps = getDB("employees");
         if (emp.id) {
             const index = emps.findIndex(e => e.id === emp.id);
-            if (index !== -1) emps[index] = emp;
+            if (index !== -1) emps[index] = { ...emps[index], ...emp };
         } else {
             emp.id = "emp-" + Date.now();
             emp.status = "Faol";
@@ -255,7 +255,7 @@ const db = {
         const cats = db.getExpenseCategories();
         if (cat.id) {
             const index = cats.findIndex(c => c.id === cat.id);
-            if (index !== -1) cats[index] = cat;
+            if (index !== -1) cats[index] = { ...cats[index], ...cat };
         } else {
             cat.id = "ecat-" + Date.now();
             cats.push(cat);
@@ -273,7 +273,7 @@ const db = {
         const exps = getDB("expenses");
         if (exp.id) {
             const index = exps.findIndex(e => e.id === exp.id);
-            if (index !== -1) exps[index] = exp;
+            if (index !== -1) exps[index] = { ...exps[index], ...exp };
         } else {
             exp.id = "exp-" + Date.now();
             if (!exp.date) exp.date = new Date().toISOString().split('T')[0];
@@ -295,7 +295,7 @@ const db = {
         const orders = getDB("orders");
         if (order.id) {
             const index = orders.findIndex(o => o.id === order.id);
-            if (index !== -1) orders[index] = order;
+            if (index !== -1) orders[index] = { ...orders[index], ...order };
         } else {
             order.id = "ord-" + Date.now();
             order.date = new Date().toISOString().split('T')[0];
