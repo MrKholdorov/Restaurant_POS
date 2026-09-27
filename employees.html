@@ -205,7 +205,7 @@ function editEmployee(id){
  document.getElementById('emp-salary').value=emp.salary||'';
 }
 function deleteEmployee(id){
- if(confirm('Ushbu xodimni o\\'chirishni tasdiqlaysizmi?')) {
+ if(confirm("Ushbu xodimni o'chirishni tasdiqlaysizmi?")) {
    window.db.deleteEmployee(id);
    renderEmployees();
  }
