@@ -62,7 +62,10 @@ function renderSidebar(aside, user) {
 
     navItems.forEach(item => {
         // Simple match: does path contain filename? Or default to index.html
-        const isActive = path.endsWith(item.file) || (item.file === "index.html" && (path.endsWith("/") || path.endsWith("/index.html")));
+        let isActive = path.endsWith(item.file) || (item.file === "index.html" && (path.endsWith("/") || path.endsWith("/index.html")));
+        if (item.file === "customers.html" && path.includes("customer-detail.html")) {
+            isActive = true;
+        }
         
         const activeClass = "flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm transition-all duration-200 active:scale-[0.98]";
         const inactiveClass = "flex items-center gap-md text-on-surface-variant hover:text-on-surface hover:bg-surface-variant dark:hover:bg-surface-container-highest px-md py-sm rounded-lg transition-colors";
