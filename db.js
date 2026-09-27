@@ -204,6 +204,7 @@ const db = {
             cust.points = 0;
             cust.totalSpent = 0;
             cust.visitCount = 0;
+            cust.initialDebt = cust.initialDebt || 0;
             cust.lastVisit = new Date().toISOString().split('T')[0];
             cust.cardId = "LOYAL-" + Math.floor(1000 + Math.random() * 9000);
             custs.push(cust);
@@ -214,6 +215,19 @@ const db = {
     deleteCustomer: (id) => {
         const custs = getDB("customers").filter(c => c.id !== id);
         setDB("customers", custs);
+    },
+
+    getCustomerTransactions: (customerId) => {
+        const all = getDB("customerTransactions") || [];
+        return all.filter(t => t.customerId === customerId);
+    },
+    saveCustomerTransaction: (tx) => {
+        const txs = getDB("customerTransactions") || [];
+        tx.id = tx.id || "ctx-" + Date.now() + Math.random().toString(36).substr(2, 5);
+        tx.date = tx.date || new Date().toISOString();
+        txs.push(tx);
+        setDB("customerTransactions", txs);
+        return tx;
     },
 
     getEmployees: () => getDB("employees"),

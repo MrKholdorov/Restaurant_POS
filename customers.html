@@ -131,7 +131,7 @@ function loadCustomers(){
  const grid=document.getElementById('customers-grid');
  grid.innerHTML='';
  data.forEach(c=>{
-   const card=`<div class='glass-panel p-lg rounded-xl shadow border-l-4 border-primary'>
+   const card=`<div class='glass-panel p-lg rounded-xl shadow border-l-4 border-primary cursor-pointer hover:shadow-lg transition-all' onclick='goToCustomerDetail(event, "${c.id}")'>
      <div class='flex justify-between items-start mb-sm'>
        <h4 class='font-title-lg font-bold text-on-surface'>${c.name}</h4>
        <div class='flex gap-xs'>
@@ -154,7 +154,11 @@ function loadCustomers(){
    </div>`;
    grid.innerHTML+=card;
  });
-}
+ }
+ function goToCustomerDetail(e, id) {
+     if (e.target.closest('button')) return;
+     window.location.href = \`customer-detail.html?id=\${id}\`;
+ }
 function deleteCustomer(id) {
     if(confirm("Mijozni o'chirishni tasdiqlaysizmi?")) {
         window.db.deleteCustomer(id);
@@ -167,6 +171,7 @@ function openCustomerModal(){
  modal.removeAttribute('data-edit-id');
  document.getElementById('cust-name-input').value='';
  document.getElementById('cust-phone-input').value='';
+ document.getElementById('cust-debt-input').value='';
 }
 function closeCustomerModal(){
  const modal=document.getElementById('customer-modal');
@@ -177,12 +182,13 @@ function saveCustomer(e){
  e.preventDefault();
  const name=document.getElementById('cust-name-input').value.trim();
  const phone=document.getElementById('cust-phone-input').value.trim();
+ const initialDebt=parseFloat(document.getElementById('cust-debt-input').value)||0;
  if(!name||!phone) return;
  
  const modal=document.getElementById('customer-modal');
  const editId=modal.getAttribute('data-edit-id');
  
- const cust = {name, phone};
+ const cust = {name, phone, initialDebt};
  if(editId) cust.id = editId; // db.saveCustomer handles update if id exists
 
  window.db.saveCustomer(cust);
@@ -199,6 +205,7 @@ function editCustomer(id) {
     
     document.getElementById('cust-name-input').value = cust.name || '';
     document.getElementById('cust-phone-input').value = cust.phone || '';
+    document.getElementById('cust-debt-input').value = cust.initialDebt || '';
 }
 window.addEventListener('DOMContentLoaded',()=>{loadCustomers();});
 </script>
@@ -212,6 +219,8 @@ window.addEventListener('DOMContentLoaded',()=>{loadCustomers();});
 <form onsubmit='saveCustomer(event)' class="space-y-4">
 <div><label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">Ism</label><input id='cust-name-input' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none' required></div>
 <div><label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">Telefon</label><input id='cust-phone-input' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none' required></div>
+<!-- deduped -->
+<div><label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">Boshlang'ich qarz (UZS)</label><input id='cust-debt-input' type='number' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none' placeholder='0'></div>
 <div class="flex gap-4 pt-4">
 <button type="button" onclick='closeCustomerModal()' class='flex-1 bg-surface-container py-3 rounded-xl font-bold hover:bg-surface-variant'>Bekor qilish</button>
 <button type='submit' class='flex-1 bg-primary text-on-primary py-3 rounded-xl font-bold hover:brightness-110'>Saqlash</button>

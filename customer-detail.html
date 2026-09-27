@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang='uz'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Safranbonu POS - Mijoz Tafsilotlari</title>
+    <script src='https://cdn.tailwindcss.com?plugins=forms,container-queries'></script>
+    <link href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap' rel='stylesheet'>
+    <style>
+        .glass-panel {background: rgba(255,255,255,0.7);backdrop-filter: blur(12px);border:1px solid rgba(224,192,175,0.3);}
+        .tab-btn.active { border-bottom: 2px solid #994700; color: #994700; font-weight: 700; }
+        .tab-btn { color: #584235; }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#994700",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#eb8642",
+                        "on-primary-container": "#5c2800",
+                        "surface": "#fcf8f9",
+                        "on-surface": "#1b1b1c",
+                        "surface-variant": "#e5e2e3",
+                        "on-surface-variant": "#584235",
+                        "outline": "#8c7263",
+                        "outline-variant": "#e0c0af",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "success-green": "#15803d",
+                        "success-bg": "#dcfce7"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "title-lg": ["Inter"],
+                        "label-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class='bg-surface font-body-md text-on-background overflow-hidden flex min-h-screen'>
+    <aside></aside>
+    <main class='ml-0 md:ml-64 w-full md:w-[calc(100%-16rem)] flex-1 flex flex-col overflow-y-auto bg-surface-container-lowest'>
+        <header></header>
+        <div class="p-lg max-w-7xl mx-auto w-full flex-1 flex flex-col gap-lg">
+            <div class="flex items-center gap-4 mt-sm">
+                <button onclick="window.location.href='customers.html'" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant transition-colors text-on-surface-variant">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </button>
+                <div>
+                    <h2 class="font-headline-lg text-headline-lg text-on-surface" id="cust-name-title">Mijoz</h2>
+                    <p class="text-on-surface-variant font-body-lg" id="cust-phone-subtitle">Tafsilotlar</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="glass-panel p-lg rounded-2xl flex flex-col gap-2 shadow-sm border border-outline-variant/30">
+                    <p class="text-on-surface-variant font-label-lg uppercase opacity-80">Mijoz Balansi</p>
+                    <h3 class="font-headline-lg text-primary" id="cust-balance">0 UZS</h3>
+                    <p class="text-label-md text-on-surface-variant">(-) Qarz, (+) Ortiqcha</p>
+                </div>
+                <div class="glass-panel p-lg rounded-2xl flex flex-col gap-2 shadow-sm border border-outline-variant/30">
+                    <p class="text-on-surface-variant font-label-lg uppercase opacity-80">Jami Xaridlar</p>
+                    <h3 class="font-headline-lg text-on-surface" id="cust-total-purchases">0 UZS</h3>
+                    <p class="text-label-md text-on-surface-variant" id="cust-visit-count">0 marta tashrif</p>
+                </div>
+                <div class="glass-panel p-lg rounded-2xl flex flex-col gap-2 shadow-sm border border-outline-variant/30">
+                    <p class="text-on-surface-variant font-label-lg uppercase opacity-80">Jami To'lovlar</p>
+                    <h3 class="font-headline-lg text-success-green" id="cust-total-payments">0 UZS</h3>
+                </div>
+                <div class="glass-panel p-lg rounded-2xl flex flex-col gap-2 bg-primary text-on-primary shadow-sm">
+                    <p class="font-label-lg uppercase opacity-80">Bonus Ballar</p>
+                    <h3 class="font-headline-lg" id="cust-points">0</h3>
+                    <button class="text-left font-label-md underline opacity-90 hover:opacity-100 mt-auto">Ballarni sarflash</button>
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <button onclick="openPaymentModal()" class="flex-1 max-w-[250px] bg-primary text-on-primary py-3 rounded-xl font-bold hover:brightness-110 shadow flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">payments</span> To'lov qabul qilish
+                </button>
+                <button onclick="openRefundModal()" class="flex-1 max-w-[250px] bg-surface-container-high text-on-surface py-3 rounded-xl font-bold hover:bg-surface-variant shadow flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">keyboard_return</span> Vozvrat (Qaytarish)
+                </button>
+            </div>
+
+            <div class="flex border-b border-outline-variant mt-4" id="tabs-container">
+                <button class="tab-btn active px-lg py-3 font-title-md transition-colors" onclick="switchTab('history', event)">Xaridlar tarixi</button>
+                <button class="tab-btn px-lg py-3 font-title-md transition-colors" onclick="switchTab('payments', event)">To'lovlar va boshqalar</button>
+            </div>
+
+            <div class="glass-panel rounded-2xl flex-1 flex flex-col overflow-hidden mb-lg shadow-sm border border-outline-variant/30" id="tab-content">
+                <div class="overflow-x-auto w-full h-full p-0">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-surface-container sticky top-0">
+                            <tr>
+                                <th class="p-4 font-label-lg uppercase text-on-surface-variant">Sana / Vaqt</th>
+                                <th class="p-4 font-label-lg uppercase text-on-surface-variant">Turi</th>
+                                <th class="p-4 font-label-lg uppercase text-on-surface-variant">Tafsilot</th>
+                                <th class="p-4 font-label-lg uppercase text-on-surface-variant text-right">Summa (UZS)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-tbody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Payment Modal -->
+    <div id='payment-modal' class='fixed inset-0 z-50 bg-black/40 flex items-center justify-center hidden backdrop-blur-sm'>
+        <div class="absolute inset-0" onclick="closePaymentModal()"></div>
+        <div class='bg-white p-xl rounded-3xl w-full max-w-md relative z-10 shadow-2xl'>
+            <div class="flex justify-between items-center mb-4">
+                <h3 class='font-headline-md'>To'lov qabul qilish</h3>
+                <button type="button" onclick='closePaymentModal()' class='w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors text-on-surface-variant'><span class='material-symbols-outlined'>close</span></button>
+            </div>
+            <form onsubmit='submitPayment(event)' class="space-y-4">
+                <div>
+                    <label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">Summa</label>
+                    <input id='pay-amount' type='number' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none' required>
+                </div>
+                <div>
+                    <label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">To'lov turi</label>
+                    <select id='pay-type' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none' required>
+                        <option value="Naqd">Naqd pul</option>
+                        <option value="Karta">Plastik Karta</option>
+                        <option value="O'tkazma">O'tkazma (P2P)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">Izoh (ixtiyoriy)</label>
+                    <input id='pay-note' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none'>
+                </div>
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick='closePaymentModal()' class='flex-1 bg-surface-container py-3 rounded-xl font-bold hover:bg-surface-variant transition-colors'>Bekor qilish</button>
+                    <button type='submit' class='flex-1 bg-primary text-on-primary py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-md'>Tasdiqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Refund Modal -->
+    <div id='refund-modal' class='fixed inset-0 z-50 bg-black/40 flex items-center justify-center hidden backdrop-blur-sm'>
+        <div class="absolute inset-0" onclick="closeRefundModal()"></div>
+        <div class='bg-white p-xl rounded-3xl w-full max-w-md relative z-10 shadow-2xl'>
+            <div class="flex justify-between items-center mb-4">
+                <h3 class='font-headline-md'>Vozvrat (Qaytarish)</h3>
+                <button type="button" onclick='closeRefundModal()' class='w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-high transition-colors text-on-surface-variant'><span class='material-symbols-outlined'>close</span></button>
+            </div>
+            <form onsubmit='submitRefund(event)' class="space-y-4">
+                <div>
+                    <label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">Summa</label>
+                    <input id='refund-amount' type='number' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none' required>
+                </div>
+                <div>
+                    <label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">Izoh</label>
+                    <input id='refund-note' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none' required placeholder="Sababi...">
+                </div>
+                <div class="flex gap-4 pt-4">
+                    <button type="button" onclick='closeRefundModal()' class='flex-1 bg-surface-container py-3 rounded-xl font-bold hover:bg-surface-variant transition-colors'>Bekor qilish</button>
+                    <button type='submit' class='flex-1 bg-error text-on-error py-3 rounded-xl font-bold hover:brightness-110 transition-colors shadow-md'>Tasdiqlash</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src='db.js'></script>
+    <script src='shared.js'></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const customerId = urlParams.get('id');
+        let customer = null;
+        let activeTab = 'history';
+
+        function loadCustomerData() {
+            if (!customerId) {
+                alert("Mijoz topilmadi!");
+                window.location.href = "customers.html";
+                return;
+            }
+
+            customer = window.db.getCustomers().find(c => c.id === customerId);
+            if (!customer) {
+                alert("Mijoz topilmadi!");
+                window.location.href = "customers.html";
+                return;
+            }
+
+            document.getElementById("cust-name-title").innerText = customer.name;
+            document.getElementById("cust-phone-subtitle").innerText = customer.phone + " | Karta: " + customer.cardId;
+            document.getElementById("cust-points").innerText = customer.points;
+
+            calculateBalances();
+            renderTransactions();
+        }
+
+        function calculateBalances() {
+            const initialDebt = parseFloat(customer.initialDebt) || 0;
+            const orders = window.db.getOrders().filter(o => o.customerId === customerId);
+            const transactions = window.db.getCustomerTransactions(customerId);
+
+            let totalPurchases = 0;
+            let totalPayments = 0;
+            
+            orders.forEach(o => {
+                if(o.status === "Yopilgan") {
+                    totalPurchases += (o.total || 0);
+                }
+            });
+
+            transactions.forEach(t => {
+                if (t.type === "payment") totalPayments += t.amount;
+                if (t.type === "refund") totalPurchases -= t.amount;
+            });
+
+            const balance = totalPayments - (totalPurchases + initialDebt);
+
+            document.getElementById("cust-total-purchases").innerText = new Intl.NumberFormat('uz-UZ').format(totalPurchases + initialDebt) + " UZS";
+            document.getElementById("cust-total-payments").innerText = new Intl.NumberFormat('uz-UZ').format(totalPayments) + " UZS";
+            document.getElementById("cust-visit-count").innerText = (customer.visitCount || orders.length) + " marta tashrif";
+            
+            const balEl = document.getElementById("cust-balance");
+            balEl.innerText = new Intl.NumberFormat('uz-UZ').format(balance) + " UZS";
+            balEl.className = balance < 0 ? "font-headline-lg text-error" : "font-headline-lg text-success-green";
+        }
+
+        function switchTab(tab, e) {
+            activeTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if(e) e.target.classList.add('active');
+            renderTransactions();
+        }
+
+        function renderTransactions() {
+            const tbody = document.getElementById("transactions-tbody");
+            tbody.innerHTML = "";
+
+            const items = [];
+            const orders = window.db.getOrders().filter(o => o.customerId === customerId);
+            const txs = window.db.getCustomerTransactions(customerId);
+            const initialDebt = parseFloat(customer.initialDebt) || 0;
+
+            if (initialDebt > 0 && (activeTab === 'history' || activeTab === 'all')) {
+                items.push({
+                    date: customer.id.replace('cust-', ''),
+                    typeLabel: "Boshlang'ich qarz",
+                    typeColor: "bg-error-container text-on-error-container",
+                    detail: "Hisob ochilgandagi holat",
+                    amount: -initialDebt
+                });
+            }
+
+            if (activeTab === 'history' || activeTab === 'all') {
+                orders.forEach(o => {
+                    if(o.status === "Yopilgan") {
+                        items.push({
+                            date: o.id.replace('order-', ''),
+                            typeLabel: "Xarid",
+                            typeColor: "bg-surface-variant text-on-surface-variant",
+                            detail: "Buyurtma #" + o.id.slice(-5),
+                            amount: -(o.total || 0)
+                        });
+                    }
+                });
+            }
+
+            if (activeTab === 'payments' || activeTab === 'all') {
+                txs.forEach(t => {
+                    items.push({
+                        date: t.id.replace('ctx-', ''),
+                        typeLabel: t.type === 'payment' ? "To'lov" : (t.type === 'refund' ? 'Vozvrat' : 'Boshqa'),
+                        typeColor: t.type === 'payment' ? "bg-success-bg text-success-green" : (t.type === 'refund' ? "bg-error-container text-on-error-container" : "bg-primary-container text-on-primary-container"),
+                        detail: t.method ? t.method + (t.note ? ` (${t.note})` : "") : (t.note || "-"),
+                        amount: t.type === 'payment' ? t.amount : -t.amount
+                    });
+                });
+            }
+
+            items.sort((a, b) => parseInt(b.date || 0) - parseInt(a.date || 0));
+
+            if(items.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-on-surface-variant">Hech qanday yozuv topilmadi.</td></tr>`;
+                return;
+            }
+
+            items.forEach(i => {
+                const dateStr = new Date(parseInt(i.date)).toLocaleString('uz-UZ');
+                const amtFormatted = new Intl.NumberFormat('uz-UZ').format(Math.abs(i.amount));
+                const amtDisplay = i.amount > 0 ? `+${amtFormatted}` : `-${amtFormatted}`;
+                const amtColor = i.amount > 0 ? 'text-success-green' : 'text-error';
+
+                tbody.innerHTML += `
+                    <tr class="border-b border-outline-variant/30 hover:bg-surface-variant/30 transition-colors">
+                        <td class="p-4 font-body-md whitespace-nowrap">${dateStr !== 'Invalid Date' ? dateStr : '-'}</td>
+                        <td class="p-4"><span class="px-3 py-1 rounded-full font-label-md ${i.typeColor}">${i.typeLabel}</span></td>
+                        <td class="p-4 font-body-md truncate max-w-[200px]">${i.detail}</td>
+                        <td class="p-4 font-title-md text-right whitespace-nowrap ${amtColor}">${amtDisplay}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        function openPaymentModal() {
+            document.getElementById('payment-modal').classList.remove('hidden');
+            document.getElementById('pay-amount').value = '';
+            document.getElementById('pay-note').value = '';
+        }
+        function closePaymentModal() { document.getElementById('payment-modal').classList.add('hidden'); }
+
+        function submitPayment(e) {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('pay-amount').value);
+            const method = document.getElementById('pay-type').value;
+            const note = document.getElementById('pay-note').value;
+            if(!amount || amount <= 0) return;
+            window.db.saveCustomerTransaction({ customerId, type: 'payment', amount, method, note });
+            closePaymentModal();
+            loadCustomerData();
+        }
+
+        function openRefundModal() {
+            document.getElementById('refund-modal').classList.remove('hidden');
+            document.getElementById('refund-amount').value = '';
+            document.getElementById('refund-note').value = '';
+        }
+        function closeRefundModal() { document.getElementById('refund-modal').classList.add('hidden'); }
+
+        function submitRefund(e) {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('refund-amount').value);
+            const note = document.getElementById('refund-note').value;
+            if(!amount || amount <= 0) return;
+            window.db.saveCustomerTransaction({ customerId, type: 'refund', amount, note });
+            closeRefundModal();
+            loadCustomerData();
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCustomerData);
+    </script>
+</body>
+</html>
