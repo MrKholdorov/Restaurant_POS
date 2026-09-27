@@ -157,7 +157,7 @@ function loadCustomers(){
  }
  function goToCustomerDetail(e, id) {
      if (e.target.closest('button')) return;
-     window.location.href = \`customer-detail.html?id=\${id}\`;
+     window.location.href = `customer-detail.html?id=${id}`;
  }
 function deleteCustomer(id) {
     if(confirm("Mijozni o'chirishni tasdiqlaysizmi?")) {
