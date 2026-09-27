@@ -202,7 +202,7 @@ function editCustomer(id) {
 }
 window.addEventListener('DOMContentLoaded',()=>{loadCustomers();});
 </script>
-<div id='customer-modal' class='fixed inset-0 bg-black/40 flex items-center justify-center hidden'>
+<div id='customer-modal' class='fixed inset-0 z-50 bg-black/40 flex items-center justify-center hidden'>
 <div class='bg-white p-lg rounded-xl'>
 <h3 class='font-headline-md'>Yangi mijoz qo'shish</h3>
 <form onsubmit='saveCustomer(event)'>
