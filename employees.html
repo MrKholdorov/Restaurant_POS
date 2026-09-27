@@ -131,19 +131,28 @@
 </main>
 <!-- Employee Modal -->
 <div id='employee-modal' class='fixed inset-0 z-50 bg-black/40 flex items-center justify-center hidden backdrop-blur-sm'>
-<div class='bg-white w-full max-w-md rounded-3xl p-xl'>
-<h3 class='font-headline-md mb-md'>Yangi Xodim</h3>
+<div class="absolute inset-0" onclick="closeEmployeeModal()"></div>
+<div class='bg-white w-full max-w-md rounded-3xl p-xl relative z-10'>
+<div class="flex justify-between items-center mb-md">
+<h3 class='font-headline-md'>Yangi Xodim</h3>
+<button type="button" onclick='closeEmployeeModal()' class='w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-high'><span class='material-symbols-outlined'>close</span></button>
+</div>
 <form id='employee-form' class='space-y-4' onsubmit='saveEmployee(event)'>
-<div><label class='block mb-1'>Ism</label><input id='emp-name' class='w-full border rounded p-2' required></div>
-<div><label class='block mb-1'>Rol</label><input id='emp-role' class='w-full border rounded p-2' required></div>
-<div><label class='block mb-1'>Telefon</label><input id='emp-phone' class='w-full border rounded p-2' required></div>
-<div><label class='block mb-1'>PIN kod</label><input id='emp-pin' class='w-full border rounded p-2' required placeholder='4 xonali son'></div>
-<div><label class='block mb-1'>Maosh (UZS)</label><input id='emp-salary' type='number' class='w-full border rounded p-2' required></div>
-<button type='submit' class='w-full bg-primary text-on-primary py-2 rounded'>Saqlash</button>
+<div><label class='block mb-1 text-on-surface-variant font-label-lg uppercase'>Ism</label><input id='emp-name' class='w-full border border-outline-variant rounded-xl p-3 focus:ring-2 focus:ring-primary outline-none' required></div>
+<div><label class='block mb-1 text-on-surface-variant font-label-lg uppercase'>Rol</label><input id='emp-role' class='w-full border border-outline-variant rounded-xl p-3 focus:ring-2 focus:ring-primary outline-none' required></div>
+<div><label class='block mb-1 text-on-surface-variant font-label-lg uppercase'>Telefon</label><input id='emp-phone' class='w-full border border-outline-variant rounded-xl p-3 focus:ring-2 focus:ring-primary outline-none' required></div>
+<div class="grid grid-cols-2 gap-md">
+<div><label class='block mb-1 text-on-surface-variant font-label-lg uppercase'>PIN kod</label><input id='emp-pin' class='w-full border border-outline-variant rounded-xl p-3 focus:ring-2 focus:ring-primary outline-none' required placeholder='4 xonali son'></div>
+<div><label class='block mb-1 text-on-surface-variant font-label-lg uppercase'>Maosh (UZS)</label><input id='emp-salary' type='number' class='w-full border border-outline-variant rounded-xl p-3 focus:ring-2 focus:ring-primary outline-none' required></div>
+</div>
+<div class="flex gap-4 pt-4">
+<button type="button" onclick='closeEmployeeModal()' class='flex-1 bg-surface-container py-3 rounded-xl font-bold hover:bg-surface-variant'>Bekor qilish</button>
+<button type='submit' class='flex-1 bg-primary text-on-primary py-3 rounded-xl font-bold hover:brightness-110'>Saqlash</button>
+</div>
 </form>
-<button class='absolute top-2 right-2' onclick='closeEmployeeModal()'>
-<span class='material-symbols-outlined'>close</span>
-</button>
+<!-- old close button removed -->
+<!-- old close button removed -->
+<!-- old close button removed -->
 </div>
 </div>
 <script src='db.js'></script>

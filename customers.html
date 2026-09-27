@@ -202,15 +202,22 @@ function editCustomer(id) {
 }
 window.addEventListener('DOMContentLoaded',()=>{loadCustomers();});
 </script>
-<div id='customer-modal' class='fixed inset-0 z-50 bg-black/40 flex items-center justify-center hidden'>
-<div class='bg-white p-lg rounded-xl'>
+<div id='customer-modal' class='fixed inset-0 z-50 bg-black/40 flex items-center justify-center hidden backdrop-blur-sm'>
+<div class="absolute inset-0" onclick="closeCustomerModal()"></div>
+<div class='bg-white p-xl rounded-3xl w-full max-w-md relative z-10'>
+<div class="flex justify-between items-center mb-4">
 <h3 class='font-headline-md'>Yangi mijoz qo'shish</h3>
-<form onsubmit='saveCustomer(event)'>
-<label>Ism</label><input id='cust-name-input' class='border rounded w-full' required>
-<label>Telefon</label><input id='cust-phone-input' class='border rounded w-full' required>
-<button type='submit' class='bg-primary text-on-primary mt-2 px-lg py-sm rounded'>Saqlash</button>
+<button type="button" onclick='closeCustomerModal()' class='w-8 h-8 rounded-full flex items-center justify-center hover:bg-surface-container-high'><span class='material-symbols-outlined'>close</span></button>
+</div>
+<form onsubmit='saveCustomer(event)' class="space-y-4">
+<div><label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">Ism</label><input id='cust-name-input' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none' required></div>
+<div><label class="block text-sm mb-1 text-on-surface-variant font-label-lg uppercase">Telefon</label><input id='cust-phone-input' class='border border-outline-variant rounded-xl p-3 w-full focus:ring-2 focus:ring-primary outline-none' required></div>
+<div class="flex gap-4 pt-4">
+<button type="button" onclick='closeCustomerModal()' class='flex-1 bg-surface-container py-3 rounded-xl font-bold hover:bg-surface-variant'>Bekor qilish</button>
+<button type='submit' class='flex-1 bg-primary text-on-primary py-3 rounded-xl font-bold hover:brightness-110'>Saqlash</button>
+</div>
 </form>
-<button onclick='closeCustomerModal()' class='mt-2'>Yopish</button>
+<!-- removed old close button -->
 </div>
 </div>
 </body>
